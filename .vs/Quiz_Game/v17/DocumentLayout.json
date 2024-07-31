@@ -1,0 +1,105 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Projects\\Quiz_Game\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|d:\\projects\\quiz_game\\assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\uimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|D:\\Projects\\Quiz_Game\\assets\\scripts\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\database.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|D:\\Projects\\Quiz_Game\\assets\\scripts\\quizmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\quizmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|D:\\Projects\\Quiz_Game\\assets\\scripts\\collections.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\collections.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|D:\\Projects\\Quiz_Game\\assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{025F7AB3-DFAD-058F-25BF-8AA65B4ECF48}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\gamemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Collections.cs",
+              "DocumentMoniker": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\Collections.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Collections.cs",
+              "ToolTip": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\Collections.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Collections.cs",
+              "ViewState": "AQIAABYAAAAAAAAAAAAgwCQAAAAWAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-30T10:10:01.805Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UiManager.cs",
+              "DocumentMoniker": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\UiManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\UiManager.cs",
+              "ToolTip": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\UiManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\UiManager.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAqwHsAAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-30T09:52:54.3Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "QuizManager.cs",
+              "DocumentMoniker": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\QuizManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\QuizManager.cs",
+              "ToolTip": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\QuizManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\QuizManager.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAAAkwFQAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-30T09:18:12.475Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "GameManager.cs",
+              "DocumentMoniker": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\GameManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\GameManager.cs",
+              "ToolTip": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\GameManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\GameManager.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-30T06:23:55.943Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DataBase.cs",
+              "DocumentMoniker": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\DataBase.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\DataBase.cs",
+              "ToolTip": "D:\\Projects\\Quiz_Game\\Assets\\Scripts\\DataBase.cs",
+              "RelativeToolTip": "Assets\\Scripts\\DataBase.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEMAAAAaAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-29T07:42:09.515Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
