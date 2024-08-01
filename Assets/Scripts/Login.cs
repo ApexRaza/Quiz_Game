@@ -12,7 +12,7 @@ public class Login : MonoBehaviour
     public GameObject congo;
     public GameObject dbObj;
     public string webClientId = "243769013671-8otfe2at2sb2s5ch7fskgpohv5he8med.apps.googleusercontent.com";
-
+    DataSaver ds;
     private GoogleSignInConfiguration configuration;
     private FirebaseAuth auth;
     public Text userNameText;
@@ -21,7 +21,7 @@ public class Login : MonoBehaviour
     // Can be set via the property inspector in the Editor.
     void Awake()
     {
-        
+        DontDestroyOnLoad(gameObject);
         configuration = new GoogleSignInConfiguration
         {
             WebClientId = webClientId,
@@ -63,7 +63,7 @@ public class Login : MonoBehaviour
             GuestLoginSuccess(result.User.UserId);
             congo.SetActive(true);
             dbObj.SetActive(true);
-
+            ds.savaData();
             // Update the Text component with the user's name
             if (userNameText != null)
             {
@@ -81,7 +81,7 @@ public class Login : MonoBehaviour
     }
 
     ////..........................................Google SignIn.............................................................////
-    public void GoogleOnSignIn()
+    public void OnGoogleSignIn()
     {
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
@@ -119,6 +119,7 @@ public class Login : MonoBehaviour
             Debug.Log("Welcome: " + task.Result.DisplayName + "!");
             congo.SetActive(true);
             dbObj.SetActive(true);
+            ds.savaData();
             if (userNameText != null)
             {
                 userNameText.text = "Welcome, " + task.Result.DisplayName + "!";
@@ -144,7 +145,7 @@ public class Login : MonoBehaviour
         });
     }
 
-    public void GoogleOnSignOut()
+    public void OnGoogleSignOut()
     {
         Debug.Log("Calling SignOut");
         GoogleSignIn.DefaultInstance.SignOut();
@@ -161,6 +162,7 @@ public class Login : MonoBehaviour
                 Debug.Log("User is already signed in: " + user.DisplayName);
                 congo.SetActive(true);
                 dbObj.SetActive(true);
+                ds.savaData();
                 if (userNameText != null)
                 {
                     userNameText.text = "Welcome, " + user.DisplayName + "!";

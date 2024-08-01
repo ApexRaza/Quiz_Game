@@ -27,16 +27,26 @@ public class DataSaver : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
         auth = FirebaseAuth.DefaultInstance;
         dbRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
-
-    public void savaData() 
+    public void assignData() 
     {
         FirebaseUser user = auth.CurrentUser;
         dts.userName = user.DisplayName;
         userID = user.UserId;
         ///... use playerPrefs to update data..//
+        dts.Coins = DataBase.Coins;
+        dts.Dollars = DataBase.Dollars;
+        dts.Gems = DataBase.Gems;
+        dts.Keys = DataBase.Keys;
+        dts.LevelUp = DataBase.LevelUp;
+        dts.Lives = DataBase.Lives;
+    }
+    public void savaData() 
+    {
+        assignData();
         string json = JsonUtility.ToJson(dts);
         dbRef.Child("users").Child(userID).SetRawJsonValueAsync(json);
     }
