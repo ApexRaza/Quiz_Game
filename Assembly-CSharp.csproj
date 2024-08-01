@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\UiManager.cs" />
     <Compile Include="Assets\GoogleSignIn\GoogleSignIn.cs" />
     <Compile Include="Assets\Scripts\DataSaver.cs" />
+    <Compile Include="Assets\Scripts\DisplayUIElements.cs" />
     <Compile Include="Assets\GoogleSignIn\GoogleSignInStatusCode.cs" />
     <Compile Include="Assets\Scripts\Test.cs" />
     <Compile Include="Assets\GoogleSignIn\GoogleSignInUser.cs" />

@@ -375,6 +375,7 @@
 "Assets/Scripts/Collections.cs"
 "Assets/Scripts/DataBase.cs"
 "Assets/Scripts/DataSaver.cs"
+"Assets/Scripts/DisplayUIElements.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/Login.cs"
 "Assets/Scripts/QuizManager.cs"
