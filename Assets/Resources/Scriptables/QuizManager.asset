@@ -92,3 +92,18 @@ MonoBehaviour:
       IsImage: 0
       imageQuestion: {fileID: 0}
       tip: 
+  - Name: General
+    ID: 3
+    Quiz:
+    - question: How many Months are in a Year?
+      rightAnswer: 12
+      wrongAnswer: 10
+      IsImage: 0
+      imageQuestion: {fileID: 0}
+      tip: 
+    - question: What is the Capital of Pakistan?
+      rightAnswer: Islamabad
+      wrongAnswer: The first Letter "P"
+      IsImage: 0
+      imageQuestion: {fileID: 0}
+      tip: 

@@ -13,24 +13,34 @@ public class UiManager : MonoBehaviour
 
     [Space (10)]
     public int collectionType;
+    public int questionCategory;
 
 
-
-   public List<GameObject> contentItem = new List<GameObject>();
+    public List<GameObject> contentItem = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
         collectionSO = Resources.Load<CollectionsSO>("Scriptables/Collection");
         quizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
-       
+       UpdateCollectionPanel();
     }
 
 
+    public void ChooseQuestionCategory(int i)
+    {
+        questionCategory = i;
+    }
+
+    public void ChooseCollectionType(int i)
+    {
+        collectionType = i;
+        UpdateCollectionPanel();
+    }
 
     public void OpenquestionPanel(int num)
     {
-        QuizData quizData = quizManager.quizData[collectionType];
+        QuizData quizData = quizManager.quizData[questionCategory];
         Button btn= item.rightTxt.gameObject.transform.parent.GetComponent<Button>();
       
         item.QuestionPanel.SetActive(true);
@@ -96,12 +106,16 @@ public class UiManager : MonoBehaviour
             contentItem.Add(t.gameObject);
         }
 
-        Sprite icon= collectionSO.collectionData[collectionType].item[num].Icon;
-        string s = collectionSO.collectionData[collectionType].item[num].collected.ToString() +" / "+ 
-            collectionSO.collectionData[collectionType].item[num].total.ToString();
+      
 
         for (int i = 0; i < collectionSO.collectionData[collectionType].item.Length; i++)
         {
+            Sprite icon = collectionSO.collectionData[collectionType].item[i].Icon;
+            string s = collectionSO.collectionData[collectionType].item[i].collected.ToString() + " / " +
+                collectionSO.collectionData[collectionType].item[i].total.ToString();
+
+
+
             contentItem[i].transform.GetChild(0).GetComponent<Image>().sprite = icon;
             contentItem[i].GetComponentInChildren<TextMeshProUGUI>().text = s;
             contentItem[i].SetActive(true);
@@ -109,6 +123,39 @@ public class UiManager : MonoBehaviour
         
 
     }
+
+
+    public void UpdateCollectionPanel()
+    {
+        contentItem.Clear();
+
+       
+        foreach (Transform t in item.Content.transform)
+        {
+            t.gameObject.SetActive(false);
+            contentItem.Add(t.gameObject);
+        }
+
+
+
+        for (int i = 0; i < collectionSO.collectionData[collectionType].item.Length; i++)
+        {
+            Sprite icon = collectionSO.collectionData[collectionType].item[i].Icon;
+            string s = collectionSO.collectionData[collectionType].item[i].collected.ToString() + " / " +
+                collectionSO.collectionData[collectionType].item[i].total.ToString();
+
+
+
+            contentItem[i].transform.GetChild(0).GetComponent<Image>().sprite = icon;
+            contentItem[i].GetComponentInChildren<TextMeshProUGUI>().text = s;
+            contentItem[i].SetActive(true);
+        }
+
+
+    }
+
+
+
 
     public void CloseCollectionPanel()
     {
