@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +5,7 @@ public class PanelSwitcher : MonoBehaviour
 {
 
 
-    public bool isUp;
+    public bool isUp,singlePanel;
     public ButtonPanelPair[] buttonPanelPairs;
 
   
@@ -17,6 +14,15 @@ public class PanelSwitcher : MonoBehaviour
   
         AddBtnListener();
     }
+
+    private void OnEnable()
+    {
+        if (singlePanel)
+            SetDefaultForSinglePanel();
+        else
+            SetDefault();
+    }
+
 
 
     // Method to add listeners to each button
@@ -50,11 +56,11 @@ public class PanelSwitcher : MonoBehaviour
             }
         }
 
-        Debug.Log("Panels managed");
+ 
     }
 
-
-    public void ButtonEffect(Button clickedButton)
+    //Method for button click effect
+    private void ButtonEffect(Button clickedButton)
     {
 
         foreach (ButtonPanelPair pair in buttonPanelPairs)
@@ -72,9 +78,47 @@ public class PanelSwitcher : MonoBehaviour
         }
     }
 
+    //Set the default states for the menu 
+    private void SetDefault()
+    {
+        for (int i = 0; i < buttonPanelPairs.Length; i++)
+        {
+            if (i == 0)
+            {
+                RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
+                rectTransform.anchoredPosition = new Vector3(0, isUp ? 50 : -50, 0);
+                buttonPanelPairs[i].panel.SetActive(true);
+            }
+            else
+            {
+                RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
+                rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+                buttonPanelPairs[i].panel.SetActive(false);
+            }
+           
+        }
+    }
 
-
-
+    //set the default state for collectionMenu as it shares one single panel
+    private void SetDefaultForSinglePanel()
+    {
+        for (int i = 0; i < buttonPanelPairs.Length; i++)
+        {
+            if (i == 0)
+            {
+                RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
+                rectTransform.anchoredPosition = new Vector3(0, isUp ? 50 : -50, 0);
+                
+            }
+            else
+            {
+                RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
+                rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+               
+            }
+             buttonPanelPairs[i].panel.SetActive(true);
+        }
+    }
 }
 
 
