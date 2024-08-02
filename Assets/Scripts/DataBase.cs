@@ -14,8 +14,6 @@ public class DataBase
             PlayerPrefs.SetInt("Coins", value);
             PlayerPrefs.Save();
         }
-
-
     }
  
     public static int Dollars
@@ -29,8 +27,6 @@ public class DataBase
             PlayerPrefs.SetInt("Dollars", value);
             PlayerPrefs.Save();
         }
-
-     
     }
 
     public static int Gems
@@ -44,8 +40,6 @@ public class DataBase
             PlayerPrefs.SetInt("Gems", value);
             PlayerPrefs.Save();
         }
-
-
     }
 
 
@@ -53,15 +47,13 @@ public class DataBase
     {
         get
         {
-            return PlayerPrefs.GetInt("LevelUp");
+            return PlayerPrefs.GetInt("LevelUp", 1);
         }
         set
         {
             PlayerPrefs.SetInt("LevelUp", value);
             PlayerPrefs.Save();
         }
-
-
     }
 
 
@@ -76,10 +68,7 @@ public class DataBase
             PlayerPrefs.SetInt("Keys", value);
             PlayerPrefs.Save();
         }
-
-
     }
-
 
     public static int Lives
     {
@@ -92,8 +81,30 @@ public class DataBase
             PlayerPrefs.SetInt("Lives", value);
             PlayerPrefs.Save();
         }
+    }
 
+    public static string GradeName
+    {
+        get { return PlayerPrefs.GetString("GradeName", "Shoshi"); }
+        set { PlayerPrefs.SetString("GradeName", value); PlayerPrefs.Save(); }
+    }
 
+    public static string GradeColor
+    {
+        get { return PlayerPrefs.GetString("GradeColor", "White"); }
+        set { PlayerPrefs.SetString("GradeColor", value); PlayerPrefs.Save(); }
+    }
+
+    public static int QuestionsToTreasure
+    {
+        get { return PlayerPrefs.GetInt("QuestionsToTreasure", 3); }
+        set { PlayerPrefs.SetInt("QuestionsToTreasure", value); PlayerPrefs.Save(); }
+    }
+
+    public static int GradeUpgrade
+    {
+        get { return PlayerPrefs.GetInt("GradeUpgrade", 1); }
+        set { PlayerPrefs.SetInt("GradeUpgrade", value); PlayerPrefs.Save(); }
     }
 
     public static int SportsQuiz
@@ -161,8 +172,5 @@ public class DataBase
         PlayerPrefs.SetInt("Collection" + s, value);
 
         PlayerPrefs.Save();
-
     }
-
-   
 }

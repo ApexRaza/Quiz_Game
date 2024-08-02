@@ -6,17 +6,23 @@ using System.Threading.Tasks;
 using Google;
 using Firebase.Auth;
 using Firebase.Extensions;
+using UnityEngine.SceneManagement;
 
 public class Login : MonoBehaviour
 {
     public GameObject congo;
     public GameObject dbObj;
     public string webClientId = "243769013671-8otfe2at2sb2s5ch7fskgpohv5he8med.apps.googleusercontent.com";
-    DataSaver ds;
+    
     private GoogleSignInConfiguration configuration;
     private FirebaseAuth auth;
     public Text userNameText;
-
+    /// <Test>
+    public void sceneChange() 
+    {
+        SceneManager.LoadScene(1);
+    }
+    /// </Test>
     // Defer the configuration creation until Awake so the web Client ID
     // Can be set via the property inspector in the Editor.
     void Awake()
@@ -63,7 +69,7 @@ public class Login : MonoBehaviour
             GuestLoginSuccess(result.User.UserId);
             congo.SetActive(true);
             dbObj.SetActive(true);
-            ds.savaData();
+            DataSaver.Instance.savaData();
             // Update the Text component with the user's name
             if (userNameText != null)
             {
@@ -81,6 +87,11 @@ public class Login : MonoBehaviour
     }
 
     ////..........................................Google SignIn.............................................................////
+    public void AnomLinkGoogle() 
+    {
+        DataSaver.Instance.dbRef.Child("users").Child(DataSaver.Instance.userID).RemoveValueAsync();
+        OnGoogleSignIn();
+    }
     public void OnGoogleSignIn()
     {
         GoogleSignIn.Configuration = configuration;
@@ -119,7 +130,7 @@ public class Login : MonoBehaviour
             Debug.Log("Welcome: " + task.Result.DisplayName + "!");
             congo.SetActive(true);
             dbObj.SetActive(true);
-            ds.savaData();
+            DataSaver.Instance.savaData();
             if (userNameText != null)
             {
                 userNameText.text = "Welcome, " + task.Result.DisplayName + "!";
@@ -162,7 +173,7 @@ public class Login : MonoBehaviour
                 Debug.Log("User is already signed in: " + user.DisplayName);
                 congo.SetActive(true);
                 dbObj.SetActive(true);
-                ds.savaData();
+                DataSaver.Instance.savaData();
                 if (userNameText != null)
                 {
                     userNameText.text = "Welcome, " + user.DisplayName + "!";

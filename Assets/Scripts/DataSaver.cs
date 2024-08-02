@@ -15,19 +15,29 @@ public class DataToSave
     public int Lives;
     public int Keys;
     public int LevelUp;
-
+    public string GradeName;
+    public string GradeColor;
+    public int QuestionsToTreasure;
+    public int GradeUpgrade;
 }
 public class DataSaver : MonoBehaviour
 {
+    private static DataSaver instance;
+    public static DataSaver Instance;
     public DataToSave dts;
     public string userID;
-    DatabaseReference dbRef;
+    public DatabaseReference dbRef;
     private FirebaseAuth auth;
     
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if(instance == null) 
+        {
+            instance = this;
+            Instance = instance;
+            DontDestroyOnLoad(gameObject);
+        }
         auth = FirebaseAuth.DefaultInstance;
         dbRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
@@ -43,6 +53,10 @@ public class DataSaver : MonoBehaviour
         dts.Keys = DataBase.Keys;
         dts.LevelUp = DataBase.LevelUp;
         dts.Lives = DataBase.Lives;
+        dts.GradeName = DataBase.GradeName;
+        dts.GradeColor = DataBase.GradeColor;
+        dts.QuestionsToTreasure = DataBase.QuestionsToTreasure;
+        dts.GradeUpgrade = DataBase.GradeUpgrade;
     }
     public void savaData() 
     {
@@ -79,5 +93,15 @@ public class DataSaver : MonoBehaviour
     public void updateData() 
     {
         // update player prefs using 
+        DataBase.Coins = dts.Coins;
+        DataBase.Dollars = dts.Dollars;
+        DataBase.Gems = dts.Gems;
+        DataBase.Keys = dts.Keys;
+        DataBase.LevelUp = dts.LevelUp;
+        DataBase.Lives = dts.Lives;
+        DataBase.GradeName = dts.GradeName;
+        DataBase.GradeColor = dts.GradeColor;
+        DataBase.QuestionsToTreasure = dts.QuestionsToTreasure;
+        DataBase.GradeUpgrade = dts.GradeUpgrade;
     }
 }
