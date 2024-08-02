@@ -69,7 +69,7 @@ public class Login : MonoBehaviour
             GuestLoginSuccess(result.User.UserId);
             congo.SetActive(true);
             dbObj.SetActive(true);
-            DataSaver.Instance.savaData();
+            DataSaver.Instance.SaveData();
             // Update the Text component with the user's name
             if (userNameText != null)
             {
@@ -130,7 +130,7 @@ public class Login : MonoBehaviour
             Debug.Log("Welcome: " + task.Result.DisplayName + "!");
             congo.SetActive(true);
             dbObj.SetActive(true);
-            DataSaver.Instance.savaData();
+            DataSaver.Instance.SaveData();
             if (userNameText != null)
             {
                 userNameText.text = "Welcome, " + task.Result.DisplayName + "!";
@@ -173,7 +173,7 @@ public class Login : MonoBehaviour
                 Debug.Log("User is already signed in: " + user.DisplayName);
                 congo.SetActive(true);
                 dbObj.SetActive(true);
-                DataSaver.Instance.savaData();
+                DataSaver.Instance.SaveData();
                 if (userNameText != null)
                 {
                     userNameText.text = "Welcome, " + user.DisplayName + "!";

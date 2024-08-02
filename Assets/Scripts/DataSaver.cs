@@ -58,7 +58,7 @@ public class DataSaver : MonoBehaviour
         dts.QuestionsToTreasure = DataBase.QuestionsToTreasure;
         dts.GradeUpgrade = DataBase.GradeUpgrade;
     }
-    public void savaData() 
+    public void SaveData() 
     {
         assignData();
         string json = JsonUtility.ToJson(dts);

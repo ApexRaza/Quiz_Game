@@ -1965,7 +1965,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1940530549}
         m_TargetAssemblyTypeName: DataSaver, Assembly-CSharp
-        m_MethodName: savaData
+        m_MethodName: SaveData
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
