@@ -19,12 +19,13 @@ public class LevelUpScript : MonoBehaviour
 
     private void Start()
     {
+        DataSaver.Instance.loadData();
         lvlUp = DataBase.LevelUp;
         gradeUpgrade = DataBase.GradeUpgrade;
         gradeName = DataBase.GradeName;
         questionsToTreasure = DataBase.QuestionsToTreasure;
         gradeColor = DataBase.GradeColor;
-        UpdateGradeDetails();
+        DisplayGradeDetails();
     }
     public void LevelUp()
     {
@@ -72,10 +73,10 @@ public class LevelUpScript : MonoBehaviour
 
     public void DisplayGradeDetails()
     {
-        GradeColorsTxt.text = "Grade Color: " + DataSaver.Instance.dts.GradeColor;
-        GradeNamesTxt.text = "Grade Name: " + DataSaver.Instance.dts.GradeName;
-        QtTValuesTxt.text = "Questions to Treasure: " + DataSaver.Instance.dts.QuestionsToTreasure;
-        ProfileLvlTxt.text = "Profile Level: " + DataSaver.Instance.dts.LevelUp;
-        GradeUpgradeTxt.text = "Grade Upgrade: " + DataSaver.Instance.dts.GradeUpgrade;
+        GradeColorsTxt.text = "Grade Color: " + DataBase.GradeColor;
+        GradeNamesTxt.text = "Grade Name: " + DataBase.GradeName;
+        QtTValuesTxt.text = "Questions to Treasure: " + DataBase.QuestionsToTreasure;
+        ProfileLvlTxt.text = "Profile Level: " + DataBase.LevelUp;
+        GradeUpgradeTxt.text = "Grade Upgrade: " + DataBase.GradeUpgrade;
     }
 }

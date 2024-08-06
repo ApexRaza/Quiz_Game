@@ -1,11 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
-<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
-  <string name="firebase_database_url" translatable="false">https://swipe-quiz-f8395-default-rtdb.firebaseio.com</string>
-  <string name="gcm_defaultSenderId" translatable="false">243769013671</string>
-  <string name="google_storage_bucket" translatable="false">swipe-quiz-f8395.appspot.com</string>
-  <string name="project_id" translatable="false">swipe-quiz-f8395</string>
-  <string name="google_api_key" translatable="false">AIzaSyA8txPGTBTEU6NUAbAqAWPJTbK0TXhsrDM</string>
-  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA8txPGTBTEU6NUAbAqAWPJTbK0TXhsrDM</string>
-  <string name="google_app_id" translatable="false">1:243769013671:android:5dbed26155b4a139123282</string>
-  <string name="default_web_client_id" translatable="false">243769013671-8otfe2at2sb2s5ch7fskgpohv5he8med.apps.googleusercontent.com</string>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id">
+  <string name="firebase_database_url" translatable="false">https://swipequiz-58284-default-rtdb.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">841125010072</string>
+  <string name="google_storage_bucket" translatable="false">swipequiz-58284.appspot.com</string>
+  <string name="project_id" translatable="false">swipequiz-58284</string>
+  <string name="google_api_key" translatable="false">AIzaSyBnhSL5uYflJeab0hvckuAiphiNS1GaA3k</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBnhSL5uYflJeab0hvckuAiphiNS1GaA3k</string>
+  <string name="google_app_id" translatable="false">1:841125010072:android:b37d8d6cf23001def64eed</string>
+  <string name="default_android_client_id" translatable="false">841125010072-cpf2mta7gg14d1ohv38tfsdgatla0rfg.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">841125010072-943riqkh4192cev49ptkugh59m1hbs8i.apps.googleusercontent.com</string>
 </resources>

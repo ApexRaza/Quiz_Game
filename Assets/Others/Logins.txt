@@ -1,0 +1,12 @@
+quizapex2015@gmail.com
+Quiz@12345
+
+Google Cloud:
+Project Name: QuizGame
+Project ID: quizapex2015
+
+Firebase:
+Project Name: QuizGame
+Project ID: quizgameapex2015
+Android Package Name: com.Apex.Quiz_Game
+App Nickname: Quiz Game

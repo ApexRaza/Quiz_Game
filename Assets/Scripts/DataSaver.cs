@@ -93,6 +93,8 @@ public class DataSaver : MonoBehaviour
     public void updateData() 
     {
         // update player prefs using 
+        FirebaseUser user = auth.CurrentUser;
+        dts.userName = user.DisplayName;
         DataBase.Coins = dts.Coins;
         DataBase.Dollars = dts.Dollars;
         DataBase.Gems = dts.Gems;

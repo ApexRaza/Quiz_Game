@@ -7,13 +7,16 @@ using Google;
 using Firebase.Auth;
 using Firebase.Extensions;
 using UnityEngine.SceneManagement;
+using Firebase.Database;
 
 public class Login : MonoBehaviour
 {
     public GameObject congo;
     public GameObject dbObj;
-    public string webClientId = "243769013671-8otfe2at2sb2s5ch7fskgpohv5he8med.apps.googleusercontent.com";
+    public GameObject googleSignInBtn;
+    public string webClientId = "841125010072-943riqkh4192cev49ptkugh59m1hbs8i.apps.googleusercontent.com";
     
+
     private GoogleSignInConfiguration configuration;
     private FirebaseAuth auth;
     public Text userNameText;
@@ -34,10 +37,20 @@ public class Login : MonoBehaviour
             RequestIdToken = true
         };
         auth = FirebaseAuth.DefaultInstance;
+        
     }
     private void Start()
     {
-        CheckSignInStatus();
+        if (!PlayerPrefs.HasKey("FirstTime")) 
+        {
+            GuestLogin();
+            PlayerPrefs.SetInt("FirstTime", 1);
+            PlayerPrefs.Save();
+        }
+        else 
+        {
+            CheckSignInStatus();
+        }
     }
 
     ////..........................................Guest SignIn............................................................./////
@@ -59,21 +72,33 @@ public class Login : MonoBehaviour
                 Debug.LogError("SignInAnonymouslyAsync encountered an error: " + task.Exception);
                 return;
             }
-
-            print("Login Success");
-
             AuthResult result = task.Result;
-            print("Guest name: " + result.User.DisplayName);
-            print("Guest Id: " + result.User.UserId);
+            
             //can save user id in playerprefs
             GuestLoginSuccess(result.User.UserId);
-            congo.SetActive(true);
-            dbObj.SetActive(true);
-            DataSaver.Instance.SaveData();
-            // Update the Text component with the user's name
-            if (userNameText != null)
+            if (PlayerPrefs.HasKey("FirstTimeAnom")) 
             {
+                dbObj.SetActive(true);
+                DataSaver.Instance.SaveData();
+                Debug.Log("isAnom: " + result.User.IsAnonymous);
+                Debug.Log("FirstTimeAnom value: " + PlayerPrefs.GetInt("FirstTimeAnom"));
+                congo.SetActive(true);
+                if (result.User.IsAnonymous)
+                {
+                    googleSignInBtn.SetActive(true);
+                }
+                else
+                {
+                    googleSignInBtn.SetActive(false);
+                }
                 userNameText.text = "Welcome, " + result.User.UserId + "!";
+
+            }
+            else 
+            {
+                Debug.Log("FirstTimeAnom");
+                PlayerPrefs.Save();
+                PlayerPrefs.SetInt("FirstTimeAnom", 1);
             }
         });
 
@@ -130,12 +155,7 @@ public class Login : MonoBehaviour
             Debug.Log("Welcome: " + task.Result.DisplayName + "!");
             congo.SetActive(true);
             dbObj.SetActive(true);
-            DataSaver.Instance.SaveData();
-            if (userNameText != null)
-            {
-                userNameText.text = "Welcome, " + task.Result.DisplayName + "!";
-            }
-
+            //DataSaver.Instance.SaveData();
             // Authenticate with Firebase
             AuthenticateWithFirebase(task.Result.IdToken);
         }
@@ -151,8 +171,59 @@ public class Login : MonoBehaviour
                 return;
             }
 
-            FirebaseUser user = task.Result;
+            FirebaseUser user = auth.CurrentUser;
+            if (user != null)
+            {
+                Debug.Log("isAnom: " + user.IsAnonymous);
+                congo.SetActive(true);
+                if (user.IsAnonymous) 
+                {
+                    googleSignInBtn.SetActive(true);
+                }
+                else
+                {
+                    googleSignInBtn.SetActive(false);
+                }
+                if (userNameText != null)
+                {
+                    userNameText.text = "Welcome, " + user.DisplayName + "!";
+                }
+                dbObj.SetActive(true);
+                CheckUserDataExists(user.UserId);
+            }
+            else
+            {
+                // No user is signed in
+                Debug.Log("No user is signed in.");
+     
+            }
             Debug.Log("Firebase user signed in successfully: " + user.DisplayName);
+
+            //DataSaver.Instance.SaveData();
+        });
+    }
+    private void CheckUserDataExists(string userId) 
+    {
+        DataSaver.Instance.dbRef.Child("users").Child(userId).GetValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                if (snapshot.Exists)
+                {
+                    Debug.Log("User data exists, loading data...");
+                    DataSaver.Instance.loadData();
+                }
+                else
+                {
+                    Debug.Log("User data does not exist, saving new data...");
+                    DataSaver.Instance.SaveData();
+                }
+            }
+            else
+            {
+                Debug.LogError("Failed to check user data existence.");
+            }
         });
     }
 
@@ -164,6 +235,7 @@ public class Login : MonoBehaviour
 
     private void CheckSignInStatus()
     {
+
         if(auth.CurrentUser != null) 
         {
             FirebaseUser user = auth.CurrentUser;
@@ -173,10 +245,26 @@ public class Login : MonoBehaviour
                 Debug.Log("User is already signed in: " + user.DisplayName);
                 congo.SetActive(true);
                 dbObj.SetActive(true);
-                DataSaver.Instance.SaveData();
+                if (user.IsAnonymous) 
+                {
+                    googleSignInBtn.SetActive(true);
+                }
+                else 
+                {
+                    googleSignInBtn.SetActive(false);
+                }
+                DataSaver.Instance.loadData();
                 if (userNameText != null)
                 {
-                    userNameText.text = "Welcome, " + user.DisplayName + "!";
+                    if (user.IsAnonymous) 
+                    { 
+                        userNameText.text = "Welcome, " + user.UserId + "!"; 
+                    } 
+                    else 
+                    {
+                        userNameText.text = "Welcome, " + user.DisplayName + "!";
+                    }
+                    
                 }
             }
             else
