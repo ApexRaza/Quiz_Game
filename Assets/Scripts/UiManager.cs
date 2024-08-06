@@ -23,6 +23,11 @@ public class UiManager : MonoBehaviour
     {
         collectionSO = Resources.Load<CollectionsSO>("Scriptables/Collection");
         quizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
+        quizManager.QuizTypesInit();
+
+
+        quizManager.SetQuizType(QuizType.Arts);
+
        UpdateCollectionPanel();
     }
 
@@ -40,33 +45,29 @@ public class UiManager : MonoBehaviour
 
     public void OpenquestionPanel(int num)
     {
-        QuizData quizData = quizManager.quizData[questionCategory];
+       Type quizType = quizManager.quizType[questionCategory];
         Button btn= item.rightTxt.gameObject.transform.parent.GetComponent<Button>();
       
         item.QuestionPanel.SetActive(true);
-        if (num >= quizData.Quiz.Length)
+        if (num >= quizType.quizData.Count)
         {
             nextValue = 0;
             num=nextValue;
         }
 
 
-        //if (next)
-        //{
-        //    num += nextValue;
-        //}
-        if (num < quizData.Quiz.Length)
+        if (num < quizType.quizData.Count)
         {
-            if (quizData.Quiz[num].IsImage)
+            if (quizType.quizData[num].IsImage)
             {
-                item.questionImage.sprite = quizData.Quiz[num].imageQuestion;
+               // item.questionImage.sprite = quizData.Data[num].imageQuestion;
                 item.questionImage.enabled = true;
             }
             else
             {
                 item.questionImage.enabled = false;
             }
-            item.questionTxt.text = quizData.Quiz[num].question.ToString();
+            item.questionTxt.text = quizType.quizData[num].question.ToString();
             int i = UnityEngine.Random.Range(0, 2);
             if (i < 1)
             {
@@ -74,8 +75,8 @@ public class UiManager : MonoBehaviour
                 item.wrongTxt.transform.parent.position = item.rightTxt.transform.parent.position;
                 item.rightTxt.transform.parent.position = pos;
             }
-            item.rightTxt.text = quizData.Quiz[num].rightAnswer.ToString();
-            item.wrongTxt.text = quizData.Quiz[num].wrongAnswer.ToString();
+            item.rightTxt.text = quizType.quizData[num].rightAnswer.ToString();
+            item.wrongTxt.text = quizType.quizData[num].wrongAnswer.ToString();
 
             btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => Next());
