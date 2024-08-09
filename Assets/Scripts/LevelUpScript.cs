@@ -4,6 +4,8 @@ using System;
 
 public class LevelUpScript : MonoBehaviour
 {
+    private static LevelUpScript instance;
+    public static LevelUpScript Instance;
     /// <Test>
     public TextMeshProUGUI GradeColorsTxt, GradeNamesTxt, QtTValuesTxt, ProfileLvlTxt, GradeUpgradeTxt;
     /// </Test>
@@ -16,10 +18,17 @@ public class LevelUpScript : MonoBehaviour
     public int questionsToTreasure;
     public int lvlUp;
 
-
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            Instance = instance;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     private void Start()
     {
-        DataSaver.Instance.loadData();
         lvlUp = DataBase.LevelUp;
         gradeUpgrade = DataBase.GradeUpgrade;
         gradeName = DataBase.GradeName;
@@ -35,7 +44,6 @@ public class LevelUpScript : MonoBehaviour
             try
             {
                 gradeUpgrade++;
-                //gradeUpgrade = (lvlUp - 1) % 7 + 1;
 
                 int cycleIndex = (lvlUp - 1) / 7;
                 gradeName = gradeNames[cycleIndex % gradeNames.Length];
@@ -67,7 +75,6 @@ public class LevelUpScript : MonoBehaviour
         DataBase.QuestionsToTreasure = questionsToTreasure;
         DataBase.GradeColor = gradeColor;
         DataSaver.Instance.SaveData();
-        ///....For Test....///
         DisplayGradeDetails();
     }
 

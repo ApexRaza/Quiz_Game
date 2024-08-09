@@ -1,21 +1,9 @@
+using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class DataBase 
 {
-
-    public static int Coins
-    {
-        get
-        {
-            return PlayerPrefs.GetInt("Coins");
-        }
-        set
-        {
-            PlayerPrefs.SetInt("Coins", value);
-            PlayerPrefs.Save();
-        }
-    }
- 
     public static int Dollars
     {
         get 
@@ -146,20 +134,6 @@ public class DataBase
         }
     }
 
-    public static int GeneralQuiz
-    {
-        get
-        {
-            return PlayerPrefs.GetInt("General");
-        }
-        set
-        {
-            PlayerPrefs.SetInt("General", value);
-            PlayerPrefs.Save();
-        }
-    }
-
-
     //custom parameters
     public static int GetCollection(string s)
     {
@@ -171,6 +145,32 @@ public class DataBase
     {
         PlayerPrefs.SetInt("Collection" + s, value);
 
+        PlayerPrefs.Save();
+    }
+    public static string CoinID
+    {
+        get
+        {
+            return PlayerPrefs.GetString("coinID");
+        }
+        set
+        {
+            PlayerPrefs.SetString("coinID", value);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public static int GetCoins(int id)
+    {
+        //Debug.Log("GetCoin ID " + id);
+        return PlayerPrefs.GetInt("Coin" + id);
+    }
+
+    public static void SetCoins(int id, int Value)
+    {
+        //Debug.Log("SetCoin ID " + id);
+        Value = Value + PlayerPrefs.GetInt("Coin" + id);
+        PlayerPrefs.SetInt("Coin" + id, Value);
         PlayerPrefs.Save();
     }
 }
