@@ -5,10 +5,21 @@ using TMPro;
 
 public class TreasureSystem : MonoBehaviour
 {
+    private static TreasureSystem instance;
+    public static TreasureSystem Instance;
     //public TextMeshProUGUI R1txt, R1Divtxt,R2txt, R3txt, R1Coinstxt, R2Coinstxt, R3Coinstxt, gemsTxt, dollarsTxt, packGemsTxt, packDollarsTxt;
     private int R1Coins, R1_1Coins, R1_2Coins, R1_3Coins, R2Coins, R3Coins, packGems, packDollars;
     private int R1Col, R2Col = 4, R3Col =5;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            Instance = instance;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     public enum TreasureType
     {
         Free,
@@ -42,17 +53,16 @@ public class TreasureSystem : MonoBehaviour
             {TreasureType.Medium, new coinDistributionPercentage(100f, 60f, 30f)},
             {TreasureType.Gold, new coinDistributionPercentage(100f, 80f, 40f)}
         };
-        //test
-        //calculatePercentage(TreasureType.Free);
-        //testend
     }
-    public void testFun(int i) 
+    public void callTreasure(int i) 
     {
         if(i == 0)
             calculatePercentage(TreasureType.Free);
         else if (i == 1)
-            calculatePercentage(TreasureType.Medium);
+            calculatePercentage(TreasureType.Low);
         else if (i == 2)
+            calculatePercentage(TreasureType.Medium);
+        else if (i == 3)
             calculatePercentage(TreasureType.Gold);
     }
 
