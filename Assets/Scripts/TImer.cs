@@ -9,12 +9,19 @@ public class TImer : MonoBehaviour
 {
 
     public Image timeFiller;
-    public float timeLeft = 30.0f; // Set the total countdown time (in seconds)
+    public float timeLeft = 10.0f; // Set the total countdown time (in seconds)
     public TextMeshProUGUI startText;
     float totalTime;
     // Start is called before the first frame update
     void Start()
     {
+        totalTime = timeLeft;
+    }
+
+    public void ResetTimer()
+    {
+        timeFiller.fillAmount = 1;
+        timeLeft = 10;
         totalTime = timeLeft;
     }
 

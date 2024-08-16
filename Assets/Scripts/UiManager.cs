@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
+using System.Web;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -17,18 +20,64 @@ public class UiManager : MonoBehaviour
 
 
     public List<GameObject> contentItem = new List<GameObject>();
+    
+    public ProgressState progressState;
+     string[] game_ticket_id;
+    int quizCount=0;
+    void TEstURL()
+    {
+
+        string url = "https://ourgamedomain.com?ref[]=E10DD63DBF44A3A&ref[]=4B039523023C5D3"; //Application.absoluteURL ;
+        
+        Uri uri = new Uri(url);
+
+        // Extract the query string
+        string query = uri.Query;
+        NameValueCollection queryParams = HttpUtility.ParseQueryString(query);
+
+        // Extract the 'ref[]' parameters (Note: you might need to use "ref%5B%5D" for encoded brackets)
+        string[] refValues = queryParams.GetValues("ref[]");
+
+        if (refValues != null)
+        {
+            game_ticket_id = new string[refValues.Length];
+
+            for (int i = 0; i < refValues.Length; i++)
+            {
+                Debug.Log($"ref[{i}] = {refValues[i]}");
+
+                game_ticket_id[i] = refValues[i];
+            }
+        }
+        else
+        {
+            Debug.Log("No 'ref[]' parameters found.");
+        }
+
+    }
+
 
     // Start is called before the first frame update
     void Start()
     {
+       
+        
+
+
         collectionSO = Resources.Load<CollectionsSO>("Scriptables/Collection");
         quizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
         quizManager.QuizTypesInit();
 
 
-        quizManager.SetQuizType(QuizType.Arts);
+        quizManager.SetQuizType(QuizType.Varia);
 
-       UpdateCollectionPanel();
+        UpdateCollectionPanel();
+    }
+
+
+    public void SelectCategory(QuizType quizType)
+    {
+        quizManager.SetQuizType(quizType);
     }
 
 
@@ -43,56 +92,72 @@ public class UiManager : MonoBehaviour
         UpdateCollectionPanel();
     }
 
-    public void OpenquestionPanel(int num)
+    public void OpenquestionPanel()
     {
-       Type quizType = quizManager.quizType[questionCategory];
+      // Type quizType = quizManager.quizType[questionCategory];
         Button btn= item.rightTxt.gameObject.transform.parent.GetComponent<Button>();
-      
+        int num = DataBase.GetQuiz(quizManager.type);
+
+        Debug.Log(num + " " + DataBase.GetQuiz(quizManager.type));
+
         item.QuestionPanel.SetActive(true);
-        if (num >= quizType.quizData.Count)
+        if (quizCount > DataBase.QuestionsToTreasure)
         {
-            nextValue = 0;
-            num=nextValue;
+            quizCount = 0;
+            num = DataBase.GetQuiz(quizManager.type);
+            Debug.Log("Level Cleared treasure Obtained");
+            TreasureSystem.Instance.calculatePercentage(TreasureType.Low);
         }
-
-
-        if (num < quizType.quizData.Count)
+        else
         {
-            if (quizType.quizData[num].IsImage)
-            {
-               // item.questionImage.sprite = quizData.Data[num].imageQuestion;
-                item.questionImage.enabled = true;
-            }
-            else
-            {
-                item.questionImage.enabled = false;
-            }
-            item.questionTxt.text = quizType.quizData[num].question.ToString();
-            int i = UnityEngine.Random.Range(0, 2);
-            if (i < 1)
-            {
-                Vector3 pos = item.wrongTxt.transform.parent.position;
-                item.wrongTxt.transform.parent.position = item.rightTxt.transform.parent.position;
-                item.rightTxt.transform.parent.position = pos;
-            }
-            item.rightTxt.text = quizType.quizData[num].rightAnswer.ToString();
-            item.wrongTxt.text = quizType.quizData[num].wrongAnswer.ToString();
+            Debug.Log(quizManager.quizType.Length);
 
-            btn.onClick.RemoveAllListeners();
-            btn.onClick.AddListener(() => Next());
+            if (num < quizManager.quizType.Length)
+            {
+                if (quizManager.quizType[quizManager.type].quizData[num].IsImage)
+                {
+                    // item.questionImage.sprite = quizData.Data[num].imageQuestion;
+                    item.questionImage.gameObject.SetActive(true);//.enabled = true;
+                }
+                else
+                {
+                    item.questionImage.gameObject.SetActive(false);
+                }
+                item.questionTxt.text = quizManager.quizType[quizManager.type].quizData[num].question.ToString();
+                int i = UnityEngine.Random.Range(0, 2);
+                if (i < 1)
+                {
+                    Vector3 pos = item.wrongTxt.transform.parent.position;
+                    item.wrongTxt.transform.parent.position = item.rightTxt.transform.parent.position;
+                    item.rightTxt.transform.parent.position = pos;
+                }
+                item.rightTxt.text = quizManager.quizType[quizManager.type].quizData[num].rightAnswer.ToString();
+                item.wrongTxt.text = quizManager.quizType[quizManager.type].quizData[num].wrongAnswer.ToString();
+
+                btn.onClick.RemoveAllListeners();
+                btn.onClick.AddListener(() => Next());
+            }
         }
-      
 
     }
 
-    bool next;
-    int nextValue = 0;
     public void Next()
     {
-        next = true;
-        nextValue++;
-      
-        OpenquestionPanel(nextValue);
+        Debug.Log("run");
+
+
+        progressState.gameObject.SetActive(true);
+        progressState.UpdateState();
+
+        DataBase.Keys += 20;
+
+        int i = DataBase.GetQuiz(quizManager.type);
+        i++;
+        DataBase.SetQuiz(quizManager.type, i);
+
+
+        quizCount++;
+        OpenquestionPanel();
     }
 
 

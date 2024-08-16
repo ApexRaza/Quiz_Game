@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+public enum TreasureType
+{
+    Free,
+    Low,
+    Medium,
+    Gold
+}
+
+
 public class TreasureSystem : MonoBehaviour
 {
     private static TreasureSystem instance;
@@ -20,13 +29,7 @@ public class TreasureSystem : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-    public enum TreasureType
-    {
-        Free,
-        Low,
-        Medium,
-        Gold
-    }
+   
     [System.Serializable]
     public class coinDistributionPercentage
     {
@@ -54,6 +57,7 @@ public class TreasureSystem : MonoBehaviour
             {TreasureType.Gold, new coinDistributionPercentage(100f, 80f, 40f)}
         };
     }
+    //for testing purpose called manually  from ui button
     public void callTreasure(int i) 
     {
         if(i == 0)
@@ -140,7 +144,7 @@ public class TreasureSystem : MonoBehaviour
     
     private bool checkChance(float chance)
     {
-        return UnityEngine.Random.Range(0f, 100f) < chance;
+        return Random.Range(0f, 100f) < chance;
     }
     private (int, int, int) distributeCoins(int r1CoinsAmount) 
     {

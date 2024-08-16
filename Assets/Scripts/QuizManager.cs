@@ -129,7 +129,7 @@ public class Data
     public string imageLink;
     public string tip;
 }
-
+[Serializable]
 public enum QuizType
 {
     Varia,

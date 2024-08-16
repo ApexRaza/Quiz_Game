@@ -10,6 +10,7 @@ public class DataToSave
 {
     public string userName;
     public List<int> Coins;
+    public List<int> Quizes;
     public int Dollars;
     public int Gems;
     public int Lives;
@@ -71,6 +72,24 @@ public class DataSaver : MonoBehaviour
             }
            // Debug.Log("outside if-else : " + DataBase.GetCoins(num));
         }
+
+        for (int num = 0; num < 16; num++)
+        {
+            if (dts.Quizes.Count <= num)
+            {
+                dts.Quizes.Add(DataBase.GetQuiz(num));
+
+            }
+            else
+            {
+                dts.Quizes[num] = DataBase.GetQuiz(num);
+
+            }
+
+        }
+
+
+
     }
     public void SaveData() 
     {

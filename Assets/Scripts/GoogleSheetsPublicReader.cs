@@ -16,21 +16,27 @@ public class GoogleSheetsPublicReader : MonoBehaviour
     QuizManager quizManager;
 
 
-    void Start()
+
+    int id = 0;
+
+    void Awake()
     {
         quizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
 
        
         
 
-        quizManager.type = 0;
-        spreadSheetNb = quizManager.gridId[quizManager.type].ToString();
+        id = 0;
+        spreadSheetNb = quizManager.gridId[id].ToString();
         StartCoroutine(ReadSheetData());
 
     }
 
     IEnumerator ReadSheetData()
     {
+
+        Debug.Log(spreadSheetNb + "    " + id);
+
         string url = $"https://docs.google.com/spreadsheets/d/{spreadsheetID}/export?format=csv&gid={spreadSheetNb}";
         UnityWebRequest www = UnityWebRequest.Get(url);
         yield return www.SendWebRequest();
@@ -52,22 +58,22 @@ public class GoogleSheetsPublicReader : MonoBehaviour
         string[] lines = csvData.Split('\n');
         //foreach (string line in lines.Skip(1))
         // quizManager.quizData[0].Data. = Data[lines.Length];
-        int startNum=0;
+      //  int startNum=0;
       
        // if (quizManager.quizData[0].Data.Count < lines.Length)
         {
             
-            quizManager.quizType[quizManager.type].quizData.Clear();
-            startNum = quizManager.quizType[quizManager.type].quizData.Count;
+            quizManager.quizType[id].quizData.Clear();
+            //startNum = quizManager.quizType[quizManager.type].quizData.Count;
 
 
-            for (int i = startNum+1; i < lines.Length; i++)
+            for (int i = 1; i < lines.Length; i++)
             {
                 string[] values = lines[i].Split(',');
                 
 
                 {
-                    quizManager.quizType[quizManager.type].quizData.Add(mydata(i - 1, values[0], values[1], values[2], bool.Parse(values[3]), values[4], values[5]));
+                    quizManager.quizType[id].quizData.Add(mydata((i - 1), values[0], values[1], values[2], bool.Parse(values[3]), values[4], values[5]));
                      
                 }
 
@@ -86,10 +92,10 @@ public class GoogleSheetsPublicReader : MonoBehaviour
         }
 
 
-        if (quizManager.type < 15)
+        if (id < 15)
         {
-            quizManager.type++;
-            spreadSheetNb = quizManager.gridId[quizManager.type].ToString();
+            id++;
+            spreadSheetNb = quizManager.gridId[id].ToString();
             StartCoroutine(ReadSheetData());
         }
     }

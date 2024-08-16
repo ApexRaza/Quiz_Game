@@ -13,12 +13,20 @@ public class DisplayUIElements : MonoBehaviour
 
     public GameObject bottomBar, middlePanel;
 
-
+    
 
     private void Start()
     {
         Invoke(nameof(UpdateUI), 1);
     }
+
+
+
+    private void Update()
+    {
+        UpdateUI();
+    }
+
 
 
     public void UpdateUI()

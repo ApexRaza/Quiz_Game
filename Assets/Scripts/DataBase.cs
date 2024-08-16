@@ -14,6 +14,8 @@ public class DataBase
         {
             PlayerPrefs.SetInt("Dollars", value);
             PlayerPrefs.Save();
+            DataSaver.Instance.SaveData();
+
         }
     }
 
@@ -27,6 +29,7 @@ public class DataBase
         {
             PlayerPrefs.SetInt("Gems", value);
             PlayerPrefs.Save();
+            DataSaver.Instance.SaveData();
         }
     }
 
@@ -41,6 +44,7 @@ public class DataBase
         {
             PlayerPrefs.SetInt("LevelUp", value);
             PlayerPrefs.Save();
+            DataSaver.Instance.SaveData();
         }
     }
 
@@ -55,6 +59,7 @@ public class DataBase
         {
             PlayerPrefs.SetInt("Keys", value);
             PlayerPrefs.Save();
+            DataSaver.Instance.SaveData();
         }
     }
 
@@ -62,78 +67,44 @@ public class DataBase
     {
         get
         {
-            return PlayerPrefs.GetInt("Lives");
+            return PlayerPrefs.GetInt("Lives",5);
         }
         set
         {
             PlayerPrefs.SetInt("Lives", value);
             PlayerPrefs.Save();
+            DataSaver.Instance.SaveData();
         }
     }
 
     public static string GradeName
     {
         get { return PlayerPrefs.GetString("GradeName", "Shoshi"); }
-        set { PlayerPrefs.SetString("GradeName", value); PlayerPrefs.Save(); }
+        set { PlayerPrefs.SetString("GradeName", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
     }
 
     public static string GradeColor
     {
         get { return PlayerPrefs.GetString("GradeColor", "White"); }
-        set { PlayerPrefs.SetString("GradeColor", value); PlayerPrefs.Save(); }
+        set { PlayerPrefs.SetString("GradeColor", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
     }
 
     public static int QuestionsToTreasure
     {
         get { return PlayerPrefs.GetInt("QuestionsToTreasure", 3); }
-        set { PlayerPrefs.SetInt("QuestionsToTreasure", value); PlayerPrefs.Save(); }
+        set { PlayerPrefs.SetInt("QuestionsToTreasure", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
     }
 
     public static int GradeUpgrade
     {
         get { return PlayerPrefs.GetInt("GradeUpgrade", 1); }
-        set { PlayerPrefs.SetInt("GradeUpgrade", value); PlayerPrefs.Save(); }
+        set { PlayerPrefs.SetInt("GradeUpgrade", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
     }
 
-    public static int SportsQuiz
-    {
-        get
-        {
-            return PlayerPrefs.GetInt("Sports");
-        }
-        set
-        {
-            PlayerPrefs.SetInt("Sports", value);
-            PlayerPrefs.Save();
-        }
-    }
+   
 
-    public static int AnimalQuiz
-    {
-        get
-        {
-            return PlayerPrefs.GetInt("Animal");
-        }
-        set
-        {
-            PlayerPrefs.SetInt("Animal", value);
-            PlayerPrefs.Save();
-        }
-    }
 
-    public static int VehicleQuiz
-    {
-        get
-        {
-            return PlayerPrefs.GetInt("Vehicle");
-        }
-        set
-        {
-            PlayerPrefs.SetInt("Vehicle", value);
-            PlayerPrefs.Save();
-        }
-    }
-
+   
     //custom parameters
     public static int GetCollection(string s)
     {
@@ -172,5 +143,26 @@ public class DataBase
         Value = Value + PlayerPrefs.GetInt("Coin" + id);
         PlayerPrefs.SetInt("Coin" + id, Value);
         PlayerPrefs.Save();
+        DataSaver.Instance.SaveData();
     }
+
+
+    public static int GetQuiz(int id)
+    {
+        //Debug.Log("GetCoin ID " + id);
+        return PlayerPrefs.GetInt("Quiz" + id,0);
+    }
+
+    public static void SetQuiz(int id, int Value)
+    {
+       
+        PlayerPrefs.SetInt("Quiz" + id, Value);
+        PlayerPrefs.Save();
+        DataSaver.Instance.SaveData();
+    }
+
+
+
+
+
 }

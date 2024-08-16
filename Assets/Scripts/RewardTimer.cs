@@ -55,4 +55,20 @@ public class RewardTimer : MonoBehaviour
         timer.text = string.Format("{00:00} : {01:00}", minutes, seconds);
 
     }
+
+
+
+    private void OnApplicationQuit()
+    {
+
+
+        Debug.Log("App Closed!");
+
+        //if (isTimerRunning)
+        //{
+        //    PlayerPrefs.SetString("TimerEnd", timerEnd.ToString());
+        //    PlayerPrefs.Save();
+        //}
+    }
+
 }
