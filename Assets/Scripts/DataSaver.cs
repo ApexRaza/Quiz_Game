@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
+//using System;
 using Firebase.Database;
 using Firebase.Auth;
 
-[Serializable]
+[System.Serializable]
 public class DataToSave 
 {
     public string userName;
@@ -44,10 +44,25 @@ public class DataSaver : MonoBehaviour
         auth = FirebaseAuth.DefaultInstance;
         dbRef = FirebaseDatabase.DefaultInstance.RootReference;
     }
+
+
+    public string userName(FirebaseUser user) 
+    {
+        if (user.IsAnonymous) 
+        {
+            return ("Player" + Random.Range(10, 99) + Random.Range(100 , 999));
+        }
+        else 
+        {
+            return user.DisplayName;
+        }
+    }
+
+
     public void assignData() 
     {
         FirebaseUser user = auth.CurrentUser;
-        dts.userName = user.DisplayName;
+        dts.userName = userName(user);
         userID = user.UserId;
         dts.Dollars = DataBase.Dollars;
         dts.Gems = DataBase.Gems;

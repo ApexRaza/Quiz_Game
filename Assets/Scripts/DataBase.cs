@@ -15,7 +15,6 @@ public class DataBase
             PlayerPrefs.SetInt("Dollars", value);
             PlayerPrefs.Save();
             DataSaver.Instance.SaveData();
-
         }
     }
 
