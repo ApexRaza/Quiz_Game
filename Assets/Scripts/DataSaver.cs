@@ -43,27 +43,43 @@ public class DataSaver : MonoBehaviour
         }
         auth = FirebaseAuth.DefaultInstance;
         dbRef = FirebaseDatabase.DefaultInstance.RootReference;
+
     }
 
-
-    public string userName(FirebaseUser user) 
+    public string userName(FirebaseUser user)
     {
-        if (user.IsAnonymous) 
+        if (user.IsAnonymous)
         {
-            return ("Player" + Random.Range(10, 99) + Random.Range(100 , 999));
+            return ("Player" + Random.Range(10, 99) + Random.Range(100, 999));
         }
-        else 
+        else
         {
             return user.DisplayName;
         }
     }
 
-
-    public void assignData() 
+    public void saveUsername() 
     {
         FirebaseUser user = auth.CurrentUser;
         dts.userName = userName(user);
+        DataBase.UserName = dts.userName;
+        //string json = JsonUtility.ToJson(dts);
+        //dbRef.Child("users").Child(userID).SetRawJsonValueAsync(json);
+    }
+    public void assignData() 
+    {
+        FirebaseUser user = auth.CurrentUser;
         userID = user.UserId;
+        if (user.IsAnonymous) 
+        {
+            dts.userName = DataBase.UserName;
+        }
+        else 
+        {
+            dts.userName = user.DisplayName;
+            DataBase.UserName = dts.userName;
+        }
+        
         dts.Dollars = DataBase.Dollars;
         dts.Gems = DataBase.Gems;
         dts.Keys = DataBase.Keys;
@@ -100,11 +116,7 @@ public class DataSaver : MonoBehaviour
                 dts.Quizes[num] = DataBase.GetQuiz(num);
 
             }
-
         }
-
-
-
     }
     public void SaveData() 
     {
@@ -130,10 +142,13 @@ public class DataSaver : MonoBehaviour
         {
             Debug.Log("Server Data is found");
             dts = JsonUtility.FromJson<DataToSave>(jsonData);
+            Debug.Log("load Username: " + dts.userName);
             updateData();
         }
         else 
         {
+
+            Debug.Log("Else load Username: " + dts.userName);
             SaveData();
         }
     }
@@ -141,8 +156,7 @@ public class DataSaver : MonoBehaviour
     public void updateData() 
     {
         // update player prefs using 
-        FirebaseUser user = auth.CurrentUser;
-        dts.userName = user.DisplayName;
+        DataBase.UserName = dts.userName;
         DataBase.Dollars = dts.Dollars;
         DataBase.Gems = dts.Gems;
         DataBase.Keys = dts.Keys;

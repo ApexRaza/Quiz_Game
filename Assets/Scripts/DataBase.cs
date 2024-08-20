@@ -100,7 +100,11 @@ public class DataBase
         set { PlayerPrefs.SetInt("GradeUpgrade", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
     }
 
-   
+   public static string UserName 
+    {
+        get { return PlayerPrefs.GetString("Userame", ""); }
+        set { PlayerPrefs.SetString("Userame", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
+    }
 
 
    

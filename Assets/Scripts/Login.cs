@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Google;
@@ -79,6 +78,7 @@ public class Login : MonoBehaviour
             if (PlayerPrefs.HasKey("FirstTimeAnom")) 
             {
                 dbObj.SetActive(true);
+                DataSaver.Instance.saveUsername();
                 DataSaver.Instance.SaveData();
                 Debug.Log("isAnom: " + result.User.IsAnonymous);
                 Debug.Log("FirstTimeAnom value: " + PlayerPrefs.GetInt("FirstTimeAnom"));
@@ -155,6 +155,7 @@ public class Login : MonoBehaviour
             Debug.Log("Welcome: " + task.Result.DisplayName + "!");
             congo.SetActive(true);
             dbObj.SetActive(true);
+            
             //DataSaver.Instance.SaveData();
             // Authenticate with Firebase
             AuthenticateWithFirebase(task.Result.IdToken);
@@ -217,6 +218,7 @@ public class Login : MonoBehaviour
                 else
                 {
                     Debug.Log("User data does not exist, saving new data...");
+
                     DataSaver.Instance.SaveData();
                 }
             }
