@@ -156,7 +156,16 @@ public class DataSaver : MonoBehaviour
     public void updateData() 
     {
         // update player prefs using 
-        DataBase.UserName = dts.userName;
+        if (auth.CurrentUser.IsAnonymous) 
+        {
+            DataBase.UserName = dts.userName;
+        }
+        else 
+        {
+            dts.userName = auth.CurrentUser.DisplayName;
+            DataBase.UserName = dts.userName;
+        }
+        
         DataBase.Dollars = dts.Dollars;
         DataBase.Gems = dts.Gems;
         DataBase.Keys = dts.Keys;
@@ -169,6 +178,10 @@ public class DataSaver : MonoBehaviour
         for (int num = 0; num < 420; num++)
         {
             DataBase.SetCoins(num, dts.Coins[num]);
+        }
+        for(int num = 0; num < 16; num++) 
+        {
+            DataBase.SetQuiz(num, dts.Quizes[num]);
         }
     }
 }

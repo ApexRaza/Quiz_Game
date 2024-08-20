@@ -1,6 +1,6 @@
 using UnityEngine.UI;
 using UnityEngine;
-
+using UnityEngine.Events;
 public enum Products 
 {
     LowTreasure,
@@ -18,8 +18,11 @@ public class Shop : MonoBehaviour
 {
     public Products product;
     public int reqCost;
+    public int amount;
     private int totalMoney;
     private Button button;
+    public UnityEvent shopEvent;
+
     private void Start()
     {
         button = gameObject.GetComponent<Button>();
@@ -33,25 +36,133 @@ public class Shop : MonoBehaviour
                 totalMoney = DataBase.Keys;
                 if (totalMoney >= reqCost)
                 {
-                    TreasureSystem.Instance.callTreasure(1);
+                    TreasureSystem.Instance.calculatePercentage(treasureType:TreasureType.Low);
                     totalMoney -= reqCost;
                     DataBase.Keys = totalMoney;
                 }
                 else 
                 {
+                    //shopEvent.Invoke();
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
                 break;
+
             case Products.MidTreasure:
                 totalMoney = DataBase.Keys;
                 if (totalMoney >= reqCost)
                 {
-                    TreasureSystem.Instance.callTreasure(2);
+                    TreasureSystem.Instance.calculatePercentage(treasureType: TreasureType.Medium); 
                     totalMoney -= reqCost;
                     DataBase.Keys = totalMoney;
                 }
                 else
                 {
+                    //shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+            case Products.GoldTreasure:
+                totalMoney = DataBase.Gems;
+                if (totalMoney >= reqCost)
+                {
+                    TreasureSystem.Instance.calculatePercentage(treasureType: TreasureType.Gold); 
+                    totalMoney -= reqCost;
+                    DataBase.Gems = totalMoney;
+                }
+                else
+                {
+                    //shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+            case Products.KeyPacks:
+                totalMoney = DataBase.Dollars;
+                if (totalMoney >= reqCost)
+                {
+                    DataBase.Keys += amount;
+                    totalMoney -= reqCost;
+                    DataBase.Dollars = totalMoney;
+                }
+                else
+                {
+                    //shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+            case Products.Tips:
+                totalMoney = DataBase.Dollars;
+                if (totalMoney >= reqCost)
+                {
+                    //Do something about tip
+                    totalMoney -= reqCost;
+                    DataBase.Dollars = totalMoney;
+                }
+                else
+                {
+                    //shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+            case Products.DollarsPack1:
+                totalMoney = DataBase.Gems;
+                if (totalMoney >= reqCost)
+                {
+                    DataBase.Dollars += amount;
+                    totalMoney -= reqCost;
+                    DataBase.Gems = totalMoney;
+                }
+                else
+                {
+                    //shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+            case Products.DollarsPack2:
+                totalMoney = DataBase.Gems;
+                if (totalMoney >= reqCost)
+                {
+                    DataBase.Dollars += amount;
+                    totalMoney -= reqCost;
+                    DataBase.Gems = totalMoney;
+                }
+                else
+                {
+                    //shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+            case Products.DollarsPack3:
+                totalMoney = DataBase.Gems;
+                if (totalMoney >= reqCost)
+                {
+                    DataBase.Dollars += amount;
+                    totalMoney -= reqCost;
+                    DataBase.Gems = totalMoney;
+                }
+                else
+                {
+                    //shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+            case Products.DollarsPack4:
+                totalMoney = DataBase.Gems;
+                if (totalMoney >= reqCost)
+                {
+                    DataBase.Dollars += amount;
+                    totalMoney -= reqCost;
+                    DataBase.Gems = totalMoney;
+                }
+                else
+                {
+                    //shopEvent.Invoke();
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
                 break;
