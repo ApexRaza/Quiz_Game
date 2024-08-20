@@ -157,7 +157,15 @@ public class UiManager : MonoBehaviour
 
 
         quizCount++;
-        OpenquestionPanel();
+        if (quizCount > DataBase.QuestionsToTreasure)
+        {
+            quizCount = 0;
+
+            Debug.Log("Level Cleared treasure Obtained");
+            
+        }
+        else
+            OpenquestionPanel();
     }
 
 

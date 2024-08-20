@@ -14,8 +14,12 @@ public class ProgressState : MonoBehaviour
     public Image prizeImage;
 
     public Image[] q_State;
+    public Button prizeBtn;
 
-   
+    private void Start()
+    {
+        prizeBtn.interactable = false;
+    }
 
     public void UpdateState()
     {
@@ -29,14 +33,19 @@ public class ProgressState : MonoBehaviour
         if (stateNb >= DataBase.QuestionsToTreasure)
         {
             stateNb = 0;
-            prizeTxt.text = "Prize Unlocked";
+            prizeTxt.text = "Prize Unlocked  (Open for 40 Keys)";
             prizeImage.color = Color.green;
+            prizeBtn.interactable = true;
         }
 
-
-
-
     }
+
+    public void GetTreasure()
+    {
+        DataBase.Keys -= 40;
+        TreasureSystem.Instance.calculatePercentage(TreasureType.Low);
+    }
+
 
 
 }
