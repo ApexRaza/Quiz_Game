@@ -6,6 +6,7 @@ public class PanelSwitcher : MonoBehaviour
 
 
     public bool isUp,singlePanel;
+    public float defaultHeight, effectHeight;
     public ButtonPanelPair[] buttonPanelPairs;
 
   
@@ -66,14 +67,18 @@ public class PanelSwitcher : MonoBehaviour
         foreach (ButtonPanelPair pair in buttonPanelPairs)
         {
             RectTransform rectTransform = pair.button.transform.GetChild(0).GetComponent<RectTransform>();
-            
+            Image img = pair.button.GetComponent<Image>();
+
             if (pair.button == clickedButton)
             {
-                rectTransform.anchoredPosition = new Vector3(0, isUp ? 50 : -50, 0);
+                rectTransform.anchoredPosition = new Vector3(0, isUp ? effectHeight : -effectHeight, 0);
+               
+                img.enabled = true;
             }
             else
             {
-                rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+                rectTransform.anchoredPosition = new Vector3(0, defaultHeight, 0);
+                img.enabled = false;
             }
         }
     }
@@ -86,13 +91,17 @@ public class PanelSwitcher : MonoBehaviour
             if (i == 0)
             {
                 RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
-                rectTransform.anchoredPosition = new Vector3(0, isUp ? 50 : -50, 0);
+                rectTransform.anchoredPosition = new Vector3(0, isUp ? effectHeight : -effectHeight, 0);
+                Image img = buttonPanelPairs[i].button.GetComponent<Image>();
+                img.enabled = true;
                 buttonPanelPairs[i].panel.SetActive(true);
             }
             else
             {
                 RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
-                rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+                rectTransform.anchoredPosition = new Vector3(0, defaultHeight, 0);
+                Image img = buttonPanelPairs[i].button.GetComponent<Image>();
+                img.enabled = false;
                 buttonPanelPairs[i].panel.SetActive(false);
             }
            
@@ -107,14 +116,16 @@ public class PanelSwitcher : MonoBehaviour
             if (i == 0)
             {
                 RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
-                rectTransform.anchoredPosition = new Vector3(0, isUp ? 50 : -50, 0);
+               
+                rectTransform.anchoredPosition = new Vector3(0, isUp ? effectHeight : -effectHeight, 0);
                 
             }
             else
             {
                 RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
-                rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+                rectTransform.anchoredPosition = new Vector3(0, defaultHeight, 0);
                
+
             }
              buttonPanelPairs[i].panel.SetActive(true);
         }

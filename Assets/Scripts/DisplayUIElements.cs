@@ -34,27 +34,27 @@ public class DisplayUIElements : MonoBehaviour
 
         foreach (TextMeshProUGUI t in gemsTxt)
         {
-            t.text = "Gems: " + DataBase.Gems.ToString();
+            t.text = DataBase.Gems.ToString();
         }
 
         foreach (TextMeshProUGUI t in keysTxt)
         {
-            t.text = "Keys: " + DataBase.Keys.ToString();
+            t.text = DataBase.Keys.ToString();
         }
 
         foreach (TextMeshProUGUI t in dollarsTxt)
         {
-            t.text = "Dollars: " + DataBase.Dollars.ToString();
+            t.text = DataBase.Dollars.ToString();
         }
 
         foreach (TextMeshProUGUI t in livesTxt)
         {
-            t.text = "Lives: " + DataBase.Lives.ToString();
+            t.text = DataBase.Lives.ToString();
         }
 
 
 
-       
+
     }
 
    
