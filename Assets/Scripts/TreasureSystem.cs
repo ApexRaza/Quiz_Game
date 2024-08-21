@@ -31,13 +31,13 @@ public class TreasureSystem : MonoBehaviour
     }
    
     [System.Serializable]
-    public class coinDistributionPercentage
+    public class CoinDistributionPercentage
     {
         public float R1Chance;
         public float R2Chance;
         public float R3Chance;
 
-        public coinDistributionPercentage(float r1, float r2, float r3)
+        public CoinDistributionPercentage(float r1, float r2, float r3)
         {
             R1Chance = r1;
             R2Chance = r2;
@@ -45,47 +45,47 @@ public class TreasureSystem : MonoBehaviour
         }
     }
 
-    private Dictionary<TreasureType, coinDistributionPercentage> treasureCoinDistributionPercntage;
+    private Dictionary<TreasureType, CoinDistributionPercentage> treasureCoinDistributionPercntage;
     // Start is called before the first frame update
     void Start()
     {
-        treasureCoinDistributionPercntage = new Dictionary<TreasureType, coinDistributionPercentage>
+        treasureCoinDistributionPercntage = new Dictionary<TreasureType, CoinDistributionPercentage>
         {
-            {TreasureType.Free, new coinDistributionPercentage(100f, 40f, 20f)},
-            {TreasureType.Low, new coinDistributionPercentage(100f, 40f, 20f)},
-            {TreasureType.Medium, new coinDistributionPercentage(100f, 60f, 30f)},
-            {TreasureType.Gold, new coinDistributionPercentage(100f, 80f, 40f)}
+            {TreasureType.Free, new CoinDistributionPercentage(100f, 40f, 20f)},
+            {TreasureType.Low, new CoinDistributionPercentage(100f, 40f, 20f)},
+            {TreasureType.Medium, new CoinDistributionPercentage(100f, 60f, 30f)},
+            {TreasureType.Gold, new CoinDistributionPercentage(100f, 80f, 40f)}
         };
     }
     //for testing purpose called manually  from ui button
-    public void callTreasure(int i) 
+    public void CallTreasure(int i) 
     {
         if(i == 0)
-            calculatePercentage(TreasureType.Free);
+            CalculatePercentage(TreasureType.Free);
         else if (i == 1)
-            calculatePercentage(TreasureType.Low);
+            CalculatePercentage(TreasureType.Low);
         else if (i == 2)
-            calculatePercentage(TreasureType.Medium);
+            CalculatePercentage(TreasureType.Medium);
         else if (i == 3)
-            calculatePercentage(TreasureType.Gold);
+            CalculatePercentage(TreasureType.Gold);
     }
 
-    public int getIndex(int R, int C)
+    public int GetIndex(int R, int C)
     {
         int num1;
         num1 = ((R - 1) * 5) + (C - 1);
         return num1;
     }
-    public void calculatePercentage(TreasureType treasureType)
+    public void CalculatePercentage(TreasureType treasureType)
     {
-        if (treasureCoinDistributionPercntage.TryGetValue(treasureType, out coinDistributionPercentage coinDistributionPercentage))
+        if (treasureCoinDistributionPercntage.TryGetValue(treasureType, out CoinDistributionPercentage coinDistributionPercentage))
         {
             Debug.Log("Here");
             
             //DataSaver.Instance.loadData();
-            bool r1Chance = checkChance(coinDistributionPercentage.R1Chance);
-            bool r2Chance = checkChance(coinDistributionPercentage.R2Chance);
-            bool r3Chance = checkChance(coinDistributionPercentage.R3Chance);
+            bool r1Chance = CheckChance(coinDistributionPercentage.R1Chance);
+            bool r2Chance = CheckChance(coinDistributionPercentage.R2Chance);
+            bool r3Chance = CheckChance(coinDistributionPercentage.R3Chance);
             Debug.Log(r1Chance ? "R1 Awarded" : "R1 not awarded");
             //R1txt.text = r1Chance ? "R1 Awarded" : "R1 not awarded";
             Debug.Log(r2Chance ? "R2 Awarded" : "R2 not awarded");
@@ -94,38 +94,38 @@ public class TreasureSystem : MonoBehaviour
             //R3txt.text = r3Chance ? "R3 Awarded" : "R3 not awarded";
 
 
-            var r1CoinsRange = getR1Coins(treasureType);
+            var r1CoinsRange = GetR1Coins(treasureType);
             R1Coins = r1Chance ? Random.Range(r1CoinsRange.min, r1CoinsRange.max+1) : 0;
             //R1Coinstxt.text = "Amount of R1 coins is: " + R1Coins.ToString();
-            (R1_1Coins, R1_2Coins, R1_3Coins)=distributeCoins(R1Coins);
+            (R1_1Coins, R1_2Coins, R1_3Coins) = DistributeCoins(R1Coins);
 
             Debug.Log("R1Col: " + R1Col);
-            DataBase.SetCoins(getIndex(DataBase.LevelUp, R1Col), R1Coins);
-            Debug.Log("R1 Coins Index: " + getIndex(DataBase.LevelUp, R1Col));
+            DataBase.SetCoins(GetIndex(DataBase.LevelUp, R1Col), R1Coins);
+            Debug.Log("R1 Coins Index: " + GetIndex(DataBase.LevelUp, R1Col));
             Debug.Log("1st Box Coins: " + R1_1Coins + " 2nd Box Coins: " + R1_2Coins + " 3rd Box Coins: " + R1_3Coins);
             //R1Divtxt.text = "1st Box Coins: " + R1_1Coins + " 2nd Box Coins: " + R1_2Coins + " 3rd Box Coins: " + R1_3Coins;
 
-            var r2CoinsRange = getR2Coins(treasureType);
+            var r2CoinsRange = GetR2Coins(treasureType);
             R2Coins = r2Chance ? Random.Range(r2CoinsRange.min, r2CoinsRange.max+1) : 0;
-            DataBase.SetCoins(getIndex(DataBase.LevelUp, R2Col), R2Coins);
-            Debug.Log("R2 Coins Index: " + getIndex(DataBase.LevelUp, R2Col));
+            DataBase.SetCoins(GetIndex(DataBase.LevelUp, R2Col), R2Coins);
+            Debug.Log("R2 Coins Index: " + GetIndex(DataBase.LevelUp, R2Col));
             Debug.Log("Amount of R2 coins is: " + R2Coins.ToString());
             //R2Coinstxt.text = "Amount of R2 coins is: " + R2Coins.ToString();
 
-            var r3CoinsRange = getR3Coins(treasureType);
+            var r3CoinsRange = GetR3Coins(treasureType);
             R3Coins = r3Chance ? Random.Range(r3CoinsRange.min, r3CoinsRange.max+1) : 0;
-            DataBase.SetCoins(getIndex(DataBase.LevelUp, R3Col), R3Coins);
-            Debug.Log("R3 Coins Index: " + getIndex(DataBase.LevelUp, R3Col));
+            DataBase.SetCoins(GetIndex(DataBase.LevelUp, R3Col), R3Coins);
+            Debug.Log("R3 Coins Index: " + GetIndex(DataBase.LevelUp, R3Col));
             Debug.Log("Amount of R3 coins is: " + R3Coins.ToString());
             //R3Coinstxt.text = "Amount of R3 coins is: " + R3Coins.ToString();
 
-            var gemsRange = getGems(treasureType);
+            var gemsRange = GetGems(treasureType);
             packGems = Random.Range(gemsRange.min, gemsRange.max);
             DataBase.Gems = DataBase.Gems + packGems;
             //gemsTxt.text = "Amount of Gems is: " + DataBase.Gems.ToString();
             //packGemsTxt.text = "Amount of Gems in pack is:" + packGems.ToString();
 
-            var dollarsRange = getDollars(treasureType);
+            var dollarsRange = GetDollars(treasureType);
             packDollars = Random.Range(dollarsRange.min, dollarsRange.max);
             DataBase.Dollars = DataBase.Dollars + packDollars;
             //dollarsTxt.text = "Amount of Dollars is: " + DataBase.Dollars.ToString();
@@ -142,11 +142,11 @@ public class TreasureSystem : MonoBehaviour
         }
     }
     
-    private bool checkChance(float chance)
+    private bool CheckChance(float chance)
     {
         return Random.Range(0f, 100f) < chance;
     }
-    private (int, int, int) distributeCoins(int r1CoinsAmount) 
+    private (int, int, int) DistributeCoins(int r1CoinsAmount) 
     {
         int r1_1 = 0;
         int r1_2 = 0; 
@@ -168,7 +168,7 @@ public class TreasureSystem : MonoBehaviour
         }
         return(r1_1, r1_2, r1_3) ;
     }
-    private (int min, int max) getR1Coins(TreasureType treasureType)
+    private (int min, int max) GetR1Coins(TreasureType treasureType)
     {
         return treasureType
             switch
@@ -180,7 +180,7 @@ public class TreasureSystem : MonoBehaviour
             _ => (0, 1)
         };
     }
-    private (int min, int max) getR2Coins(TreasureType treasureType)
+    private (int min, int max) GetR2Coins(TreasureType treasureType)
     {
         return treasureType
             switch
@@ -192,7 +192,7 @@ public class TreasureSystem : MonoBehaviour
             _ => (0, 1)
         };
     }
-    private (int min, int max) getR3Coins(TreasureType treasureType)
+    private (int min, int max) GetR3Coins(TreasureType treasureType)
     {
         return treasureType
             switch
@@ -204,7 +204,7 @@ public class TreasureSystem : MonoBehaviour
             _ => (0, 1)
         };
     }
-    private (int min, int max) getGems(TreasureType treasureType)
+    private (int min, int max) GetGems(TreasureType treasureType)
     {
         return treasureType
             switch
@@ -216,7 +216,7 @@ public class TreasureSystem : MonoBehaviour
             _ => (0, 1)
         };
     }
-    private (int min, int max) getDollars(TreasureType treasureType)
+    private (int min, int max) GetDollars(TreasureType treasureType)
     {
         return treasureType
             switch
@@ -234,7 +234,7 @@ public class TreasureSystem : MonoBehaviour
         int num = 0;
         for(int i = 1; i <= 5; i++) 
         {
-            if(DataBase.GetCoins(getIndex(level, i)) >= 10)
+            if(DataBase.GetCoins(GetIndex(level, i)) >= 10)
             {
                 num++;
             }
@@ -253,13 +253,13 @@ public class TreasureSystem : MonoBehaviour
         int extra = 0;
         for (int i = 1; i <= 5; i++) 
         {
-            num = DataBase.GetCoins(getIndex(level, i));
+            num = DataBase.GetCoins(GetIndex(level, i));
             extra = 0;
             for(int j = 10; j < num; j++) 
             {
                 extra++;
             }
-            Debug.Log("Extra Coins for trade index: " + getIndex(level, i) + " Value " + extra);
+            Debug.Log("Extra Coins for trade index: " + GetIndex(level, i) + " Value " + extra);
         }
     }
 }

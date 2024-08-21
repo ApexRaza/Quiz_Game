@@ -26,9 +26,9 @@ public class Shop : MonoBehaviour
     private void Start()
     {
         button = gameObject.GetComponent<Button>();
-        button.onClick.AddListener(buyProduct);
+        button.onClick.AddListener(BuyProduct);
     }
-    public void buyProduct() 
+    public void BuyProduct() 
     {
         switch (product) 
         {
@@ -36,7 +36,7 @@ public class Shop : MonoBehaviour
                 totalMoney = DataBase.Keys;
                 if (totalMoney >= reqCost)
                 {
-                    TreasureSystem.Instance.calculatePercentage(treasureType:TreasureType.Low);
+                    TreasureSystem.Instance.CalculatePercentage(treasureType:TreasureType.Low);
                     totalMoney -= reqCost;
                     DataBase.Keys = totalMoney;
                 }
@@ -51,7 +51,7 @@ public class Shop : MonoBehaviour
                 totalMoney = DataBase.Keys;
                 if (totalMoney >= reqCost)
                 {
-                    TreasureSystem.Instance.calculatePercentage(treasureType: TreasureType.Medium); 
+                    TreasureSystem.Instance.CalculatePercentage(treasureType: TreasureType.Medium); 
                     totalMoney -= reqCost;
                     DataBase.Keys = totalMoney;
                 }
@@ -66,7 +66,7 @@ public class Shop : MonoBehaviour
                 totalMoney = DataBase.Gems;
                 if (totalMoney >= reqCost)
                 {
-                    TreasureSystem.Instance.calculatePercentage(treasureType: TreasureType.Gold); 
+                    TreasureSystem.Instance.CalculatePercentage(treasureType: TreasureType.Gold); 
                     totalMoney -= reqCost;
                     DataBase.Gems = totalMoney;
                 }

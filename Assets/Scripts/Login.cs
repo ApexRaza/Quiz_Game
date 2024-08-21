@@ -10,17 +10,14 @@ using Firebase.Database;
 
 public class Login : MonoBehaviour
 {
-    public GameObject congo;
     public GameObject dbObj;
-    public GameObject googleSignInBtn;
     public string webClientId = "841125010072-943riqkh4192cev49ptkugh59m1hbs8i.apps.googleusercontent.com";
     
-
     private GoogleSignInConfiguration configuration;
     private FirebaseAuth auth;
-    public Text userNameText;
+
     /// <Test>
-    public void sceneChange() 
+    public void SceneChange() 
     {
         SceneManager.LoadScene(1);
     }
@@ -74,27 +71,15 @@ public class Login : MonoBehaviour
             if (task.IsCompleted) 
             {
                 AuthResult result = task.Result;
-
-                //can save user id in playerprefs
                 
                 if (PlayerPrefs.HasKey("FirstTimeAnom"))
                 {
                     dbObj.SetActive(true);
-                    DataSaver.Instance.saveUsername();
+                    DataSaver.Instance.SaveUsername();
                     DataSaver.Instance.SaveData();
                     Debug.Log("isAnom: " + result.User.IsAnonymous);
                     Debug.Log("FirstTimeAnom value: " + PlayerPrefs.GetInt("FirstTimeAnom"));
-                    congo.SetActive(true);
-                    if (result.User.IsAnonymous)
-                    {
-                        googleSignInBtn.SetActive(true);
-                    }
-                    else
-                    {
-                        googleSignInBtn.SetActive(false);
-                    }
-                    userNameText.text = "Welcome, " + result.User.UserId + "!";
-
+                    LoginSuccess(result.User.UserId);
                 }
                 else
                 {
@@ -102,27 +87,26 @@ public class Login : MonoBehaviour
                     PlayerPrefs.Save();
                     PlayerPrefs.SetInt("FirstTimeAnom", 1);
                 }
-                GuestLoginSuccess(result.User.UserId);
             }
-            
         });
 
         //string userId = SystemInfo.deviceUniqueIdentifier;
         //Invoke(nameof(GuestLoginSuccess), 1f);
     }
 
-    void GuestLoginSuccess(string id)
+    void LoginSuccess(string id)
     {
-        Debug.Log("Guest Login Successful");
-        sceneChange();
+        Debug.Log("Login Successful");
+        SceneChange();
     }
 
     ////..........................................Google SignIn.............................................................////
     public void AnomLinkGoogle() 
     {
-        DataSaver.Instance.loadData();
+        DataSaver.Instance.LoadData();
         DataSaver.Instance.dbRef.Child("users").Child(DataSaver.Instance.userID).RemoveValueAsync();
         OnGoogleSignIn();
+        DataSaver.Instance.SaveData();
     }
     public void OnGoogleSignIn()
     {
@@ -160,22 +144,21 @@ public class Login : MonoBehaviour
         else
         {
             Debug.Log("Welcome: " + task.Result.DisplayName + "!");
-            congo.SetActive(true);
             dbObj.SetActive(true);
             DataBase.UserName = task.Result.DisplayName;
-            if (DataSaver.Instance.dbRef.Child("users").Child(task.Result.UserId) == null) 
-            {
-                DataSaver.Instance.SaveData();
-            }
-            else 
-            {
-                DataSaver.Instance.loadData();
-            }
-            
+            //if (DataSaver.Instance.dbRef.Child("users").Child(task.Result.UserId) == null) 
+            //{
+            //    DataSaver.Instance.SaveData();
+            //}
+            //else 
+            //{
+            //    DataSaver.Instance.LoadData();
+            //}
+            CheckUserDataExists(task.Result.UserId);
+            //LoginSuccess(task.Result.UserId);
             //DataSaver.Instance.SaveData();
-
             // Authenticate with Firebase
-            AuthenticateWithFirebase(task.Result.IdToken);
+            //AuthenticateWithFirebase(task.Result.IdToken);
         }
     }
     private void AuthenticateWithFirebase(string idToken)
@@ -193,19 +176,6 @@ public class Login : MonoBehaviour
             if (user != null)
             {
                 Debug.Log("isAnom: " + user.IsAnonymous);
-                congo.SetActive(true);
-                if (user.IsAnonymous) 
-                {
-                    googleSignInBtn.SetActive(true);
-                }
-                else
-                {
-                    googleSignInBtn.SetActive(false);
-                }
-                if (userNameText != null)
-                {
-                    userNameText.text = "Welcome, " + user.DisplayName + "!";
-                }
                 dbObj.SetActive(true);
                 CheckUserDataExists(user.UserId);
             }
@@ -228,13 +198,15 @@ public class Login : MonoBehaviour
                 if (snapshot.Exists)
                 {
                     Debug.Log("User data exists, loading data...");
-                    DataSaver.Instance.loadData();
+                    DataSaver.Instance.LoadData();
+                    LoginSuccess(userId);
                 }
                 else
                 {
                     Debug.Log("User data does not exist, saving new data...");
 
                     DataSaver.Instance.SaveData();
+                    LoginSuccess(userId);
                 }
             }
             else
@@ -260,35 +232,14 @@ public class Login : MonoBehaviour
             {
                 // User is signed in
                 Debug.Log("User is already signed in: " + user.DisplayName);
-                congo.SetActive(true);
                 dbObj.SetActive(true);
-                if (user.IsAnonymous) 
-                {
-                    googleSignInBtn.SetActive(true);
-                }
-                else 
-                {
-                    googleSignInBtn.SetActive(false);
-                }
-                DataSaver.Instance.loadData();
-                if (userNameText != null)
-                {
-                    if (user.IsAnonymous) 
-                    { 
-                        userNameText.text = "Welcome, " + user.UserId + "!"; 
-                    } 
-                    else 
-                    {
-                        userNameText.text = "Welcome, " + user.DisplayName + "!";
-                    }
-                }
-                sceneChange();
+                DataSaver.Instance.LoadData();
+                SceneChange();
             }
             else
             {
                 // No user is signed in
                 Debug.Log("No user is signed in.");
-                congo.SetActive(false);
                 dbObj.SetActive(false);
             }
         }

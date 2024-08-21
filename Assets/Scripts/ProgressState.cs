@@ -43,7 +43,7 @@ public class ProgressState : MonoBehaviour
     public void GetTreasure()
     {
         DataBase.Keys -= 40;
-        TreasureSystem.Instance.calculatePercentage(TreasureType.Low);
+        TreasureSystem.Instance.CalculatePercentage(TreasureType.Low);
     }
 
 

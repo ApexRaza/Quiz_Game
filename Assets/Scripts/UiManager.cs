@@ -106,7 +106,7 @@ public class UiManager : MonoBehaviour
             quizCount = 0;
             num = DataBase.GetQuiz(quizManager.type);
             Debug.Log("Level Cleared treasure Obtained");
-            TreasureSystem.Instance.calculatePercentage(TreasureType.Low);
+            TreasureSystem.Instance.CalculatePercentage(TreasureType.Low);
         }
         else
         {

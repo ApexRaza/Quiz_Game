@@ -43,10 +43,9 @@ public class DataSaver : MonoBehaviour
         }
         auth = FirebaseAuth.DefaultInstance;
         dbRef = FirebaseDatabase.DefaultInstance.RootReference;
-
     }
 
-    public string userName(FirebaseUser user)
+    public string UserName(FirebaseUser user)
     {
         if (user.IsAnonymous)
         {
@@ -58,16 +57,15 @@ public class DataSaver : MonoBehaviour
         }
     }
 
-    public void saveUsername() 
+    public void SaveUsername() 
     {
         FirebaseUser user = auth.CurrentUser;
-        dts.userName = userName(user);
+        dts.userName = UserName(user);
         DataBase.UserName = dts.userName;
-        //string json = JsonUtility.ToJson(dts);
-        //dbRef.Child("users").Child(userID).SetRawJsonValueAsync(json);
     }
-    public void assignData() 
+    public void AssignData() 
     {
+        Debug.Log("Inside AssignData() Function");
         FirebaseUser user = auth.CurrentUser;
         userID = user.UserId;
         if (user.IsAnonymous) 
@@ -94,14 +92,11 @@ public class DataSaver : MonoBehaviour
             if (dts.Coins.Count <= num)
             {
                 dts.Coins.Add(DataBase.GetCoins(num));
-              //  Debug.Log("Inside if : " + DataBase.GetCoins(num));
             }
             else 
             {
                 dts.Coins[num] = DataBase.GetCoins(num);
-               // Debug.Log("Inside else : " + DataBase.GetCoins(num));
             }
-           // Debug.Log("outside if-else : " + DataBase.GetCoins(num));
         }
 
         for (int num = 0; num < 16; num++)
@@ -109,27 +104,26 @@ public class DataSaver : MonoBehaviour
             if (dts.Quizes.Count <= num)
             {
                 dts.Quizes.Add(DataBase.GetQuiz(num));
-
             }
             else
             {
                 dts.Quizes[num] = DataBase.GetQuiz(num);
-
             }
         }
     }
     public void SaveData() 
     {
-        assignData();
+        Debug.Log("Inside SaveData() Function");
+        AssignData();
         string json = JsonUtility.ToJson(dts);
         dbRef.Child("users").Child(userID).SetRawJsonValueAsync(json);
     }
 
-    public void loadData()
+    public void LoadData()
     {
-        StartCoroutine(loadDataEnum());
+        StartCoroutine(LoadDataEnum());
     }
-    IEnumerator loadDataEnum() 
+    IEnumerator LoadDataEnum() 
     {
         var serverData = dbRef.Child("users").Child(userID).GetValueAsync();
         yield return new WaitUntil(predicate: () => serverData.IsCompleted);
@@ -143,17 +137,16 @@ public class DataSaver : MonoBehaviour
             Debug.Log("Server Data is found");
             dts = JsonUtility.FromJson<DataToSave>(jsonData);
             Debug.Log("load Username: " + dts.userName);
-            updateData();
+            UpdateData();
         }
         else 
         {
-
             Debug.Log("Else load Username: " + dts.userName);
             SaveData();
         }
     }
 
-    public void updateData() 
+    public void UpdateData() 
     {
         // update player prefs using 
         if (auth.CurrentUser.IsAnonymous) 
