@@ -902,10 +902,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe7722bf9ae45c4f89d7b175ca03923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 0.25
-  color:
+  enableOutline: 1
+  outlineWidth: 0.1
+  outlineColor:
     serializedVersion: 2
-    rgba: 4280487682
+    rgba: 4280225024
+  enableShadow: 0
+  offsetX: 0
+  offsetY: 0
+  delate: 0
+  softness: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1200,7 +1209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &903083464
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2222,10 +2231,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe7722bf9ae45c4f89d7b175ca03923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 0.25
-  color:
+  enableOutline: 1
+  outlineWidth: 0.1
+  outlineColor:
     serializedVersion: 2
-    rgba: 4278194688
+    rgba: 4278196737
+  enableShadow: 0
+  offsetX: 0
+  offsetY: 0
+  delate: 0
+  softness: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 0
 --- !u!1 &1645089567
 GameObject:
   m_ObjectHideFlags: 0
@@ -3105,10 +3123,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe7722bf9ae45c4f89d7b175ca03923, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 0.25
-  color:
+  enableOutline: 1
+  outlineWidth: 0.1
+  outlineColor:
     serializedVersion: 2
-    rgba: 4278782217
+    rgba: 4279045645
+  enableShadow: 0
+  offsetX: 0
+  offsetY: 0
+  delate: 0
+  softness: 0
+  shadowColor:
+    serializedVersion: 2
+    rgba: 0
 --- !u!1 &2035316687
 GameObject:
   m_ObjectHideFlags: 0

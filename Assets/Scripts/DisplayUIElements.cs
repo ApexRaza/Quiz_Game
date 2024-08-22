@@ -10,6 +10,7 @@ public class DisplayUIElements : MonoBehaviour
  
 
     public TextMeshProUGUI[] gemsTxt, keysTxt, dollarsTxt, livesTxt;
+    public TextMeshProUGUI usernameTxt;
 
     public GameObject bottomBar, middlePanel;
 
@@ -52,7 +53,7 @@ public class DisplayUIElements : MonoBehaviour
             t.text = DataBase.Lives.ToString();
         }
 
-
+        usernameTxt.text = DataBase.UserName;
 
 
     }
