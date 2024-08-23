@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     CollectionsSO collectionSO;
     QuizManager quizManager;
+    //private Login login;
 
 
     // Start is called before the first frame update
@@ -21,13 +22,10 @@ public class GameManager : MonoBehaviour
         quizManager.SetQuizType(quizType);
     }
 
-
-   
-
-
-
-
-
+    public void TestGoogleLogin() 
+    {
+        Login.Instance.AnomLinkGoogle();   
+    }
     // Update is called once per frame
     void Update()
     {

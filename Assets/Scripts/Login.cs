@@ -7,33 +7,53 @@ using Firebase.Auth;
 using Firebase.Extensions;
 using UnityEngine.SceneManagement;
 using Firebase.Database;
+using Facebook.Unity;
+using System;
+using System.Collections;
 
 public class Login : MonoBehaviour
 {
+    private static Login instance;
+    public static Login Instance;
     public GameObject dbObj;
     public string webClientId = "841125010072-943riqkh4192cev49ptkugh59m1hbs8i.apps.googleusercontent.com";
     
     private GoogleSignInConfiguration configuration;
-    private FirebaseAuth auth;
+    public FirebaseAuth auth;
 
     /// <Test>
-    public void SceneChange() 
-    {
-        SceneManager.LoadScene(1);
-    }
+    
     /// </Test>
     // Defer the configuration creation until Awake so the web Client ID
     // Can be set via the property inspector in the Editor.
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        if (instance == null)
+        {
+            instance = this;
+            Instance = instance;
+            DontDestroyOnLoad(gameObject);
+        }
         configuration = new GoogleSignInConfiguration
         {
             WebClientId = webClientId,
             RequestIdToken = true
         };
+        if (!FB.IsInitialized)
+        {
+            // Initialize the Facebook SDK
+            Debug.Log("Initialize the Facebook SDK");
+            FB.Init(InitCallback, OnHideUnity);
+        }
+        else
+        {
+            // Already initialized, signal an app activation App Event
+            Debug.Log("Already initialized, signal an app activation App Event");
+            FB.ActivateApp();
+        }
         auth = FirebaseAuth.DefaultInstance;
         
+        //FB.Android.RetrieveLoginStatus(LoginStatusCallback);
     }
     private void Start()
     {
@@ -45,15 +65,18 @@ public class Login : MonoBehaviour
         }
         else 
         {
+            Debug.Log("Start else");
             CheckSignInStatus();
         }
     }
 
     ////..........................................Guest SignIn............................................................./////
+
     public async void GuestLogin()
     {
         await AnonymousLoginBtn();
     }
+
     async Task AnonymousLoginBtn()
     {
         await auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(task =>
@@ -94,21 +117,10 @@ public class Login : MonoBehaviour
         //Invoke(nameof(GuestLoginSuccess), 1f);
     }
 
-    void LoginSuccess(string id)
-    {
-        Debug.Log("Login Successful");
-        SceneChange();
-    }
 
-    ////..........................................Google SignIn.............................................................////
-    public void AnomLinkGoogle() 
-    {
-        DataSaver.Instance.LoadData();
-        DataSaver.Instance.dbRef.Child("users").Child(DataSaver.Instance.userID).RemoveValueAsync();
-        OnGoogleSignIn();
-        DataSaver.Instance.SaveData();
-    }
-    public void OnGoogleSignIn()
+    ////..........................................Google LogIn.............................................................////
+    
+    public void GoogleLogin()
     {
         GoogleSignIn.Configuration = configuration;
         GoogleSignIn.Configuration.UseGameSignIn = false;
@@ -118,6 +130,15 @@ public class Login : MonoBehaviour
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(
           OnAuthenticationFinished, TaskScheduler.Default);
     }
+
+    public void AnomLinkGoogle()
+    {
+        DataSaver.Instance.LoadData();
+        DataSaver.Instance.dbRef.Child("users").Child(DataSaver.Instance.userID).RemoveValueAsync();
+        GoogleLogin();
+        DataSaver.Instance.SaveData();
+    }
+
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
     {
         if (task.IsFaulted)
@@ -146,22 +167,14 @@ public class Login : MonoBehaviour
             Debug.Log("Welcome: " + task.Result.DisplayName + "!");
             dbObj.SetActive(true);
             DataBase.UserName = task.Result.DisplayName;
-            //if (DataSaver.Instance.dbRef.Child("users").Child(task.Result.UserId) == null) 
-            //{
-            //    DataSaver.Instance.SaveData();
-            //}
-            //else 
-            //{
-            //    DataSaver.Instance.LoadData();
-            //}
             CheckUserDataExists(task.Result.UserId);
-            //LoginSuccess(task.Result.UserId);
-            //DataSaver.Instance.SaveData();
+
             // Authenticate with Firebase
-            //AuthenticateWithFirebase(task.Result.IdToken);
+            //GoogleAuth(task.Result.IdToken);
         }
     }
-    private void AuthenticateWithFirebase(string idToken)
+
+    private void GoogleAuth(string idToken)
     {
         Credential credential = GoogleAuthProvider.GetCredential(idToken, null);
         auth.SignInWithCredentialAsync(credential).ContinueWith(task =>
@@ -188,7 +201,137 @@ public class Login : MonoBehaviour
             //DataSaver.Instance.SaveData();
         });
     }
-    private void CheckUserDataExists(string userId) 
+
+    public void GoogleSignOut()
+    {
+        Debug.Log("Calling SignOut");
+        GoogleSignIn.DefaultInstance.SignOut();
+    }
+
+    ////..........................................Facebook LogIn............................................................./////
+
+    private void InitCallback()
+    {
+        if (FB.IsInitialized)
+        {
+            // Signal an app activation App Event
+            Debug.Log("Signal an app activation App Event");
+            FB.ActivateApp();
+            // Continue with Facebook SDK
+            // ...
+        }
+        else
+        {
+            Debug.Log("Failed to Initialize the Facebook SDK");
+        }
+    }
+
+    private void OnHideUnity(bool isGameShown)
+    {
+        if (!isGameShown)
+        {
+            // Pause the game - we will need to hide
+            Debug.Log("Pause the game - we will need to hide");
+            Time.timeScale = 0;
+        }
+        else
+        {
+            // Resume the game - we're getting focus again
+            Debug.Log("Resume the game - we're getting focus again");
+            Time.timeScale = 1;
+        }
+    }
+
+    public void FBLogin() 
+    {
+        var perms = new List<string>() { "public_profile", "email" };
+        Debug.Log("FB Login perms" + perms);
+        FB.LogInWithReadPermissions(perms, AuthCallback);
+    }
+
+    private void AuthCallback(ILoginResult result)
+    {
+        if (FB.IsLoggedIn)
+        {
+            // AccessToken class will have session details
+            var aToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
+            Debug.Log("Access Token" + aToken);
+            FBAuth(aToken);
+
+        }
+        else
+        {
+            Debug.Log("User cancelled login");
+        }
+    }
+
+    private async void FBAuth(string accessToken) 
+    {
+        Credential credential = FacebookAuthProvider.GetCredential(accessToken);
+        await auth.SignInAndRetrieveDataWithCredentialAsync(credential).ContinueWithOnMainThread(task => {
+            try 
+            {
+                AuthResult result = task.Result;
+
+                Debug.Log("FB SignIn. ");
+                dbObj.SetActive(true);
+                //Debug.LogError("task.Result.DisplayName " + result.User.DisplayName);
+                //Debug.LogError("auth.CurrentUser.DisplayName " + auth.CurrentUser.DisplayName);
+                //Debug.LogError("task.Result.UserId " + result.User.UserId);
+                //Debug.LogError("auth.CurrentUser.UserId " + auth.CurrentUser.UserId);
+
+                DataBase.UserName = result.User.DisplayName;
+                CheckUserDataExists(result.User.UserId);
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("FB SignIn Failed. " + ex.Message);
+            }
+        });
+    }
+
+    private void LoginStatusCallback(ILoginStatusResult result)
+    {
+        if (!string.IsNullOrEmpty(result.Error))
+        {
+            Debug.Log("Error: " + result.Error);
+        }
+        else if (result.Failed)
+        {
+            Debug.Log("Failure: Access Token could not be retrieved");
+        }
+        else
+        {
+            // Successfully logged user in
+            // A popup notification will appear that says "Logged in as <User Name>"
+            Debug.Log("Success: " + result.AccessToken.UserId);
+            CheckUserDataExists(result.AccessToken.UserId);
+        }
+    }
+    ////..........................................Other.............................................................////
+
+    private void CheckSignInStatus()
+    {
+        if(auth.CurrentUser != null) 
+        {
+            // User is signed in
+            Debug.Log("User is already signed in: " + auth.CurrentUser.DisplayName);
+            Debug.Log("Is User Anom: " + auth.CurrentUser.IsAnonymous);
+            dbObj.SetActive(true);
+            StartCoroutine(LoadDataAndChangeScene());
+            //DataSaver.Instance.LoadData();
+            //SceneChange();
+        }
+        else 
+        {
+            // No user is signed in
+            Debug.Log("No user is signed in.");
+            dbObj.SetActive(false);
+            return;
+        }
+    }
+
+    private void CheckUserDataExists(string userId)
     {
         DataSaver.Instance.dbRef.Child("users").Child(userId).GetValueAsync().ContinueWithOnMainThread(task =>
         {
@@ -198,8 +341,9 @@ public class Login : MonoBehaviour
                 if (snapshot.Exists)
                 {
                     Debug.Log("User data exists, loading data...");
-                    DataSaver.Instance.LoadData();
-                    LoginSuccess(userId);
+                    StartCoroutine(LoadDataAndChangeScene());
+                    //DataSaver.Instance.LoadData();
+                    //LoginSuccess(userId);
                 }
                 else
                 {
@@ -216,36 +360,23 @@ public class Login : MonoBehaviour
         });
     }
 
-    public void OnGoogleSignOut()
+    private IEnumerator LoadDataAndChangeScene()
     {
-        Debug.Log("Calling SignOut");
-        GoogleSignIn.DefaultInstance.SignOut();
+        // Start the LoadData coroutine and wait for it to finish
+        Debug.Log("Start the LoadData coroutine and wait for it to finish");
+        yield return StartCoroutine(DataSaver.Instance.LoadDataEnum());
+        LoginSuccess(auth.CurrentUser.UserId);
     }
 
-    private void CheckSignInStatus()
+    private void LoginSuccess(string id)
     {
+        Debug.Log("Login Successful");
+        SceneChange();
+    }
 
-        if(auth.CurrentUser != null) 
-        {
-            FirebaseUser user = auth.CurrentUser;
-            if (user != null)
-            {
-                // User is signed in
-                Debug.Log("User is already signed in: " + user.DisplayName);
-                dbObj.SetActive(true);
-                DataSaver.Instance.LoadData();
-                SceneChange();
-            }
-            else
-            {
-                // No user is signed in
-                Debug.Log("No user is signed in.");
-                dbObj.SetActive(false);
-            }
-        }
-        else 
-        {
-            return;
-        }
+    public void SceneChange()
+    {
+        Debug.Log("SceneChange");
+        SceneManager.LoadScene(1);
     }
 }

@@ -1,7 +1,9 @@
 
 using UnityEngine;
 using TMPro;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.Collections;
 
 
@@ -66,8 +68,7 @@ public class TextMeshProEffect : MonoBehaviour
     }
 
 }
-
-
+#if UNITY_EDITOR
 
 
 [CustomEditor(typeof(TextMeshProEffect))]
@@ -109,3 +110,4 @@ public class MyScriptEditor : Editor
 
     }
 }
+#endif

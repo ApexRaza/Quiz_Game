@@ -102,8 +102,9 @@ public class DataBase
 
    public static string UserName 
     {
+        
         get { return PlayerPrefs.GetString("Userame", ""); }
-        set { PlayerPrefs.SetString("Userame", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
+        set { PlayerPrefs.SetString("Userame", value); PlayerPrefs.Save(); /*DataSaver.Instance.SaveData(); Debug.Log("In Database: User Name");*/ }
     }
 
 
