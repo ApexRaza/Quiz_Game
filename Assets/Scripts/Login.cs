@@ -209,7 +209,7 @@ public class Login : MonoBehaviour
     }
 
     ////..........................................Facebook LogIn............................................................./////
-
+    ///
     private void InitCallback()
     {
         if (FB.IsInitialized)
@@ -257,7 +257,6 @@ public class Login : MonoBehaviour
             var aToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
             Debug.Log("Access Token" + aToken);
             FBAuth(aToken);
-
         }
         else
         {
@@ -275,13 +274,60 @@ public class Login : MonoBehaviour
 
                 Debug.Log("FB SignIn. ");
                 dbObj.SetActive(true);
-                //Debug.LogError("task.Result.DisplayName " + result.User.DisplayName);
-                //Debug.LogError("auth.CurrentUser.DisplayName " + auth.CurrentUser.DisplayName);
-                //Debug.LogError("task.Result.UserId " + result.User.UserId);
-                //Debug.LogError("auth.CurrentUser.UserId " + auth.CurrentUser.UserId);
 
                 DataBase.UserName = result.User.DisplayName;
                 CheckUserDataExists(result.User.UserId);
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("FB SignIn Failed. " + ex.Message);
+            }
+        });
+    }
+
+    public void AnomLinkFB()
+    {
+        var perms = new List<string>() { "public_profile", "email" };
+        FB.LogInWithPublishPermissions(perms, AnonFBAuthCallback);
+    }
+
+    public void AnonFBAuthCallback(ILoginResult result)
+    {
+        if (FB.IsLoggedIn)
+        {
+            // AccessToken class will have session details
+            var aToken = AccessToken.CurrentAccessToken.TokenString;
+            Debug.Log("Access Token" + aToken);
+            AnomLinkFBPermissions(aToken);
+        }
+        else
+        {
+            Debug.Log("User cancelled login");
+        }
+    }
+
+    public async void AnomLinkFBPermissions(string accessToken)
+    {
+        Credential credential = FacebookAuthProvider.GetCredential(accessToken);
+
+        await auth.CurrentUser.LinkWithCredentialAsync(credential).ContinueWithOnMainThread(task => {
+
+            try
+            {
+                AuthResult result = task.Result;
+                FB.API("/me?fields=name", HttpMethod.GET, response =>
+                {
+                    string facebookName = response.ResultDictionary["name"] as string;
+                    UserProfile profile = new UserProfile { DisplayName = facebookName };
+                    result.User.UpdateUserProfileAsync(profile).ContinueWithOnMainThread(profileUpdateTask => {
+                        if (profileUpdateTask.IsCompleted)
+                        {
+                            Debug.Log("User profile updated with Facebook name: " + result.User.DisplayName);
+                            DataBase.UserName = result.User.DisplayName;
+                            DataSaver.Instance.SaveData();
+                        }
+                    });
+                });
             }
             catch (Exception ex)
             {
@@ -308,6 +354,7 @@ public class Login : MonoBehaviour
             CheckUserDataExists(result.AccessToken.UserId);
         }
     }
+
     ////..........................................Other.............................................................////
 
     private void CheckSignInStatus()
@@ -319,8 +366,6 @@ public class Login : MonoBehaviour
             Debug.Log("Is User Anom: " + auth.CurrentUser.IsAnonymous);
             dbObj.SetActive(true);
             StartCoroutine(LoadDataAndChangeScene());
-            //DataSaver.Instance.LoadData();
-            //SceneChange();
         }
         else 
         {
