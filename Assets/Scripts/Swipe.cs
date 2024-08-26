@@ -50,12 +50,13 @@ public class Swipe : MonoBehaviour
                             if (rightBtn.anchoredPosition.x > 0)
                             {
                                 Debug.Log("Right Anwser");
-                                uiManager.Next();
-                                timer.ResetTimer();
+                                uiManager.StartCoroutine(nameof(UiManager.Next));
+                                timer.startTimer = false;//.ResetTimer();
                             }
                             else
                             {
                                 Debug.Log("Dumb Anwser");
+                                uiManager.StartCoroutine(nameof(UiManager.WrongAns));
                                 WrongAns();
                             }
                             
@@ -66,12 +67,13 @@ public class Swipe : MonoBehaviour
                             if (rightBtn.anchoredPosition.x < 0)
                             {
                                 Debug.Log("Right Anwser");
-                                uiManager.Next();
-                                timer.ResetTimer();
+                                uiManager.StartCoroutine(nameof(UiManager.Next));
+                                timer.startTimer = false;//.ResetTimer();
                             }
                             else
                             {
                                 Debug.Log("Dumb Anwser");
+                                uiManager.StartCoroutine(nameof(UiManager.WrongAns));
                                 WrongAns();
                             }
                            

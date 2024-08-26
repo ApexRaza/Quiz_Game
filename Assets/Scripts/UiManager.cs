@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
@@ -7,6 +8,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class UiManager : MonoBehaviour
 {
@@ -24,37 +26,7 @@ public class UiManager : MonoBehaviour
     public ProgressState progressState;
      string[] game_ticket_id;
     int quizCount=0;
-    void TEstURL()
-    {
-
-        string url = "https://ourgamedomain.com?ref[]=E10DD63DBF44A3A&ref[]=4B039523023C5D3"; //Application.absoluteURL ;
-        
-        Uri uri = new Uri(url);
-
-        // Extract the query string
-        string query = uri.Query;
-        NameValueCollection queryParams = HttpUtility.ParseQueryString(query);
-
-        // Extract the 'ref[]' parameters (Note: you might need to use "ref%5B%5D" for encoded brackets)
-        string[] refValues = queryParams.GetValues("ref[]");
-
-        if (refValues != null)
-        {
-            game_ticket_id = new string[refValues.Length];
-
-            for (int i = 0; i < refValues.Length; i++)
-            {
-                Debug.Log($"ref[{i}] = {refValues[i]}");
-
-                game_ticket_id[i] = refValues[i];
-            }
-        }
-        else
-        {
-            Debug.Log("No 'ref[]' parameters found.");
-        }
-
-    }
+    
 
 
     // Start is called before the first frame update
@@ -134,21 +106,24 @@ public class UiManager : MonoBehaviour
                 item.rightTxt.text = quizManager.quizType[quizManager.type].quizData[num].rightAnswer.ToString();
                 item.wrongTxt.text = quizManager.quizType[quizManager.type].quizData[num].wrongAnswer.ToString();
 
-                btn.onClick.RemoveAllListeners();
-                btn.onClick.AddListener(() => Next());
+                
             }
         }
 
     }
 
-    public void Next()
+    public IEnumerator Next()
     {
         Debug.Log("run");
 
+        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.red;
+        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.green;
+        yield return new WaitForSeconds(1);
 
         progressState.gameObject.SetActive(true);
-        progressState.UpdateState();
-
+        progressState.UpdateState(true);
+        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.white;
+        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.white;
         DataBase.Keys += 20;
 
         int i = DataBase.GetQuiz(quizManager.type);
@@ -166,6 +141,20 @@ public class UiManager : MonoBehaviour
         }
         else
             OpenquestionPanel();
+    }
+
+
+
+    public IEnumerator WrongAns()
+    {
+        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.red;
+        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.green;
+        yield return new WaitForSeconds(1);
+
+        progressState.gameObject.SetActive(true);
+        progressState.UpdateState(false);
+        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.white;
+        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.white;
     }
 
 

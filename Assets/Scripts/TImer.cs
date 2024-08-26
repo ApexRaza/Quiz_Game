@@ -9,6 +9,7 @@ public class TImer : MonoBehaviour
 {
 
     public Image timeFiller;
+    public bool startTimer;
     public float timeLeft = 10.0f; // Set the total countdown time (in seconds)
     public TextMeshProUGUI startText;
     float totalTime;
@@ -23,30 +24,34 @@ public class TImer : MonoBehaviour
         timeFiller.fillAmount = 1;
         timeLeft = 10;
         totalTime = timeLeft;
+        startTimer=true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (timeLeft >= 0.001f)
-            timeLeft -= Time.deltaTime; // Subtract elapsed time from the total time
-
-
-
-
-
-        float fillAmount = Mathf.Clamp01(timeLeft / totalTime);
-
-        timeFiller.fillAmount = fillAmount;
-        if (timeLeft < 1)
+        if (startTimer)
         {
-            // Game Over Logic 
-           
-        }
-        if (timeLeft < 10 && timeLeft > 1)
-        {
-           
+            if (timeLeft >= 0.001f)
+                timeLeft -= Time.deltaTime; // Subtract elapsed time from the total time
 
+
+
+
+
+            float fillAmount = Mathf.Clamp01(timeLeft / totalTime);
+
+            timeFiller.fillAmount = fillAmount;
+            if (timeLeft < 1)
+            {
+                // Game Over Logic 
+
+            }
+            if (timeLeft < 10 && timeLeft > 1)
+            {
+
+
+            }
         }
     }
 
