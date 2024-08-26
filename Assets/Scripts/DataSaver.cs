@@ -126,18 +126,21 @@ public class DataSaver : MonoBehaviour
     }
     public IEnumerator LoadDataEnum() 
     {
+        Debug.Log("LoadDataEnum() userID" + auth.CurrentUser.UserId);
+        userID = auth.CurrentUser.UserId;
         var serverData = dbRef.Child("users").Child(userID).GetValueAsync();
         yield return new WaitUntil(predicate: () => serverData.IsCompleted);
-
+        Debug.Log("serverData : " + serverData);
         Debug.Log("Process is complete");
         DataSnapshot snapshot = serverData.Result;
         string jsonData = snapshot.GetRawJsonValue();
-
+        Debug.Log("json data : " + jsonData);
         if(jsonData != null) 
         {
             Debug.Log("Server Data is found");
             dts = JsonUtility.FromJson<DataToSave>(jsonData);
             Debug.Log("load Username: " + dts.userName);
+
             UpdateData();
         }
         else 
@@ -178,5 +181,6 @@ public class DataSaver : MonoBehaviour
         {
             DataBase.SetQuiz(num, dts.Quizes[num]);
         }
+        SaveData();
     }
 }

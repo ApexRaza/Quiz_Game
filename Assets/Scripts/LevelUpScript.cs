@@ -24,7 +24,6 @@ public class LevelUpScript : MonoBehaviour
         {
             instance = this;
             Instance = instance;
-            DontDestroyOnLoad(gameObject);
         }
     }
     private void Start()

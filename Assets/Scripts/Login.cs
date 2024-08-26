@@ -119,7 +119,15 @@ public class Login : MonoBehaviour
 
 
     ////..........................................Google LogIn.............................................................////
-    
+
+    public void AnomLinkGoogle()
+    {
+        DataSaver.Instance.LoadData();
+        DataSaver.Instance.dbRef.Child("users").Child(DataSaver.Instance.userID).RemoveValueAsync();
+        GoogleLogin();
+        DataSaver.Instance.SaveData();
+    }
+
     public void GoogleLogin()
     {
         GoogleSignIn.Configuration = configuration;
@@ -129,14 +137,7 @@ public class Login : MonoBehaviour
 
         GoogleSignIn.DefaultInstance.SignIn().ContinueWith(
           OnAuthenticationFinished, TaskScheduler.Default);
-    }
-
-    public void AnomLinkGoogle()
-    {
-        DataSaver.Instance.LoadData();
-        DataSaver.Instance.dbRef.Child("users").Child(DataSaver.Instance.userID).RemoveValueAsync();
-        GoogleLogin();
-        DataSaver.Instance.SaveData();
+        Debug.Log("GoogleLogin() function UserID" + auth.CurrentUser.UserId);
     }
 
     internal void OnAuthenticationFinished(Task<GoogleSignInUser> task)
@@ -242,6 +243,14 @@ public class Login : MonoBehaviour
         }
     }
 
+    public void AnomLinkFB()
+    {
+        //var perms = new List<string>() { "public_profile", "email" };
+        /// FB.LogInWithPublishPermissions(perms, AnonFBAuthCallback);
+        PlayerPrefs.SetInt("AnomLinkFB", 1);
+        FBLogin();
+    }
+
     public void FBLogin() 
     {
         var perms = new List<string>() { "public_profile", "email" };
@@ -256,7 +265,15 @@ public class Login : MonoBehaviour
             // AccessToken class will have session details
             var aToken = Facebook.Unity.AccessToken.CurrentAccessToken.TokenString;
             Debug.Log("Access Token" + aToken);
-            FBAuth(aToken);
+            if (PlayerPrefs.HasKey("AnomLinkFB")) 
+            {
+                PlayerPrefs.DeleteKey("AnomLinkFB");
+                AnomLinkFBAuth(aToken);
+            }
+            else 
+            {
+                FBAuth(aToken);
+            }
         }
         else
         {
@@ -264,49 +281,7 @@ public class Login : MonoBehaviour
         }
     }
 
-    private async void FBAuth(string accessToken) 
-    {
-        Credential credential = FacebookAuthProvider.GetCredential(accessToken);
-        await auth.SignInAndRetrieveDataWithCredentialAsync(credential).ContinueWithOnMainThread(task => {
-            try 
-            {
-                AuthResult result = task.Result;
-
-                Debug.Log("FB SignIn. ");
-                dbObj.SetActive(true);
-
-                DataBase.UserName = result.User.DisplayName;
-                CheckUserDataExists(result.User.UserId);
-            }
-            catch (Exception ex)
-            {
-                Debug.Log("FB SignIn Failed. " + ex.Message);
-            }
-        });
-    }
-
-    public void AnomLinkFB()
-    {
-        var perms = new List<string>() { "public_profile", "email" };
-        FB.LogInWithPublishPermissions(perms, AnonFBAuthCallback);
-    }
-
-    public void AnonFBAuthCallback(ILoginResult result)
-    {
-        if (FB.IsLoggedIn)
-        {
-            // AccessToken class will have session details
-            var aToken = AccessToken.CurrentAccessToken.TokenString;
-            Debug.Log("Access Token" + aToken);
-            AnomLinkFBPermissions(aToken);
-        }
-        else
-        {
-            Debug.Log("User cancelled login");
-        }
-    }
-
-    public async void AnomLinkFBPermissions(string accessToken)
+    public async void AnomLinkFBAuth(string accessToken)
     {
         Credential credential = FacebookAuthProvider.GetCredential(accessToken);
 
@@ -328,6 +303,27 @@ public class Login : MonoBehaviour
                         }
                     });
                 });
+            }
+            catch (Exception ex)
+            {
+                Debug.Log("FB SignIn Failed. " + ex.Message);
+            }
+        });
+    }
+
+    private async void FBAuth(string accessToken) 
+    {
+        Credential credential = FacebookAuthProvider.GetCredential(accessToken);
+        await auth.SignInAndRetrieveDataWithCredentialAsync(credential).ContinueWithOnMainThread(task => {
+            try 
+            {
+                AuthResult result = task.Result;
+
+                Debug.Log("FB SignIn. ");
+                dbObj.SetActive(true);
+
+                DataBase.UserName = result.User.DisplayName;
+                CheckUserDataExists(result.User.UserId);
             }
             catch (Exception ex)
             {

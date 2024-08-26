@@ -26,7 +26,6 @@ public class TreasureSystem : MonoBehaviour
         {
             instance = this;
             Instance = instance;
-            DontDestroyOnLoad(gameObject);
         }
     }
    

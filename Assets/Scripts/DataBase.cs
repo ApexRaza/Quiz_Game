@@ -14,7 +14,6 @@ public class DataBase
         {
             PlayerPrefs.SetInt("Dollars", value);
             PlayerPrefs.Save();
-            DataSaver.Instance.SaveData();
         }
     }
 
@@ -28,7 +27,6 @@ public class DataBase
         {
             PlayerPrefs.SetInt("Gems", value);
             PlayerPrefs.Save();
-            DataSaver.Instance.SaveData();
         }
     }
 
@@ -43,7 +41,6 @@ public class DataBase
         {
             PlayerPrefs.SetInt("LevelUp", value);
             PlayerPrefs.Save();
-            DataSaver.Instance.SaveData();
         }
     }
 
@@ -58,7 +55,6 @@ public class DataBase
         {
             PlayerPrefs.SetInt("Keys", value);
             PlayerPrefs.Save();
-            DataSaver.Instance.SaveData();
         }
     }
 
@@ -72,32 +68,31 @@ public class DataBase
         {
             PlayerPrefs.SetInt("Lives", value);
             PlayerPrefs.Save();
-            DataSaver.Instance.SaveData();
         }
     }
 
     public static string GradeName
     {
         get { return PlayerPrefs.GetString("GradeName", "Shoshi"); }
-        set { PlayerPrefs.SetString("GradeName", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
+        set { PlayerPrefs.SetString("GradeName", value); PlayerPrefs.Save(); }
     }
 
     public static string GradeColor
     {
         get { return PlayerPrefs.GetString("GradeColor", "White"); }
-        set { PlayerPrefs.SetString("GradeColor", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
+        set { PlayerPrefs.SetString("GradeColor", value); PlayerPrefs.Save(); }
     }
 
     public static int QuestionsToTreasure
     {
         get { return PlayerPrefs.GetInt("QuestionsToTreasure", 3); }
-        set { PlayerPrefs.SetInt("QuestionsToTreasure", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
+        set { PlayerPrefs.SetInt("QuestionsToTreasure", value); PlayerPrefs.Save();}
     }
 
     public static int GradeUpgrade
     {
         get { return PlayerPrefs.GetInt("GradeUpgrade", 1); }
-        set { PlayerPrefs.SetInt("GradeUpgrade", value); PlayerPrefs.Save(); DataSaver.Instance.SaveData(); }
+        set { PlayerPrefs.SetInt("GradeUpgrade", value); PlayerPrefs.Save();}
     }
 
    public static string UserName 
@@ -147,7 +142,6 @@ public class DataBase
         Value = Value + PlayerPrefs.GetInt("Coin" + id);
         PlayerPrefs.SetInt("Coin" + id, Value);
         PlayerPrefs.Save();
-        DataSaver.Instance.SaveData();
     }
 
 
@@ -162,7 +156,6 @@ public class DataBase
        
         PlayerPrefs.SetInt("Quiz" + id, Value);
         PlayerPrefs.Save();
-        DataSaver.Instance.SaveData();
     }
 
 

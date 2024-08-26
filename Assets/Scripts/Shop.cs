@@ -8,10 +8,7 @@ public enum Products
     GoldTreasure,
     KeyPacks,
     Tips,
-    DollarsPack1,
-    DollarsPack2,
-    DollarsPack3,
-    DollarsPack4
+    DollarsPack,
 }
 
 public class Shop : MonoBehaviour
@@ -107,52 +104,7 @@ public class Shop : MonoBehaviour
                 }
                 break;
 
-            case Products.DollarsPack1:
-                totalMoney = DataBase.Gems;
-                if (totalMoney >= reqCost)
-                {
-                    DataBase.Dollars += amount;
-                    totalMoney -= reqCost;
-                    DataBase.Gems = totalMoney;
-                }
-                else
-                {
-                    //shopEvent.Invoke();
-                    Debug.Log("Not Enough Keys to buy Treasure");
-                }
-                break;
-
-            case Products.DollarsPack2:
-                totalMoney = DataBase.Gems;
-                if (totalMoney >= reqCost)
-                {
-                    DataBase.Dollars += amount;
-                    totalMoney -= reqCost;
-                    DataBase.Gems = totalMoney;
-                }
-                else
-                {
-                    //shopEvent.Invoke();
-                    Debug.Log("Not Enough Keys to buy Treasure");
-                }
-                break;
-
-            case Products.DollarsPack3:
-                totalMoney = DataBase.Gems;
-                if (totalMoney >= reqCost)
-                {
-                    DataBase.Dollars += amount;
-                    totalMoney -= reqCost;
-                    DataBase.Gems = totalMoney;
-                }
-                else
-                {
-                    //shopEvent.Invoke();
-                    Debug.Log("Not Enough Keys to buy Treasure");
-                }
-                break;
-
-            case Products.DollarsPack4:
+            case Products.DollarsPack:
                 totalMoney = DataBase.Gems;
                 if (totalMoney >= reqCost)
                 {
@@ -167,5 +119,6 @@ public class Shop : MonoBehaviour
                 }
                 break;
         }
+        DataSaver.Instance.SaveData();
     }
 }
