@@ -46,37 +46,39 @@ public class Swipe : MonoBehaviour
                     {   
                         if ((lp.x > fp.x))  
                         {
-
                             if (rightBtn.anchoredPosition.x > 0)
                             {
                                 Debug.Log("Right Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.Next));
                                 timer.startTimer = false;//.ResetTimer();
+                                RightAns();
+                                Debug.Log("If Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
                                 Debug.Log("Dumb Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.WrongAns));
                                 WrongAns();
+                                Debug.Log("If Dumb Anwser : " + DataBase.WrongAnswer);
                             }
-                            
                         }
                         else
                         {
-
                             if (rightBtn.anchoredPosition.x < 0)
                             {
                                 Debug.Log("Right Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.Next));
                                 timer.startTimer = false;//.ResetTimer();
+                                RightAns();
+                                Debug.Log("Else Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
                                 Debug.Log("Dumb Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.WrongAns));
                                 WrongAns();
+                                Debug.Log("Else Dumb Anwser : " + DataBase.WrongAnswer);
                             }
-                           
                         }
                     }
                    
@@ -89,11 +91,20 @@ public class Swipe : MonoBehaviour
         }
     }
 
+    void RightAns() 
+    {
+        DataBase.Questions += 1;
+        DataBase.RightAnswer += 1;
+        DataSaver.Instance.SaveData();
+    }
 
     void WrongAns()
     {
         DataBase.Keys += 10;
         DataBase.Lives -= 1;
+        DataBase.Questions += 1;
+        DataBase.WrongAnswer += 1;
+        DataSaver.Instance.SaveData();
     }
 
 

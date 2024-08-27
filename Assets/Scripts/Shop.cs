@@ -3,16 +3,25 @@ using UnityEngine;
 using UnityEngine.Events;
 public enum Products 
 {
+    TreasureMultiplier,
+    RewardedTreasure,
+    RewardedKeys,
+    RewardedDollars,
+    RewardedGems,
+    RewardedLife,
     LowTreasure,
     MidTreasure,
     GoldTreasure,
     KeyPacks,
     Tips,
-    DollarsPack,
+    DollarsPack
 }
 
 public class Shop : MonoBehaviour
 {
+    private static Shop instance;
+    public static Shop Instance;
+
     public Products product;
     public int reqCost;
     public int amount;
@@ -20,15 +29,33 @@ public class Shop : MonoBehaviour
     private Button button;
     public UnityEvent shopEvent;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            Instance = instance;
+        }
+    }
     private void Start()
     {
         button = gameObject.GetComponent<Button>();
-        button.onClick.AddListener(BuyProduct);
+        button.onClick.AddListener(() => BuyProduct(product));
     }
-    public void BuyProduct() 
+    public void BuyProduct(Products products) 
     {
-        switch (product) 
+        switch (products) 
         {
+            case Products.RewardedTreasure:
+                TreasureSystem.Instance.CalculatePercentage(treasureType: TreasureType.Free);
+                //shopEvent.Invoke();
+                break;
+
+            case Products.TreasureMultiplier:
+                TreasureSystem.Instance.TreasureMultiplier();
+                //shopEvent.Invoke();
+                break;
+
             case Products.LowTreasure:
                 totalMoney = DataBase.Keys;
                 if (totalMoney >= reqCost)
@@ -89,6 +116,12 @@ public class Shop : MonoBehaviour
                 }
                 break;
 
+            case Products.RewardedKeys:
+                amount = Random.Range(300, 450);
+                DataBase.Keys += amount;
+                //shopEvent.Invoke();
+                break;
+
             case Products.Tips:
                 totalMoney = DataBase.Dollars;
                 if (totalMoney >= reqCost)
@@ -118,6 +151,23 @@ public class Shop : MonoBehaviour
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
                 break;
+
+            case Products.RewardedDollars:
+                amount = Random.Range(100, 200);
+                DataBase.Dollars += amount;
+                //shopEvent.Invoke();
+                break;
+
+            case Products.RewardedGems:
+                amount = Random.Range(3, 6);
+                DataBase.Gems += amount;
+                break;
+
+            case Products.RewardedLife:
+                amount = 1;
+                DataBase.Lives += amount;
+                break;
+                
         }
         DataSaver.Instance.SaveData();
     }

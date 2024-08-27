@@ -14,222 +14,1062 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collection: 0
   collectionData:
-  - Name: Mammals
+  - Name: Ruby
     ID: 0
     item:
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: A
       ID: 0
       collected: 0
-      total: 4
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  - Name: Animals
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: A
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - Name: Sapphire
     ID: 1
     item:
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
     - Name: B
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  - Name: Fruits
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+    - Name: B
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  - Name: Emerald
     ID: 2
     item:
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 0}
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 0}
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 0}
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 0}
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 0}
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 0}
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
       Icon: {fileID: 0}
     - Name: C
       ID: 0
       collected: 0
-      total: 6
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
+      Icon: {fileID: 0}
+    - Name: C
+      ID: 0
+      collected: 0
+      total: 10
       Icon: {fileID: 0}

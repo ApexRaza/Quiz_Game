@@ -21,11 +21,6 @@ public class Login : MonoBehaviour
     private GoogleSignInConfiguration configuration;
     public FirebaseAuth auth;
 
-    /// <Test>
-    
-    /// </Test>
-    // Defer the configuration creation until Awake so the web Client ID
-    // Can be set via the property inspector in the Editor.
     void Awake()
     {
         if (instance == null)
@@ -52,8 +47,6 @@ public class Login : MonoBehaviour
             FB.ActivateApp();
         }
         auth = FirebaseAuth.DefaultInstance;
-        
-        //FB.Android.RetrieveLoginStatus(LoginStatusCallback);
     }
     private void Start()
     {
@@ -332,24 +325,31 @@ public class Login : MonoBehaviour
         });
     }
 
-    private void LoginStatusCallback(ILoginStatusResult result)
+    public void GetFacebookFriends()
     {
-        if (!string.IsNullOrEmpty(result.Error))
-        {
-            Debug.Log("Error: " + result.Error);
-        }
-        else if (result.Failed)
-        {
-            Debug.Log("Failure: Access Token could not be retrieved");
-        }
-        else
-        {
-            // Successfully logged user in
-            // A popup notification will appear that says "Logged in as <User Name>"
-            Debug.Log("Success: " + result.AccessToken.UserId);
-            CheckUserDataExists(result.AccessToken.UserId);
-        }
+        FB.API("/me/friends", HttpMethod.GET, FriendsCallback);
     }
+
+    private void FriendsCallback(IGraphResult result)
+    {
+        if (result.Error != null)
+        {
+            Debug.LogError("Error getting friends: " + result.Error);
+            return;
+        }
+
+        var friends = result.ResultDictionary["data"] as List<object>;
+        var friendList = new List<Dictionary<string, object>>();
+
+        foreach (var friend in friends)
+        {
+            friendList.Add(friend as Dictionary<string, object>);
+        }
+
+        // Show these friends in your game's UI
+        Friendlist.Instance.DisplayFBFriends(friendList);
+    }
+
 
     ////..........................................Other.............................................................////
 

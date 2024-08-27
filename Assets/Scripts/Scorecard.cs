@@ -12,7 +12,7 @@ public class Scorecard : MonoBehaviour
     public GameObject scoreElement;
     public Transform scoreboardContent;
 
-    private void Awake()
+    private void Start()
     {
         db = DataSaver.Instance.dbRef;
     }

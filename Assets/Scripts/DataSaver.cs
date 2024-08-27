@@ -11,6 +11,9 @@ public class DataToSave
     public string userName;
     public List<int> Coins;
     public List<int> Quizes;
+    public int Question;
+    public int RightAnswer;
+    public int WrongAnswer;
     public int Dollars;
     public int Gems;
     public int Lives;
@@ -117,6 +120,10 @@ public class DataSaver : MonoBehaviour
                 dts.Quizes[num] = DataBase.GetQuiz(num);
             }
         }
+
+        dts.Question = DataBase.Questions;
+        dts.RightAnswer = DataBase.RightAnswer;
+        dts.WrongAnswer = DataBase.WrongAnswer;
     }
 
     public void LoadData()
@@ -126,7 +133,7 @@ public class DataSaver : MonoBehaviour
     }
     public IEnumerator LoadDataEnum() 
     {
-        Debug.Log("LoadDataEnum() userID" + auth.CurrentUser.UserId);
+        Debug.Log("LoadDataEnum() userID : " + auth.CurrentUser.UserId);
         userID = auth.CurrentUser.UserId;
         var serverData = dbRef.Child("users").Child(userID).GetValueAsync();
         yield return new WaitUntil(predicate: () => serverData.IsCompleted);
@@ -163,7 +170,6 @@ public class DataSaver : MonoBehaviour
             dts.userName = auth.CurrentUser.DisplayName;
             DataBase.UserName = dts.userName;
         }
-        
         DataBase.Dollars = dts.Dollars;
         DataBase.Gems = dts.Gems;
         DataBase.Keys = dts.Keys;
@@ -173,14 +179,19 @@ public class DataSaver : MonoBehaviour
         DataBase.GradeColor = dts.GradeColor;
         DataBase.QuestionsToTreasure = dts.QuestionsToTreasure;
         DataBase.GradeUpgrade = dts.GradeUpgrade;
-        for (int num = 0; num < 420; num++)
-        {
-            DataBase.SetCoins(num, dts.Coins[num]);
-        }
+        //for (int num = 0; num < 420; num++)
+        //{
+        //    DataBase.SetCoins(num, dts.Coins[num]);
+        //    Debug.Log("Is it Here");
+        //}
         for(int num = 0; num < 16; num++) 
         {
             DataBase.SetQuiz(num, dts.Quizes[num]);
         }
+        DataBase.Questions = dts.Question;
+        DataBase.RightAnswer = dts.RightAnswer;
+        DataBase.WrongAnswer = dts.WrongAnswer;
+
         SaveData();
     }
 }

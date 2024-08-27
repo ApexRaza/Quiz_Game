@@ -26,9 +26,20 @@ public class GameManager : MonoBehaviour
     {
         Login.Instance.AnomLinkGoogle();   
     }
-    // Update is called once per frame
-    void Update()
+
+    public void UpdateCollection() 
     {
-        
+        int count = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int num = 0; num < 70; num++)
+            {
+
+                collectionSO.collectionData[i].item[num].collected = DataBase.GetCoins(count);
+                count++;
+
+
+            }
+        }
     }
 }

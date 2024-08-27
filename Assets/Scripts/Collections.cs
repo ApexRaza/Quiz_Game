@@ -39,10 +39,8 @@ public class CollectionItems
 
 public enum Collection
 {
-    Mammals,
-    Animals,
-    Fruits,
-    General
-
+    Ruby,
+    Sapphire,
+    Emerald
 }
 

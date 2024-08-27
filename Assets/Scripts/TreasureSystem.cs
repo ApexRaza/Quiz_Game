@@ -120,16 +120,17 @@ public class TreasureSystem : MonoBehaviour
 
             var gemsRange = GetGems(treasureType);
             packGems = Random.Range(gemsRange.min, gemsRange.max);
-            DataBase.Gems = DataBase.Gems + packGems;
+            DataBase.Gems += packGems;
             //gemsTxt.text = "Amount of Gems is: " + DataBase.Gems.ToString();
             //packGemsTxt.text = "Amount of Gems in pack is:" + packGems.ToString();
 
             var dollarsRange = GetDollars(treasureType);
             packDollars = Random.Range(dollarsRange.min, dollarsRange.max);
-            DataBase.Dollars = DataBase.Dollars + packDollars;
+            DataBase.Dollars += packDollars;
             //dollarsTxt.text = "Amount of Dollars is: " + DataBase.Dollars.ToString();
             //packDollarsTxt.text = "Amount of Dollars in pack is:" + packDollars.ToString();
 
+            PlayerPrefs.Save();
             DataSaver.Instance.SaveData();
 
             CheckAndLevelUp(DataBase.LevelUp);
@@ -260,5 +261,34 @@ public class TreasureSystem : MonoBehaviour
             }
             Debug.Log("Extra Coins for trade index: " + GetIndex(level, i) + " Value " + extra);
         }
+    }
+
+    ///////////////////////////////////////////////...Multiplier...///////////////////////////////////////////////
+    
+    public void TreasureMultiplier() 
+    {
+        int r1_1C = R1_1Coins * 3,
+            r1_2C = R1_2Coins * 3,
+            r1_3C = R1_3Coins * 3,
+            r2C = R2Coins * 3,
+            r3C = R3Coins * 3,
+            gem = packGems * 3,
+            dollar = packDollars * 3;
+
+        Debug.Log("r1_1C : " + r1_1C);
+        Debug.Log("r1_2C : " + r1_2C);
+        Debug.Log("r1_3C : " + r1_3C);
+        Debug.Log("r2C : " + r2C);
+        Debug.Log("r3C : " + r3C);
+        Debug.Log("gem : " + gem);
+        Debug.Log("dollar : " + dollar);
+
+        DataBase.SetCoins(GetIndex(DataBase.LevelUp, 1), r1_1C);
+        DataBase.SetCoins(GetIndex(DataBase.LevelUp, 2), r1_2C);
+        DataBase.SetCoins(GetIndex(DataBase.LevelUp, 3), r1_3C);
+        DataBase.SetCoins(GetIndex(DataBase.LevelUp, 4), r2C);
+        DataBase.SetCoins(GetIndex(DataBase.LevelUp, 5), r3C);
+        DataBase.Gems += gem;
+        DataBase.Dollars += dollar;
     }
 }

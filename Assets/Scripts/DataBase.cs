@@ -30,7 +30,6 @@ public class DataBase
         }
     }
 
-
     public static int LevelUp
     {
         get
@@ -43,7 +42,6 @@ public class DataBase
             PlayerPrefs.Save();
         }
     }
-
 
     public static int Keys
     {
@@ -102,14 +100,11 @@ public class DataBase
         set { PlayerPrefs.SetString("Userame", value); PlayerPrefs.Save(); /*DataSaver.Instance.SaveData(); Debug.Log("In Database: User Name");*/ }
     }
 
-
-   
     //custom parameters
     public static int GetCollection(string s)
     {
         return PlayerPrefs.GetInt("Collection" + s);
     }
-
 
     public static void SetCollection(string s,int value)
     {
@@ -117,6 +112,7 @@ public class DataBase
 
         PlayerPrefs.Save();
     }
+
     public static string CoinID
     {
         get
@@ -144,7 +140,6 @@ public class DataBase
         PlayerPrefs.Save();
     }
 
-
     public static int GetQuiz(int id)
     {
         //Debug.Log("GetCoin ID " + id);
@@ -158,8 +153,42 @@ public class DataBase
         PlayerPrefs.Save();
     }
 
+    public static int Questions
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("Questions", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("Questions", value);
+            PlayerPrefs.Save();
+        }
+    }
 
+    public static int RightAnswer
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("RightAnswer", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("RightAnswer", value);
+            PlayerPrefs.Save();
+        }
+    }
 
-
-
+    public static int WrongAnswer
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("WrongAnswer", 0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("WrongAnswer", value);
+            PlayerPrefs.Save();
+        }
+    }
 }
