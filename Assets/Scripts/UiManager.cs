@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -47,16 +47,34 @@ public class UiManager : MonoBehaviour
     }
 
 
-    public void SelectCategory(QuizType quizType)
+
+
+    int cat1, cat2;
+    public void ChooseQuestionCategory(int category1, int category2)
     {
-        quizManager.SetQuizType(quizType);
+        cat1 = category1;
+        cat2 = category2;
+        int i = Random.Range(0, 2);
+        if (i == 0)
+            quizManager.type = category1;
+        else
+            quizManager.type = category2;
+
+        Debug.Log(quizManager.type);
+
+    }
+    public void ChooseQuestionCategory()
+    {
+        
+        int i = Random.Range(0, 10);
+        if (i > 5)
+            quizManager.type = cat1;
+        else
+            quizManager.type = cat2;
     }
 
 
-    public void ChooseQuestionCategory(int i)
-    {
-        questionCategory = i;
-    }
+
 
     public void ChooseCollectionType(int i)
     {
@@ -132,6 +150,8 @@ public class UiManager : MonoBehaviour
 
 
         quizCount++;
+
+        ChooseQuestionCategory();
         if (quizCount > DataBase.QuestionsToTreasure)
         {
             quizCount = 0;
@@ -228,7 +248,7 @@ public class UiManager : MonoBehaviour
     }
 }
 
-[Serializable]
+[System. Serializable]
 public class Items
 {
   

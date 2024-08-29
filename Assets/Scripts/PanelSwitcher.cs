@@ -7,6 +7,7 @@ public class PanelSwitcher : MonoBehaviour
 
     public bool isUp,singlePanel;
     public float defaultHeight, effectHeight;
+    public Vector3 defaultScale, effectScale;
     public ButtonPanelPair[] buttonPanelPairs;
 
   
@@ -72,13 +73,16 @@ public class PanelSwitcher : MonoBehaviour
             if (pair.button == clickedButton)
             {
                 rectTransform.anchoredPosition = new Vector3(0, isUp ? effectHeight : -effectHeight, 0);
-               
+                rectTransform.localScale = effectScale;
                 img.enabled = true;
+                img.color = new Color32(255, 20, 0, 120);
             }
             else
             {
                 rectTransform.anchoredPosition = new Vector3(0, defaultHeight, 0);
-                img.enabled = false;
+                
+                img.color = new Color32(255, 20, 0, 0);
+                rectTransform.localScale = defaultScale;
             }
         }
     }
@@ -93,7 +97,7 @@ public class PanelSwitcher : MonoBehaviour
                 RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
                 rectTransform.anchoredPosition = new Vector3(0, isUp ? effectHeight : -effectHeight, 0);
                 Image img = buttonPanelPairs[i].button.GetComponent<Image>();
-                img.enabled = true;
+                img.color = new Color32(255, 20, 0, 120);
                 buttonPanelPairs[i].panel.SetActive(true);
             }
             else
@@ -101,7 +105,7 @@ public class PanelSwitcher : MonoBehaviour
                 RectTransform rectTransform = buttonPanelPairs[i].button.transform.GetChild(0).GetComponent<RectTransform>();
                 rectTransform.anchoredPosition = new Vector3(0, defaultHeight, 0);
                 Image img = buttonPanelPairs[i].button.GetComponent<Image>();
-                img.enabled = false;
+                img.color = new Color32(255, 20, 0, 0);
                 buttonPanelPairs[i].panel.SetActive(false);
             }
            
