@@ -347,7 +347,7 @@ public class Login : MonoBehaviour
         }
 
         // Show these friends in your game's UI
-        Friendlist.Instance.DisplayFBFriends(friendList);
+        //Friendlist.Instance.DisplayFBFriends(friendList);
     }
 
 

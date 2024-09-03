@@ -2,6 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[System.Serializable]
+public class StringListContainer
+{
+    public List<string> list;
+}
+
 public class DataBase 
 {
     public static int Dollars
@@ -151,6 +157,47 @@ public class DataBase
        
         PlayerPrefs.SetInt("Quiz" + id, Value);
         PlayerPrefs.Save();
+    }
+
+    // Utility Methods to Handle Lists in PlayerPrefs
+    private static List<string> GetStringList(string key)
+    {
+        string json = PlayerPrefs.GetString(key, "{\"list\":[]}");
+        StringListContainer container = JsonUtility.FromJson<StringListContainer>(json);
+        return container.list ?? new List<string>();
+    }
+
+    private static void SetStringList(string key, List<string> list)
+    {
+        StringListContainer container = new StringListContainer { list = list };
+        string json = JsonUtility.ToJson(container);
+        PlayerPrefs.SetString(key, json);
+        PlayerPrefs.Save();
+    }
+
+    public static List<string> FriendRequests
+    {
+        get
+        {
+            return GetStringList("FriendRequests");
+        }
+        set
+        {
+            SetStringList("FriendRequests", value);
+        }
+    }
+
+    // Friends
+    public static List<string> Friends
+    {
+        get
+        {
+            return GetStringList("Friends");
+        }
+        set
+        {
+            SetStringList("Friends", value);
+        }
     }
 
     public static int Questions

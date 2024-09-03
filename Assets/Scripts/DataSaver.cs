@@ -11,6 +11,8 @@ public class DataToSave
     public string userName;
     public List<int> Coins;
     public List<int> Quizes;
+    public List<string> FriendRequests;
+    public List<string> Friends;
     public int Question;
     public int RightAnswer;
     public int WrongAnswer;
@@ -70,8 +72,7 @@ public class DataSaver : MonoBehaviour
     {
         Debug.Log("Inside SaveData() Function");
         AssignData();
-        string json = JsonUtility.ToJson(dts);
-        dbRef.Child("users").Child(userID).SetRawJsonValueAsync(json);
+        
     }
 
     public void AssignData()
@@ -86,6 +87,7 @@ public class DataSaver : MonoBehaviour
         else
         {
             dts.userName = user.DisplayName;
+            DataBase.UserName = dts.userName;
         }
 
         dts.Dollars = DataBase.Dollars;
@@ -121,9 +123,19 @@ public class DataSaver : MonoBehaviour
             }
         }
 
+        //Questions
         dts.Question = DataBase.Questions;
         dts.RightAnswer = DataBase.RightAnswer;
         dts.WrongAnswer = DataBase.WrongAnswer;
+
+        //
+
+        Debug.Log("FriendRequests : " + DataBase.FriendRequests.Count);
+        dts.FriendRequests = DataBase.FriendRequests;
+        dts.Friends = DataBase.Friends;
+
+        string json = JsonUtility.ToJson(dts);
+        dbRef.Child("users").Child(userID).SetRawJsonValueAsync(json);
     }
 
     public void LoadData()
@@ -146,7 +158,7 @@ public class DataSaver : MonoBehaviour
         {
             Debug.Log("Server Data is found");
             dts = JsonUtility.FromJson<DataToSave>(jsonData);
-            Debug.Log("load Username: " + dts.userName);
+            Debug.Log("load Username : " + dts.userName);
 
             UpdateData();
         }
@@ -192,6 +204,11 @@ public class DataSaver : MonoBehaviour
         DataBase.RightAnswer = dts.RightAnswer;
         DataBase.WrongAnswer = dts.WrongAnswer;
 
-        SaveData();
+        Debug.Log("savedataforfriends : " + dts.Friends.ToString());
+        Debug.Log("savedataforfriends : " + dts.FriendRequests.ToString());
+        DataBase.FriendRequests = dts.FriendRequests;
+        DataBase.Friends = dts.Friends;
+
+        //SaveData();
     }
 }

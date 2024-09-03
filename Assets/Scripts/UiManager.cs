@@ -1,14 +1,14 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Web;
+//using System.Collections.Specialized;
+//using System.Linq;
+//using System.Web;
 using TMPro;
-using Unity.VisualScripting;
+//using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 public class UiManager : MonoBehaviour
 {
