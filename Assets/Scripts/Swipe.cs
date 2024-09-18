@@ -8,6 +8,7 @@ public class Swipe : MonoBehaviour
     private Vector3 lp;   
     private float dragDistance;
     public UiManager uiManager;
+    public QuizHandler quizHandler;
     public TImer timer;
 
    public RectTransform rightBtn;
@@ -15,6 +16,8 @@ public class Swipe : MonoBehaviour
     void Start()
     {
         uiManager = FindAnyObjectByType<UiManager>();
+
+        quizHandler = FindAnyObjectByType<QuizHandler>();
         timer = FindAnyObjectByType<TImer>();
         dragDistance = Screen.height * 15 / 100;
         //Debug.Log( rightBtn.anchoredPosition.x);
@@ -50,6 +53,7 @@ public class Swipe : MonoBehaviour
                             {
                                 Debug.Log("Right Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.Next));
+                                quizHandler.StartCoroutine(nameof(quizHandler.Next));
                                 timer.startTimer = false;//.ResetTimer();
                                 RightAns();
                                 Debug.Log("If Right Anwser : " + DataBase.RightAnswer);
@@ -58,6 +62,7 @@ public class Swipe : MonoBehaviour
                             {
                                 Debug.Log("Dumb Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.WrongAns));
+                                quizHandler.StartCoroutine(nameof(quizHandler.WrongAns));
                                 WrongAns();
                                 Debug.Log("If Dumb Anwser : " + DataBase.WrongAnswer);
                             }
@@ -68,6 +73,7 @@ public class Swipe : MonoBehaviour
                             {
                                 Debug.Log("Right Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.Next));
+                                quizHandler.StartCoroutine(nameof(quizHandler.Next));
                                 timer.startTimer = false;//.ResetTimer();
                                 RightAns();
                                 Debug.Log("Else Right Anwser : " + DataBase.RightAnswer);
@@ -76,6 +82,7 @@ public class Swipe : MonoBehaviour
                             {
                                 Debug.Log("Dumb Anwser");
                                 uiManager.StartCoroutine(nameof(UiManager.WrongAns));
+                                quizHandler.StartCoroutine(nameof(quizHandler.WrongAns));
                                 WrongAns();
                                 Debug.Log("Else Dumb Anwser : " + DataBase.WrongAnswer);
                             }

@@ -153,7 +153,7 @@ public class DataSaver : MonoBehaviour
         Debug.Log("Process is complete");
         DataSnapshot snapshot = serverData.Result;
         string jsonData = snapshot.GetRawJsonValue();
-        Debug.Log("json data : " + jsonData);
+      //  Debug.Log("json data : " + jsonData);
         if(jsonData != null) 
         {
             Debug.Log("Server Data is found");

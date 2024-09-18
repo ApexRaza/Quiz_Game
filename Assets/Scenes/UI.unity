@@ -18222,6 +18222,8 @@ MonoBehaviour:
   singlePanel: 1
   defaultHeight: 0
   effectHeight: 0
+  defaultScale: {x: 0, y: 0, z: 0}
+  effectScale: {x: 0, y: 0, z: 0}
   buttonPanelPairs:
   - Name: Ruby
     button: {fileID: 2106424785}
@@ -31443,6 +31445,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1061223800}
+  - component: {fileID: 1061223801}
   m_Layer: 0
   m_Name: --------------UI-----------------
   m_TagString: Untagged
@@ -31467,6 +31470,31 @@ Transform:
   - {fileID: 356032128}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1061223801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061223799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45aaa6af9b23d84489fbea98bfac45e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characters:
+  - characterName: Raza
+    health: 100
+    strength: 100
+    abilityNames:
+    - Fly
+    - Double Jump
+    abilityValues: 0101
+  - characterName: 
+    health: 100
+    strength: 100
+    abilityNames: []
+    abilityValues: 
 --- !u!1 &1062393804
 GameObject:
   m_ObjectHideFlags: 0
@@ -31711,6 +31739,8 @@ MonoBehaviour:
   singlePanel: 0
   defaultHeight: 21.5
   effectHeight: 70
+  defaultScale: {x: 0, y: 0, z: 0}
+  effectScale: {x: 0, y: 0, z: 0}
   buttonPanelPairs:
   - Name: Home
     button: {fileID: 388501762}
@@ -35454,6 +35484,8 @@ MonoBehaviour:
   singlePanel: 0
   defaultHeight: 0
   effectHeight: 0
+  defaultScale: {x: 0, y: 0, z: 0}
+  effectScale: {x: 0, y: 0, z: 0}
   buttonPanelPairs:
   - Name: cat 1
     button: {fileID: 221673641}

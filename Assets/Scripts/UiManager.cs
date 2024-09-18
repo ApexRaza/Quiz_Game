@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 //using System.Collections.Specialized;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using TMPro;
 //using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 //using static UnityEditor.Progress;
 
@@ -54,7 +56,7 @@ public class UiManager : MonoBehaviour
     {
         cat1 = category1;
         cat2 = category2;
-        int i = Random.Range(0, 2);
+        int i = UnityEngine. Random.Range(0, 2);
         if (i == 0)
             quizManager.type = category1;
         else
@@ -66,7 +68,7 @@ public class UiManager : MonoBehaviour
     public void ChooseQuestionCategory()
     {
         
-        int i = Random.Range(0, 10);
+        int i = UnityEngine.Random.Range(0, 10);
         if (i > 5)
             quizManager.type = cat1;
         else
@@ -81,11 +83,42 @@ public class UiManager : MonoBehaviour
         collectionType = i;
         UpdateCollectionPanel();
     }
+    
+    IEnumerator LoadImage(string imageUrl)
+    {
+
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(imageUrl);
+        yield return www.SendWebRequest();
+
+       
+
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.LogError(www.error);
+
+            foreach (QuizType q in Enum.GetValues(typeof(QuizType)))
+            {
+                Debug.Log(q);
+            }
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(www);
+
+
+
+            item.questionImage.enabled = true;
+            item.questionImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0));
+
+
+        }
+    }
+
 
     public void OpenquestionPanel()
     {
       // Type quizType = quizManager.quizType[questionCategory];
-        Button btn= item.rightTxt.gameObject.transform.parent.GetComponent<Button>();
+      //  Button btn= item.rightTxt.gameObject.transform.parent.GetComponent<Button>();
         int num = DataBase.GetQuiz(quizManager.type);
 
         Debug.Log(num + " " + DataBase.GetQuiz(quizManager.type));
@@ -106,23 +139,24 @@ public class UiManager : MonoBehaviour
             {
                 if (quizManager.quizType[quizManager.type].quizData[num].IsImage)
                 {
-                    // item.questionImage.sprite = quizData.Data[num].imageQuestion;
-                    item.questionImage.gameObject.SetActive(true);//.enabled = true;
+                   // item.questionImage.gameObject.SetActive(true);
+                    StartCoroutine(LoadImage(quizManager.quizType[quizManager.type].quizData[num].imageLink));
+                   //.enabled = true;
                 }
                 else
                 {
-                    item.questionImage.gameObject.SetActive(false);
+                    item.questionImage.enabled = false;
                 }
                 item.questionTxt.text = quizManager.quizType[quizManager.type].quizData[num].question.ToString();
                 int i = UnityEngine.Random.Range(0, 2);
                 if (i < 1)
                 {
-                    Vector3 pos = item.wrongTxt.transform.parent.position;
-                    item.wrongTxt.transform.parent.position = item.rightTxt.transform.parent.position;
-                    item.rightTxt.transform.parent.position = pos;
+                    Vector3 pos = item.wrongBtn.transform.position;
+                    item.wrongBtn.transform.position = item.rightBtn.transform.position;
+                    item.rightBtn.transform.position = pos;
                 }
-                item.rightTxt.text = quizManager.quizType[quizManager.type].quizData[num].rightAnswer.ToString();
-                item.wrongTxt.text = quizManager.quizType[quizManager.type].quizData[num].wrongAnswer.ToString();
+                //item.rightTxt.text = quizManager.quizType[quizManager.type].quizData[num].rightAnswer.ToString();
+                //item.wrongTxt.text = quizManager.quizType[quizManager.type].quizData[num].wrongAnswer.ToString();
 
                 
             }
@@ -134,21 +168,21 @@ public class UiManager : MonoBehaviour
     {
         Debug.Log("run");
 
-        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.red;
-        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.green;
+        item.wrongBtn.GetComponent<Image>().color = Color.red;
+        item.rightBtn.GetComponent<Image>().color = Color.green;
         yield return new WaitForSeconds(1);
 
         progressState.gameObject.SetActive(true);
         progressState.UpdateState(true);
-        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.white;
-        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.white;
+        item.wrongBtn.GetComponent<Image>().color = Color.white;
+        item.rightBtn.GetComponent<Image>().color = Color.white;
         DataBase.Keys += 20;
 
         int i = DataBase.GetQuiz(quizManager.type);
         i++;
         DataBase.SetQuiz(quizManager.type, i);
 
-
+        item.questionImage.enabled = false;
         quizCount++;
 
         ChooseQuestionCategory();
@@ -167,14 +201,14 @@ public class UiManager : MonoBehaviour
 
     public IEnumerator WrongAns()
     {
-        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.red;
-        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.green;
+        item.wrongBtn.GetComponent<Image>().color = Color.red;
+        item.rightBtn.GetComponent<Image>().color = Color.green;
         yield return new WaitForSeconds(1);
 
         progressState.gameObject.SetActive(true);
         progressState.UpdateState(false);
-        item.wrongTxt.transform.parent.GetComponent<Image>().color = Color.white;
-        item.rightTxt.transform.parent.GetComponent<Image>().color = Color.white;
+        item.wrongBtn.GetComponent<Image>().color = Color.white;
+        item.rightBtn.GetComponent<Image>().color = Color.white;
     }
 
 
@@ -261,8 +295,8 @@ public class Items
 
     [Header("Question Panel Area")]
     [Space(2)]
-    public GameObject QuestionPanel;
-    public TextMeshProUGUI questionTxt,rightTxt,wrongTxt;
+    public GameObject QuestionPanel,rightBtn,wrongBtn;
+    public TextMeshProUGUI questionTxt;
     public Image questionImage;
 
 

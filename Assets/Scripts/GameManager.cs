@@ -17,10 +17,10 @@ public class GameManager : MonoBehaviour
         quizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
         quizManager.QuizTypesInit();
     }
-    public void SelectCategory(QuizType quizType)
-    {
-        quizManager.SetQuizType(quizType);
-    }
+   
+
+   
+
 
     public void TestGoogleLogin() 
     {

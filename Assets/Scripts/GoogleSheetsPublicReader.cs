@@ -85,7 +85,7 @@ public class GoogleSheetsPublicReader : MonoBehaviour
                   
                     if (values[3] == "TRUE" )//||    !string.IsNullOrEmpty(imageUrl))
                     {
-                        StartCoroutine(LoadImage(imageUrl));
+                      //  StartCoroutine(LoadImage(imageUrl));
                     }
                 }
             }
@@ -121,6 +121,7 @@ public class GoogleSheetsPublicReader : MonoBehaviour
     public Image m;
     IEnumerator LoadImage(string imageUrl)
     {
+       
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(imageUrl);
         yield return www.SendWebRequest();
 
