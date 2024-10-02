@@ -22,7 +22,7 @@ public class TImer : MonoBehaviour
     public void ResetTimer()
     {
         timeFiller.fillAmount = 1;
-        timeLeft = 10;
+        timeLeft = 30;
         totalTime = timeLeft;
         startTimer=true;
     }
@@ -53,6 +53,7 @@ public class TImer : MonoBehaviour
 
             }
         }
+        DisplayTime(timeLeft);
     }
 
 

@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class SelfDisable : MonoBehaviour
 {
+    public bool disableOnTime;
     public float disableTime;
-    private void Start()
+    private void OnEnable()
     {
-        StartCoroutine(Disable(disableTime));
+        if (disableOnTime)
+            StartCoroutine(Disable(disableTime));
     }
 
     public IEnumerator Disable(float time) 
     {
         yield return new WaitForSeconds(time);
-        gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
+
+    public void DisableMe()
+    {
+       this.gameObject.SetActive(false);
+    }
+
+
 }

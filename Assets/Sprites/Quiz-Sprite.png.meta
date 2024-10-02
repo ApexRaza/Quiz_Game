@@ -108,11 +108,11 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
-    maxTextureSize: 8192
+    maxTextureSize: 4096
     resizeAlgorithm: 0
-    textureFormat: 65
+    textureFormat: 29
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 100
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 1
@@ -336,10 +336,10 @@ TextureImporter:
       name: Quiz-Sprite_10
       rect:
         serializedVersion: 2
-        x: 4615
-        y: 5413
-        width: 48
-        height: 50
+        x: 4544
+        y: 5384
+        width: 140
+        height: 144
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -588,10 +588,10 @@ TextureImporter:
       name: Quiz-Sprite_22
       rect:
         serializedVersion: 2
-        x: 4622
-        y: 5343
-        width: 36
-        height: 44
+        x: 4552
+        y: 5616
+        width: 80
+        height: 96
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -630,10 +630,10 @@ TextureImporter:
       name: Quiz-Sprite_24
       rect:
         serializedVersion: 2
-        x: 1376
-        y: 5207
-        width: 302
-        height: 70
+        x: 1378
+        y: 5208
+        width: 78
+        height: 67
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -651,10 +651,10 @@ TextureImporter:
       name: Quiz-Sprite_25
       rect:
         serializedVersion: 2
-        x: 1711
-        y: 5207
-        width: 296
-        height: 73
+        x: 1723
+        y: 5212
+        width: 282
+        height: 63
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -840,10 +840,10 @@ TextureImporter:
       name: Quiz-Sprite_34
       rect:
         serializedVersion: 2
-        x: 1377
-        y: 5121
-        width: 301
-        height: 69
+        x: 1379
+        y: 5108
+        width: 69
+        height: 72
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -861,10 +861,10 @@ TextureImporter:
       name: Quiz-Sprite_35
       rect:
         serializedVersion: 2
-        x: 1706
-        y: 5119
-        width: 300
-        height: 72
+        x: 1496
+        y: 5108
+        width: 69
+        height: 76
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3251,6 +3251,237 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_149
+      rect:
+        serializedVersion: 2
+        x: 2072
+        y: 1708
+        width: 468
+        height: 145
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84467669ba6411b43b3d2af0a0e9663d
+      internalID: -939662578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_150
+      rect:
+        serializedVersion: 2
+        x: 2456
+        y: 2382
+        width: 616
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a37ce72ae61acbe4e94574f3b59ab224
+      internalID: 355592081
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_151
+      rect:
+        serializedVersion: 2
+        x: 2456
+        y: 2152
+        width: 616
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4f93e41c50d4eb489a6b0f40d9142bc
+      internalID: 709072287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_152
+      rect:
+        serializedVersion: 2
+        x: 2456
+        y: 1935
+        width: 610
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a96aae8d4ed6264e849da6d49dffb6a
+      internalID: -1344635000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_153
+      rect:
+        serializedVersion: 2
+        x: 1496
+        y: 5208
+        width: 70
+        height: 68
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a02b1e61c153bfe45b8f52d32dbfeb52
+      internalID: -1822674619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_154
+      rect:
+        serializedVersion: 2
+        x: 3202
+        y: 1844
+        width: 546
+        height: 484
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a7eed4a88c7e494fa9e2d197b10c717
+      internalID: -758955131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_155
+      rect:
+        serializedVersion: 2
+        x: 3200
+        y: 1240
+        width: 552
+        height: 482
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b910b6cfb41d8934389b65d622eef225
+      internalID: 1193420153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_156
+      rect:
+        serializedVersion: 2
+        x: 3184
+        y: 680
+        width: 564
+        height: 493
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3b6c5c9b4de13a49a93eb9bd5277f9b
+      internalID: 514042996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_157
+      rect:
+        serializedVersion: 2
+        x: 3193
+        y: 104
+        width: 559
+        height: 472
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e969c1614f651e48b51a228ddf11674
+      internalID: 1485504838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_158
+      rect:
+        serializedVersion: 2
+        x: 2516
+        y: 2896
+        width: 143
+        height: 146
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab873649475d97b438166c6aaf71e9b7
+      internalID: -1256455405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_159
+      rect:
+        serializedVersion: 2
+        x: 2472
+        y: 2640
+        width: 208
+        height: 200
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e61e928375cbf6c4aa48548a67de8add
+      internalID: -938426035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -3318,7 +3549,18 @@ TextureImporter:
       Quiz-Sprite_146: -1994232224
       Quiz-Sprite_147: -1007513671
       Quiz-Sprite_148: -2045931847
+      Quiz-Sprite_149: -939662578
       Quiz-Sprite_15: -903379303
+      Quiz-Sprite_150: 355592081
+      Quiz-Sprite_151: 709072287
+      Quiz-Sprite_152: -1344635000
+      Quiz-Sprite_153: -1822674619
+      Quiz-Sprite_154: -758955131
+      Quiz-Sprite_155: 1193420153
+      Quiz-Sprite_156: 514042996
+      Quiz-Sprite_157: 1485504838
+      Quiz-Sprite_158: -1256455405
+      Quiz-Sprite_159: -938426035
       Quiz-Sprite_16: -2007180485
       Quiz-Sprite_17: 1032131473
       Quiz-Sprite_18: 514820317

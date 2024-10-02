@@ -127,7 +127,7 @@ public class Data
     public string wrongAnswer;
     public bool IsImage;
     public string imageLink;
-    public string tip;
+    public string correctAns;
 }
 [Serializable]
 public enum QuizType

@@ -53,6 +53,59 @@ public class GoogleSheetsPublicReader : MonoBehaviour
         }
     }
 
+
+    void ProcessCSVs(string csvData)
+    {
+        string[] lines = csvData.Split('\n');
+        //foreach (string line in lines.Skip(1))
+        //    quizManager.quizType[0].quizData = Data[lines.Length];
+        int startNum = 0;
+
+        if (quizManager.quizType[0].quizData.Count < lines.Length)
+        {
+
+            //quizManager.quizType[id].quizData.Clear();
+            startNum = quizManager.quizType[quizManager.type].quizData.Count;
+
+
+            for (int i = 1; i < lines.Length; i++)
+            {
+                string[] values = lines[i].Split(',');
+
+
+                {
+                    quizManager.quizType[id].quizData.Add(mydata((i - 1), values[0], values[1], values[2], bool.Parse(values[3]), values[4], values[5]));
+
+                }
+
+
+                if (values.Length > 0)
+                {
+
+                    string imageUrl = values[4]; // Adjust the index based on the column where the URL is stored
+
+                    if (values[3] == "TRUE")//||    !string.IsNullOrEmpty(imageUrl))
+                    {
+                        //  StartCoroutine(LoadImage(imageUrl));
+                    }
+                }
+            }
+        }
+
+
+        if (id < 15)
+        {
+            id++;
+            spreadSheetNb = quizManager.gridId[id].ToString();
+            StartCoroutine(ReadSheetData());
+        }
+    }
+
+
+
+
+
+
     void ProcessCSV(string csvData)
     {
         string[] lines = csvData.Split('\n');
@@ -110,7 +163,7 @@ public class GoogleSheetsPublicReader : MonoBehaviour
         data.wrongAnswer= wrong;
         data.IsImage = isImage;
         data.imageLink = imagelink;
-        data.tip = tip;
+        data.correctAns = tip;
 
         return data;
 

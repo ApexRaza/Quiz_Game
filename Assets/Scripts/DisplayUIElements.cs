@@ -8,11 +8,14 @@ public class DisplayUIElements : MonoBehaviour
 {
     public TextMeshProUGUI[] gemsTxt, keysTxt, dollarsTxt, livesTxt;
     public TextMeshProUGUI usernameTxt;
+    public AudioSource[] allSounds, allMusics;
 
     public GameObject bottomBar, middlePanel;
-
+    public Slider soundSlider, musicSlider;
     private void Start()
     {
+        soundSlider.value = PlayerPrefs.GetFloat("Sound", 0.7f);
+        musicSlider.value = PlayerPrefs.GetFloat("Music", 1f);
         Invoke(nameof(UpdateUI), 1);
     }
 
@@ -20,6 +23,24 @@ public class DisplayUIElements : MonoBehaviour
     {
         UpdateUI();
     }
+
+    public void SetMusic()
+    {
+        PlayerPrefs.SetFloat("Music", musicSlider.value);
+        foreach (AudioSource audio in allMusics)
+        {
+            audio.volume = PlayerPrefs.GetFloat("Music");
+        }
+    }
+    public void SetSound()
+    {
+        PlayerPrefs.SetFloat("Sound", soundSlider.value);
+        foreach (AudioSource audio in allSounds)
+        {
+            audio.volume = PlayerPrefs.GetFloat("Sound");
+        }
+    }
+  
 
     public void UpdateUI()
     {

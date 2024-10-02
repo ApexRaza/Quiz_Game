@@ -12,10 +12,10 @@ public class QuizHandler : MonoBehaviour
     CollectionsSO collectionSO;
     QuizManager quizManager;
     
-    [Header("Question Panel Area")]
+    
     [Space(2)]
-    public GameObject QuestionPanel,correctAns, incorrectAns, ansObjects;
-    public TextMeshProUGUI questionTxt;
+    public GameObject QuestionPanel,correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel;
+    public TextMeshProUGUI questionTxt,correctTxt;
     public Image questionImage;
 
 
@@ -23,10 +23,11 @@ public class QuizHandler : MonoBehaviour
     public List<GameObject> contentItem = new List<GameObject>();
 
     public ProgressState progressState;
+    public TImer timer;
     string[] game_ticket_id;
     int quizCount = 0;
 
-
+    public AudioSource swipeAudioSource;
 
     // Start is called before the first frame update
     void Start()
@@ -45,38 +46,55 @@ public class QuizHandler : MonoBehaviour
   
     }
 
-    int cat1, cat2;
+    
     // setting the two different categories selected by the user
-    public void SetQuestionCategories(int category1, int category2)
+    public void SetQuestionCategory(int category)
     {
-        cat1 = category1;
-        cat2 = category2;
 
-        ChooseQuestionCategory();
+        quizManager.type = category;
+      
 
     }
 
-    //randomly choosing between the two selected categories
-    public void ChooseQuestionCategory()
+    public void CheckAns(string ans)
     {
-
-        int i = Random.Range(0, 10);
-        if (i > 5)
-            quizManager.type = cat1;
+        if (ans == quizManager.quizType[quizManager.type].quizData[num].rightAnswer)
+        {
+            RightAns();
+            StartCoroutine(nameof(Next));
+        }
         else
-            quizManager.type = cat2;
+        {
+            WrongAnss();
+            StartCoroutine(nameof(WrongAns));
+        }
     }
 
+    void RightAns()
+    {
+        DataBase.Questions += 1;
+        DataBase.RightAnswer += 1;
+        DataSaver.Instance.SaveData();
+        swipeAudioSource.Play();
 
+    }
 
-
+    void WrongAnss()
+    {
+        DataBase.Keys += 10;
+        DataBase.Lives -= 1;
+        DataBase.Questions += 1;
+        DataBase.WrongAnswer += 1;
+        DataSaver.Instance.SaveData();
+        swipeAudioSource.Play();
+    }
     public IEnumerator Next()
     {
         Debug.Log("run");
-
+        correctTxt.gameObject.SetActive(true);
         correctAns.SetActive(true);
         ansObjects.SetActive(false);
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(2);
 
         progressState.gameObject.SetActive(true);
         progressState.UpdateState(true);
@@ -89,7 +107,7 @@ public class QuizHandler : MonoBehaviour
         questionImage.enabled = false;
         quizCount++;
 
-        ChooseQuestionCategory();
+      
         if (quizCount > DataBase.QuestionsToTreasure)
         {
             quizCount = 0;
@@ -97,19 +115,45 @@ public class QuizHandler : MonoBehaviour
             Debug.Log("Level Cleared treasure Obtained");
 
         }
-        else
-            OpenquestionPanel();
+        //else
+        //    OpenquestionPanel();
     }
 
 
 
+    IEnumerator StartQuiz()
+    {
+        questionTxt.gameObject.SetActive(true);
+        yield return new WaitForSeconds(1.3f);
+        ansObjects.SetActive(true);
+        timer.ResetTimer();
+        
+        
+    }
+
+    void ResetState()
+    {
+
+        correctTxt.gameObject.SetActive(false);
+        incorrectAns.gameObject.SetActive(false);
+        questionTxt.gameObject.SetActive(false);
+        ansObjects.SetActive(false);
+        correctAns.SetActive(false); 
+        
+    }
+
     public IEnumerator WrongAns()
     {
-       
-        yield return new WaitForSeconds(1);
+        correctTxt.gameObject.SetActive(true);
+        incorrectAns.SetActive(true);
+        ansObjects.SetActive(false);
 
+        yield return new WaitForSeconds(2);
+        outOflivePanel.gameObject.SetActive(true);
         progressState.gameObject.SetActive(true);
-        progressState.UpdateState(false);
+        QuestionPanel.gameObject.SetActive(false);
+        progressState.SetStateFirstTime();
+
      
     }
 
@@ -139,27 +183,38 @@ public class QuizHandler : MonoBehaviour
             questionImage.enabled = true;
             questionImage.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0, 0));
 
-
+            StartCoroutine(StartQuiz());
         }
     }
 
-    
+    IEnumerator LoadingWait()
+    {
+        loadingQ.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        progressState.gameObject.SetActive(false);
+        QuestionPanel.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        loadingQ.SetActive(false);
+    }
 
+    int num;
     public void OpenquestionPanel()
     {
+        ResetState();
         // Type quizType = quizManager.quizType[questionCategory];
         //  Button btn= item.rightTxt.gameObject.transform.parent.GetComponent<Button>();
-        int num = DataBase.GetQuiz(quizManager.type);
+         num= DataBase.GetQuiz(quizManager.type);
 
         Debug.Log(num + " " + DataBase.GetQuiz(quizManager.type));
 
-        QuestionPanel.SetActive(true);
+        StartCoroutine(LoadingWait());
+
         if (quizCount > DataBase.QuestionsToTreasure)
         {
             quizCount = 0;
-            num = DataBase.GetQuiz(quizManager.type);
+            //num = DataBase.GetQuiz(quizManager.type);
             Debug.Log("Level Cleared treasure Obtained");
-            TreasureSystem.Instance.CalculatePercentage(TreasureType.Low);
+            num = 0;
         }
         else
         {
@@ -178,15 +233,9 @@ public class QuizHandler : MonoBehaviour
                     questionImage.enabled = false;
                 }
                 questionTxt.text = quizManager.quizType[quizManager.type].quizData[num].question.ToString();
-                //int i = Random.Range(0, 2);
-                //if (i < 1)
-                //{
-                //    Vector3 pos = item.wrongBtn.transform.position;
-                //    item.wrongBtn.transform.position = item.rightBtn.transform.position;
-                //    item.rightBtn.transform.position = pos;
-                //}
-                //item.rightTxt.text = quizManager.quizType[quizManager.type].quizData[num].rightAnswer.ToString();
-                //item.wrongTxt.text = quizManager.quizType[quizManager.type].quizData[num].wrongAnswer.ToString();
+                correctTxt.text = quizManager.quizType[quizManager.type].quizData[num].correctAns.ToString();
+
+
 
 
             }

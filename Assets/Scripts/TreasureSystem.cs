@@ -243,7 +243,7 @@ public class TreasureSystem : MonoBehaviour
         if(num == 5) 
         {
             
-            LevelUpScript.Instance.LevelUp();
+            LevelUpScript.Instance.LevelUp(); 
         }
     }
 

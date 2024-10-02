@@ -88,7 +88,7 @@ public class PanelSwitcher : MonoBehaviour
     }
 
     //Set the default states for the menu 
-    private void SetDefault()
+    public void SetDefault()
     {
         for (int i = 0; i < buttonPanelPairs.Length; i++)
         {

@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Swipe : MonoBehaviour
@@ -7,20 +6,18 @@ public class Swipe : MonoBehaviour
     private Vector3 fp;   
     private Vector3 lp;   
     private float dragDistance;
-    public UiManager uiManager;
+    
     public QuizHandler quizHandler;
     public TImer timer;
 
    public RectTransform rightBtn;
 
+    public AudioSource swipeAudioSource;
     void Start()
     {
-        uiManager = FindAnyObjectByType<UiManager>();
-
-        quizHandler = FindAnyObjectByType<QuizHandler>();
-        timer = FindAnyObjectByType<TImer>();
+     
         dragDistance = Screen.height * 15 / 100;
-        //Debug.Log( rightBtn.anchoredPosition.x);
+
     }
 
 
@@ -52,18 +49,17 @@ public class Swipe : MonoBehaviour
                             if (rightBtn.anchoredPosition.x > 0)
                             {
                                 Debug.Log("Right Anwser");
-                                uiManager.StartCoroutine(nameof(UiManager.Next));
-                                quizHandler.StartCoroutine(nameof(quizHandler.Next));
+
+                                quizHandler.CheckAns("TRUE");
                                 timer.startTimer = false;//.ResetTimer();
-                                RightAns();
+                                
                                 Debug.Log("If Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
                                 Debug.Log("Dumb Anwser");
-                                uiManager.StartCoroutine(nameof(UiManager.WrongAns));
-                                quizHandler.StartCoroutine(nameof(quizHandler.WrongAns));
-                                WrongAns();
+                                timer.startTimer = false;
+                                quizHandler.CheckAns("FALSE");
                                 Debug.Log("If Dumb Anwser : " + DataBase.WrongAnswer);
                             }
                         }
@@ -72,18 +68,17 @@ public class Swipe : MonoBehaviour
                             if (rightBtn.anchoredPosition.x < 0)
                             {
                                 Debug.Log("Right Anwser");
-                                uiManager.StartCoroutine(nameof(UiManager.Next));
-                                quizHandler.StartCoroutine(nameof(quizHandler.Next));
+
+                                quizHandler.CheckAns("TRUE");
                                 timer.startTimer = false;//.ResetTimer();
-                                RightAns();
+                               
                                 Debug.Log("Else Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
                                 Debug.Log("Dumb Anwser");
-                                uiManager.StartCoroutine(nameof(UiManager.WrongAns));
-                                quizHandler.StartCoroutine(nameof(quizHandler.WrongAns));
-                                WrongAns();
+                                timer.startTimer = false;
+                                quizHandler.CheckAns("FALSE");
                                 Debug.Log("Else Dumb Anwser : " + DataBase.WrongAnswer);
                             }
                         }
@@ -103,6 +98,8 @@ public class Swipe : MonoBehaviour
         DataBase.Questions += 1;
         DataBase.RightAnswer += 1;
         DataSaver.Instance.SaveData();
+        swipeAudioSource.Play();
+
     }
 
     void WrongAns()
@@ -112,6 +109,7 @@ public class Swipe : MonoBehaviour
         DataBase.Questions += 1;
         DataBase.WrongAnswer += 1;
         DataSaver.Instance.SaveData();
+        swipeAudioSource.Play();
     }
 
 

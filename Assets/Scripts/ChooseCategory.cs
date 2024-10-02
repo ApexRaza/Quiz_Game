@@ -1,12 +1,12 @@
-using DanielLochner.Assets.SimpleScrollSnap;
-
 using UnityEngine;
 
 public class ChooseCategory : MonoBehaviour
 {
-    int category1, category2;
-    public SimpleScrollSnap snap1,snap2;
+ 
    public UiManager uiManager;
+    public QuizHandler quizHandler;
+    public ScrollRectSelection s1,s2;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -14,20 +14,34 @@ public class ChooseCategory : MonoBehaviour
     }
 
     // Update is called once per frame
-    public void updateCategory(bool rightSide)
+    public void updateCategory(int val)
     {
-        if(rightSide)
-            category1 = snap1.CenteredPanel;
-        else
-            category2 = snap2.CenteredPanel;
-
-
+       
+       quizHandler.SetQuestionCategory(val);
     }
+
+
+    public void ReSpin()
+    {
+        if (DataBase.Gems >= 20)
+        {
+            s1.StartSlotSpin();
+            s2.StartSlotSpin();
+
+            DataBase.Gems -= 20;
+            DataSaver.Instance.SaveData();
+        }
+        else
+        {
+            Debug.Log("Dont have Gems");
+        }
+    }
+
 
     public void StartQuiz()
     {
-        uiManager.ChooseQuestionCategory(category1,category2);
-        uiManager.OpenquestionPanel();
+      
+        quizHandler.OpenquestionPanel();
     }
 
 
