@@ -160,28 +160,30 @@ public class UiManager : MonoBehaviour
             Sprite icon = collectionSO.collectionData[collectionType].item[i].Icon;
             string s = collectionSO.collectionData[collectionType].item[i].collected.ToString() + " / " +
                 collectionSO.collectionData[collectionType].item[i].total.ToString();
+            string n = collectionSO.collectionData[collectionType].item[i].Name;
 
 
 
-            contentItem[i].transform.GetChild(0).GetComponent<Image>().sprite = icon;
-            contentItem[i].GetComponentInChildren<TextMeshProUGUI>().text = s;
+           contentItem[i].transform.GetChild(0).GetComponent<Image>().sprite = icon;
+            contentItem[i].transform.GetChild(2).GetComponentInChildren<TextMeshProUGUI>().text = s;
+            contentItem[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = n;
             contentItem[i].SetActive(true);
 
 
             if (collectionType == 0)
             {
                 contentItem[i].transform.GetComponent<Image>().sprite = item.redBg;
-                contentItem[i].transform.GetChild(1).GetComponent<Image>().sprite = item.redTxt;
+                contentItem[i].transform.GetChild(2).GetComponent<Image>().sprite = item.redTxt;
             }
             if (collectionType == 1)
             {
                 contentItem[i].transform.GetComponent<Image>().sprite = item.bluBg;
-                contentItem[i].transform.GetChild(1).GetComponent<Image>().sprite = item.bluTxt;
+                contentItem[i].transform.GetChild(2).GetComponent<Image>().sprite = item.bluTxt;
             }
             if (collectionType == 2)
             {
                 contentItem[i].transform.GetComponent<Image>().sprite = item.yellowBg;
-                contentItem[i].transform.GetChild(1).GetComponent<Image>().sprite = item.yellowTxt;
+                contentItem[i].transform.GetChild(2).GetComponent<Image>().sprite = item.yellowTxt;
             }
 
 

@@ -3449,7 +3449,7 @@ TextureImporter:
         width: 143
         height: 146
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3470,7 +3470,7 @@ TextureImporter:
         width: 208
         height: 200
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -3478,6 +3478,132 @@ TextureImporter:
       bones: []
       spriteID: e61e928375cbf6c4aa48548a67de8add
       internalID: -938426035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_160
+      rect:
+        serializedVersion: 2
+        x: 2768
+        y: 2857
+        width: 382
+        height: 108
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 927fd22520f6be94bb5dc7f1054b4149
+      internalID: -1864740608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_161
+      rect:
+        serializedVersion: 2
+        x: 2767
+        y: 2726
+        width: 383
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45ddb203f83a57b4b9f8d825c8656086
+      internalID: 1279135176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_162
+      rect:
+        serializedVersion: 2
+        x: 2767
+        y: 2588
+        width: 383
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 865783d230afbb04192eef60088c19e2
+      internalID: -58370362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_163
+      rect:
+        serializedVersion: 2
+        x: 2094
+        y: 3667
+        width: 190
+        height: 139
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3eef061a97d98b84ab74475b48aeccdd
+      internalID: -664707928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_164
+      rect:
+        serializedVersion: 2
+        x: 2633
+        y: 5280
+        width: 89
+        height: 122
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ed9bbf4358defe45b656711bd2837c3
+      internalID: -654160668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_165
+      rect:
+        serializedVersion: 2
+        x: 2570
+        y: 3242
+        width: 474
+        height: 163
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e3f944158afcd3489f5d0508385b248
+      internalID: 1315649721
       vertices: []
       indices: 
       edges: []
@@ -3562,6 +3688,12 @@ TextureImporter:
       Quiz-Sprite_158: -1256455405
       Quiz-Sprite_159: -938426035
       Quiz-Sprite_16: -2007180485
+      Quiz-Sprite_160: -1864740608
+      Quiz-Sprite_161: 1279135176
+      Quiz-Sprite_162: -58370362
+      Quiz-Sprite_163: -664707928
+      Quiz-Sprite_164: -654160668
+      Quiz-Sprite_165: 1315649721
       Quiz-Sprite_17: 1032131473
       Quiz-Sprite_18: 514820317
       Quiz-Sprite_19: 1312484352
