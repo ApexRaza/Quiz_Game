@@ -1,4 +1,4 @@
-using DanielLochner.Assets.SimpleScrollSnap;
+
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,6 +26,7 @@ public class ScrollRectSelection : MonoBehaviour
     }
     public void StartSlotSpin()
     {
+        scrollRect.enabled = true;
         isSpinning = true;
         spinTime = 0f;
 
@@ -72,5 +73,6 @@ public class ScrollRectSelection : MonoBehaviour
 
          scrollRect.verticalNormalizedPosition = targetPosition;
         isSpinning = false;
+        scrollRect.enabled = false;
     }
 }

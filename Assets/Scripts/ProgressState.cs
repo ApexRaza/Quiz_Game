@@ -19,7 +19,7 @@ public class ProgressState : MonoBehaviour
 
 
     public Sprite grayBtn, blueBtn, greenBtn, redBtn,chest,greyChest,tick ,cross;
-    public GameObject confetti,rewardPanel;
+    public GameObject confetti,rewardPanel,panelBg,nextButton;
 
   public  bool[] answer = new bool[8];
 
@@ -27,6 +27,9 @@ public class ProgressState : MonoBehaviour
     {
        SetStateFirstTime();
     }
+
+  
+
 
 
    public void SetStateFirstTime()
@@ -51,8 +54,20 @@ public class ProgressState : MonoBehaviour
         stateNb = 0;
         prizeImage.sprite = greyChest;
 
+    }
 
-
+    public void NextButton(bool b)
+    {
+        if (!b)
+        {
+            nextButton.GetComponent<Button>().interactable = false;
+            nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Victory";
+        }
+        else
+        {
+            nextButton.GetComponent<Button>().interactable = true;
+            nextButton.GetComponentInChildren<TextMeshProUGUI>().text = "Next";
+        }
 
     }
 

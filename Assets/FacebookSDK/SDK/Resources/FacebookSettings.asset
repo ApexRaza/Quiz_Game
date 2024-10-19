@@ -24,7 +24,7 @@ MonoBehaviour:
   status: 1
   xfbml: 0
   frictionlessRequests: 1
-  androidKeystorePath: C:\Users\khizar\.android\debug.keystore
+  androidKeystorePath: D:\Projects\Quiz_Game\Assets\Others\Keystore
   iosURLSuffix: 
   appLinkSchemes:
   - list: []

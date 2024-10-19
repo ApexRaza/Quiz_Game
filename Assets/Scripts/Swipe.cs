@@ -48,38 +48,38 @@ public class Swipe : MonoBehaviour
                         {
                             if (rightBtn.anchoredPosition.x > 0)
                             {
-                                Debug.Log("Right Anwser");
+                               // Debug.Log("Right Anwser");
 
                                 quizHandler.CheckAns("TRUE");
                                 timer.startTimer = false;//.ResetTimer();
                                 
-                                Debug.Log("If Right Anwser : " + DataBase.RightAnswer);
+                               // Debug.Log("If Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
-                                Debug.Log("Dumb Anwser");
+                               // Debug.Log("Dumb Anwser");
                                 timer.startTimer = false;
                                 quizHandler.CheckAns("FALSE");
-                                Debug.Log("If Dumb Anwser : " + DataBase.WrongAnswer);
+                              //  Debug.Log("If Dumb Anwser : " + DataBase.WrongAnswer);
                             }
                         }
                         else
                         {
                             if (rightBtn.anchoredPosition.x < 0)
                             {
-                                Debug.Log("Right Anwser");
+                              //  Debug.Log("Right Anwser");
 
                                 quizHandler.CheckAns("TRUE");
                                 timer.startTimer = false;//.ResetTimer();
                                
-                                Debug.Log("Else Right Anwser : " + DataBase.RightAnswer);
+                               // Debug.Log("Else Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
-                                Debug.Log("Dumb Anwser");
+                               // Debug.Log("Dumb Anwser");
                                 timer.startTimer = false;
                                 quizHandler.CheckAns("FALSE");
-                                Debug.Log("Else Dumb Anwser : " + DataBase.WrongAnswer);
+                               // Debug.Log("Else Dumb Anwser : " + DataBase.WrongAnswer);
                             }
                         }
                     }
@@ -87,7 +87,7 @@ public class Swipe : MonoBehaviour
                 }
                 else
                 {   
-                    Debug.Log("Tap");
+                    //Debug.Log("Tap");
                 }
             }
         }

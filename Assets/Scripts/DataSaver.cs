@@ -70,14 +70,14 @@ public class DataSaver : MonoBehaviour
     
     public void SaveData() 
     {
-        Debug.Log("Inside SaveData() Function");
+        //Debug.Log("Inside SaveData() Function");
         AssignData();
         
     }
 
     public void AssignData()
     {
-        Debug.Log("Inside AssignData() Function");
+        //Debug.Log("Inside AssignData() Function");
         FirebaseUser user = auth.CurrentUser;
         userID = user.UserId;
         if (user.IsAnonymous)
@@ -130,7 +130,7 @@ public class DataSaver : MonoBehaviour
 
         //
 
-        Debug.Log("FriendRequests : " + DataBase.FriendRequests.Count);
+      //  Debug.Log("FriendRequests : " + DataBase.FriendRequests.Count);
         dts.FriendRequests = DataBase.FriendRequests;
         dts.Friends = DataBase.Friends;
 

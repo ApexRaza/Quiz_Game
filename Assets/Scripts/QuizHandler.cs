@@ -46,7 +46,12 @@ public class QuizHandler : MonoBehaviour
   
     }
 
-    
+
+    public void QuizNo()
+    {
+        quizCount = 0;
+    }
+
     // setting the two different categories selected by the user
     public void SetQuestionCategory(int category)
     {
@@ -90,7 +95,7 @@ public class QuizHandler : MonoBehaviour
     }
     public IEnumerator Next()
     {
-        Debug.Log("run");
+        //Debug.Log("run");
         correctTxt.gameObject.SetActive(true);
         correctAns.SetActive(true);
         ansObjects.SetActive(false);
@@ -103,15 +108,16 @@ public class QuizHandler : MonoBehaviour
         int i = DataBase.GetQuiz(quizManager.type);
         i++;
         DataBase.SetQuiz(quizManager.type, i);
-
+        num++;
         questionImage.enabled = false;
         quizCount++;
 
-      
-        if (quizCount > DataBase.QuestionsToTreasure)
+
+        if (quizCount >= DataBase.QuestionsToTreasure)
         {
             quizCount = 0;
 
+            progressState.NextButton(false);
             Debug.Log("Level Cleared treasure Obtained");
 
         }
@@ -197,28 +203,32 @@ public class QuizHandler : MonoBehaviour
         loadingQ.SetActive(false);
     }
 
-    int num;
+    int num=0;
     public void OpenquestionPanel()
     {
         ResetState();
         // Type quizType = quizManager.quizType[questionCategory];
         //  Button btn= item.rightTxt.gameObject.transform.parent.GetComponent<Button>();
-         num= DataBase.GetQuiz(quizManager.type);
+      //  num= DataBase.GetQuiz(quizManager.type);
+        if (num >= quizManager.quizType[quizManager.type].quizData.Count)
+        {
+            num = 0;
+        }
 
-        Debug.Log(num + " " + DataBase.GetQuiz(quizManager.type));
+        Debug.Log(num + " " + quizManager.quizType[quizManager.type].quizData.Count);
 
         StartCoroutine(LoadingWait());
 
-        if (quizCount > DataBase.QuestionsToTreasure)
+        if (quizCount > DataBase.QuestionsToTreasure )
         {
             quizCount = 0;
             //num = DataBase.GetQuiz(quizManager.type);
             Debug.Log("Level Cleared treasure Obtained");
-            num = 0;
+            
         }
         else
         {
-            Debug.Log(quizManager.quizType.Length);
+            Debug.Log(quizCount + "  -------------  " + num);
 
             if (num < quizManager.quizType.Length)
             {
