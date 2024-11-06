@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Collections.ObjectModel;
 
 public enum TreasureType
 {
@@ -19,6 +20,8 @@ public class TreasureSystem : MonoBehaviour
     //public TextMeshProUGUI R1txt, R1Divtxt,R2txt, R3txt, R1Coinstxt, R2Coinstxt, R3Coinstxt, gemsTxt, dollarsTxt, packGemsTxt, packDollarsTxt;
     private int R1Coins, R1_1Coins, R1_2Coins, R1_3Coins, R2Coins, R3Coins, packGems, packDollars;
     private int R1Col, R2Col = 4, R3Col =5;
+    private RewardInfo rewardInfo;
+
 
     private void Awake()
     {
@@ -27,6 +30,9 @@ public class TreasureSystem : MonoBehaviour
             instance = this;
             Instance = instance;
         }
+        rewardInfo = Resources.Load<RewardInfo>("Scriptables/RewardInfo");
+
+
     }
    
     [System.Serializable]
@@ -103,6 +109,10 @@ public class TreasureSystem : MonoBehaviour
             Debug.Log("R1 Coins Index: " + GetIndex(DataBase.LevelUp, R1Col));
             Debug.Log("1st Box Coins: " + R1_1Coins + " 2nd Box Coins: " + R1_2Coins + " 3rd Box Coins: " + R1_3Coins);
             //R1Divtxt.text = "1st Box Coins: " + R1_1Coins + " 2nd Box Coins: " + R1_2Coins + " 3rd Box Coins: " + R1_3Coins;
+            //update rewardinfo for chest open screen
+            rewardInfo.GetCoin1Info(GetIndex(DataBase.LevelUp, R1Col), R1Coins);
+
+
 
             var r2CoinsRange = GetR2Coins(treasureType);
             R2Coins = r2Chance ? Random.Range(r2CoinsRange.min, r2CoinsRange.max+1) : 0;
@@ -110,6 +120,8 @@ public class TreasureSystem : MonoBehaviour
             Debug.Log("R2 Coins Index: " + GetIndex(DataBase.LevelUp, R2Col));
             Debug.Log("Amount of R2 coins is: " + R2Coins.ToString());
             //R2Coinstxt.text = "Amount of R2 coins is: " + R2Coins.ToString();
+            //update rewardinfo for chest open screen
+            rewardInfo.GetCoin2Info(GetIndex(DataBase.LevelUp, R2Col), R2Coins);
 
             var r3CoinsRange = GetR3Coins(treasureType);
             R3Coins = r3Chance ? Random.Range(r3CoinsRange.min, r3CoinsRange.max+1) : 0;
@@ -117,16 +129,21 @@ public class TreasureSystem : MonoBehaviour
             Debug.Log("R3 Coins Index: " + GetIndex(DataBase.LevelUp, R3Col));
             Debug.Log("Amount of R3 coins is: " + R3Coins.ToString());
             //R3Coinstxt.text = "Amount of R3 coins is: " + R3Coins.ToString();
+            //update rewardinfo for chest open screen
+            rewardInfo.GetCoin3Info(GetIndex(DataBase.LevelUp, R3Col), R3Coins);
+
 
             var gemsRange = GetGems(treasureType);
             packGems = Random.Range(gemsRange.min, gemsRange.max);
             DataBase.Gems += packGems;
+            rewardInfo.GetGemsInfo(packGems);
             //gemsTxt.text = "Amount of Gems is: " + DataBase.Gems.ToString();
             //packGemsTxt.text = "Amount of Gems in pack is:" + packGems.ToString();
 
             var dollarsRange = GetDollars(treasureType);
             packDollars = Random.Range(dollarsRange.min, dollarsRange.max);
             DataBase.Dollars += packDollars;
+            rewardInfo.GetDollarInfo(packDollars);
             //dollarsTxt.text = "Amount of Dollars is: " + DataBase.Dollars.ToString();
             //packDollarsTxt.text = "Amount of Dollars in pack is:" + packDollars.ToString();
 

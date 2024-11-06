@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7035dea92415b448d3c5c2418763f4, type: 3}
+  m_Name: RewardInfo
+  m_EditorClassIdentifier: 
+  itemInfo:
+  - Name: Asian Palm Civet
+    Amount: 5
+    Icon: {fileID: 21300000, guid: b9b66475b13b39f4b86734670f882638, type: 3}
+  - Name: CAT-(NEKO)
+    Amount: 0
+    Icon: {fileID: 21300000, guid: 2ee0a94de44a77445a0eafb0d4b55cf3, type: 3}
+  - Name: COW-(USHI)
+    Amount: 2
+    Icon: {fileID: 21300000, guid: 8a0a83547a133a74e955b6bbd7cb66fc, type: 3}
+  collectionsSO: {fileID: 11400000, guid: ba807318716eb044bbb59bbbe2270344, type: 2}
+  coins: 19
+  gems: 3

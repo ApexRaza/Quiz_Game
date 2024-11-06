@@ -1,0 +1,1064 @@
+fileFormatVersion: 2
+guid: c3b180ea0b0d22342849bc04e0bd6d04
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 1024
+    resizeAlgorithm: 0
+    textureFormat: 50
+    textureCompression: 1
+    compressionQuality: 100
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 1
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Medals-Sprite_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 1500
+        width: 266
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9d15e369c9edd34e902ed62e4c2a5a1
+      internalID: 915545042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_1
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 1500
+        width: 266
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c867049bf612ee241896f6b7c6b71a70
+      internalID: 1717971890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_2
+      rect:
+        serializedVersion: 2
+        x: 603
+        y: 1502
+        width: 266
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dabbba0c069a3e949947d7f1b1447d80
+      internalID: 1610776455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_3
+      rect:
+        serializedVersion: 2
+        x: 891
+        y: 1500
+        width: 266
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf53b68f0fa15984e9ccc462881c59e9
+      internalID: 581644785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_4
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 1502
+        width: 266
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1a541c25ac2c7c41a450dde8491fa37
+      internalID: 1716392923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_5
+      rect:
+        serializedVersion: 2
+        x: 1465
+        y: 1502
+        width: 266
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 341f36bb70120964a9215c04104aeea5
+      internalID: 57449907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_6
+      rect:
+        serializedVersion: 2
+        x: 1753
+        y: 1500
+        width: 266
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebc11b0a3f03e0845807c8e21c968c6a
+      internalID: 1001915013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_7
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 1200
+        width: 234
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b15b51cbf87fd374b822999040d26aa8
+      internalID: 2112980571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_14
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 920
+        width: 252
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e99f2035a362d0744b1e2ce44f9a833b
+      internalID: 2127539372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_15
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 920
+        width: 252
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff356b75cb459a5418a41e063bb2c440
+      internalID: -995462871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_16
+      rect:
+        serializedVersion: 2
+        x: 611
+        y: 920
+        width: 252
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4bd7635d906ff44da073f3aca80ca1a
+      internalID: -1374048522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_17
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 920
+        width: 252
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3322416a0ac5f564496d004795db54cc
+      internalID: 354498570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_18
+      rect:
+        serializedVersion: 2
+        x: 1185
+        y: 918
+        width: 252
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f33545b0873fc1e4895c0a9cbe09aed3
+      internalID: 892899840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_19
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 920
+        width: 252
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c0de09c449d21f46a562f2279a84108
+      internalID: 1181584102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_23
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 639
+        width: 276
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebb33abb140c4784c86023323fe6b019
+      internalID: -1693792712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_24
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 639
+        width: 275
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b36bd535e4398e747b1de4b2566d50cd
+      internalID: -2056386393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_25
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 639
+        width: 275
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faa9b5bdc0843bb4cbc67edb7ad74dba
+      internalID: 2104574516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_26
+      rect:
+        serializedVersion: 2
+        x: 1470
+        y: 639
+        width: 275
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77f3748c11b8c2347a93b4d84c63b147
+      internalID: 450393781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_27
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 639
+        width: 275
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26890251dfcdf3a44af5e5c893346380
+      internalID: 482724298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_28
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 329
+        width: 254
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ab9c8dbc5564934bbaaf1d1656d26ce
+      internalID: -1601917600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_29
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 329
+        width: 254
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d57228d734569ca4eaa657079f8c80f3
+      internalID: -70935019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_30
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 329
+        width: 254
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8a93ddd89af8154fa53bed9046ce210
+      internalID: -1696921115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_31
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 329
+        width: 254
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71ebd9fdd8aae7c41a4b518b93a76417
+      internalID: 1508544954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_32
+      rect:
+        serializedVersion: 2
+        x: 1183
+        y: 329
+        width: 254
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfca93148e2879e4fbbd25c8aa5cca4f
+      internalID: -2314642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_33
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 329
+        width: 254
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d51887f533ada5c4fb04db11f4c03a84
+      internalID: 343854294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_34
+      rect:
+        serializedVersion: 2
+        x: 1761
+        y: 329
+        width: 254
+        height: 212
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adc66ad4d3e156b4aaa6910518d0e752
+      internalID: 1273657012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_35
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 41
+        width: 252
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c4096745120abf41a3248d5e19cf6e7
+      internalID: 1583281649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_36
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 41
+        width: 252
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a5f57b9eef783242808e3cf44c7cfbc
+      internalID: -1559505160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_8
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 1200
+        width: 234
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4029cc6bb5ebd694d9cce8fc29a440fb
+      internalID: -1168945619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_9
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 1200
+        width: 234
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ac1bbc207a158468c155d9a50915e2
+      internalID: 1494993820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_10
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 1200
+        width: 234
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52ee476b4029aae47af956039bf03ba7
+      internalID: -267922996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_11
+      rect:
+        serializedVersion: 2
+        x: 1195
+        y: 1200
+        width: 234
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75b48bd60eeec884483f7be973602dff
+      internalID: -1413807133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_12
+      rect:
+        serializedVersion: 2
+        x: 1481
+        y: 1200
+        width: 234
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66c8db7ae4be92244b2b895cfc826095
+      internalID: -1635162440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_13
+      rect:
+        serializedVersion: 2
+        x: 1769
+        y: 1200
+        width: 234
+        height: 202
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe6a8b646c0f58b43b7da246ac1f4d58
+      internalID: 149749124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_20
+      rect:
+        serializedVersion: 2
+        x: 1761
+        y: 920
+        width: 252
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4c6bde0ac97511419d8f3c75e2ce617
+      internalID: 2006886274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_21
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 639
+        width: 275
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b601736d0630c5e4196e3ed8e4f6984b
+      internalID: -1278278234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_22
+      rect:
+        serializedVersion: 2
+        x: 311
+        y: 639
+        width: 276
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f0f9cd03ae44094a8661c4e8f0f3cba
+      internalID: -1827622775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_37
+      rect:
+        serializedVersion: 2
+        x: 619
+        y: 41
+        width: 252
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27a7a87560d5b3e4799c301a070c4b6a
+      internalID: 166843882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_38
+      rect:
+        serializedVersion: 2
+        x: 907
+        y: 41
+        width: 252
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 983a79b4ff80c2146a4fe954a3ba5220
+      internalID: 2014708551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_39
+      rect:
+        serializedVersion: 2
+        x: 1187
+        y: 41
+        width: 252
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 840f59b8e74a57a43bc470e9364df14d
+      internalID: 335317196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_40
+      rect:
+        serializedVersion: 2
+        x: 1483
+        y: 41
+        width: 252
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a107ae17805f734996efc3e7555b128
+      internalID: 1491319650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Medals-Sprite_41
+      rect:
+        serializedVersion: 2
+        x: 1763
+        y: 41
+        width: 252
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e0214594c2952458f4856a4c0d37ca
+      internalID: 86917348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 2d971b0a491c73746aa2aeaf745c9376
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Medals-Sprite_0: 915545042
+      Medals-Sprite_1: 1717971890
+      Medals-Sprite_10: -267922996
+      Medals-Sprite_11: -1413807133
+      Medals-Sprite_12: -1635162440
+      Medals-Sprite_13: 149749124
+      Medals-Sprite_14: 2127539372
+      Medals-Sprite_15: -995462871
+      Medals-Sprite_16: -1374048522
+      Medals-Sprite_17: 354498570
+      Medals-Sprite_18: 892899840
+      Medals-Sprite_19: 1181584102
+      Medals-Sprite_2: 1610776455
+      Medals-Sprite_20: 2006886274
+      Medals-Sprite_21: -1278278234
+      Medals-Sprite_22: -1827622775
+      Medals-Sprite_23: -1693792712
+      Medals-Sprite_24: -2056386393
+      Medals-Sprite_25: 2104574516
+      Medals-Sprite_26: 450393781
+      Medals-Sprite_27: 482724298
+      Medals-Sprite_28: -1601917600
+      Medals-Sprite_29: -70935019
+      Medals-Sprite_3: 581644785
+      Medals-Sprite_30: -1696921115
+      Medals-Sprite_31: 1508544954
+      Medals-Sprite_32: -2314642
+      Medals-Sprite_33: 343854294
+      Medals-Sprite_34: 1273657012
+      Medals-Sprite_35: 1583281649
+      Medals-Sprite_36: -1559505160
+      Medals-Sprite_37: 166843882
+      Medals-Sprite_38: 2014708551
+      Medals-Sprite_39: 335317196
+      Medals-Sprite_4: 1716392923
+      Medals-Sprite_40: 1491319650
+      Medals-Sprite_41: 86917348
+      Medals-Sprite_5: 57449907
+      Medals-Sprite_6: 1001915013
+      Medals-Sprite_7: 2112980571
+      Medals-Sprite_8: -1168945619
+      Medals-Sprite_9: 1494993820
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

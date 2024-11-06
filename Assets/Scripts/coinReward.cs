@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -14,7 +13,7 @@ public class coinReward : MonoBehaviour
     [SerializeField] private Quaternion[] initialRotation;
     [SerializeField] private int coinsAmount;
 
-
+    public bool customPos;
 
 
     void Start()
@@ -150,14 +149,28 @@ public class coinReward : MonoBehaviour
 
     private void ResetReward()
     {
-        for (int i = 0; i < pileOfCoins.transform.childCount; i++)
-        {
-            pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = initialPos[i];
-            pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().rotation = initialRotation[i];
-           // pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchorMax = targetCoin.anchorMax;
-           // pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchorMin = targetCoin.anchorMin;
-        }
 
+        if (customPos)
+        {
+            for (int i = 0; i < pileOfCoins.transform.childCount; i++)
+            {
+                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = customCoinPos.anchoredPosition;
+                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().rotation = initialRotation[i];
+                // pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchorMax = targetCoin.anchorMax;
+                // pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchorMin = targetCoin.anchorMin;
+            }
+        }
+        else
+        {
+
+            for (int i = 0; i < pileOfCoins.transform.childCount; i++)
+            {
+                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchoredPosition = initialPos[i];
+                pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().rotation = initialRotation[i];
+                // pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchorMax = targetCoin.anchorMax;
+                // pileOfCoins.transform.GetChild(i).GetComponent<RectTransform>().anchorMin = targetCoin.anchorMin;
+            }
+        }
     }
 
 
