@@ -93,23 +93,17 @@ public class Swipe : MonoBehaviour
         }
     }
 
-    void RightAns() 
+    public void RightAns() 
     {
-        DataBase.Questions += 1;
-        DataBase.RightAnswer += 1;
-        DataSaver.Instance.SaveData();
-        swipeAudioSource.Play();
+        quizHandler.CheckAns("TRUE");
+        timer.startTimer = false;
 
     }
 
-    void WrongAns()
+    public void WrongAns()
     {
-        DataBase.Keys += 10;
-        DataBase.Lives -= 1;
-        DataBase.Questions += 1;
-        DataBase.WrongAnswer += 1;
-        DataSaver.Instance.SaveData();
-        swipeAudioSource.Play();
+        timer.startTimer = false;
+        quizHandler.CheckAns("FALSE");
     }
 
 

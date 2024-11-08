@@ -7,7 +7,7 @@ public class RewardInfo : ScriptableObject
     public ItemsInfo[] itemInfo;
     public CollectionsSO collectionsSO;
 
-    public int coins, gems;
+    public int dollars, gems;
 
     public void GetCoin1Info(int col, int amount)
     {
@@ -29,7 +29,7 @@ public class RewardInfo : ScriptableObject
     }
     public void GetDollarInfo(int amount)
     {
-        coins = amount;
+        dollars = amount;
     }
     public void GetGemsInfo(int amount)
     {
