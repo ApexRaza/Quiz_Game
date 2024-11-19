@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using TMPro;
+using Photon.Pun;
+using Photon.Realtime;
+using System;
+
 
 
 [System.Serializable]
@@ -13,7 +17,7 @@ public class NetworkData
     public Image image;
     public string correctAns;
 }
-public class NetworkQuizHandler : MonoBehaviour
+public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
 {
     CollectionsSO collectionSO;
     QuizManager nQuizManager;
@@ -21,8 +25,10 @@ public class NetworkQuizHandler : MonoBehaviour
 
     [Space(2)]
     public GameObject QuestionPanel, correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel;
-    public TextMeshProUGUI questionTxt, correctTxt;
+    public TextMeshProUGUI questionTxt, correctTxt,p1test,p2test, overText;
     public Image questionImage;
+
+    public int p1, p2;
 
 
     public List<NetworkData> networkData;// = new List<NetworkData>();
@@ -33,6 +39,7 @@ public class NetworkQuizHandler : MonoBehaviour
     int quizCount = 0;
     int rightAnswerCount = 0;
     int wrongAnswerCount = 0;
+    int typeCat = 0;
 
     public AudioSource swipeAudioSource;
 
@@ -43,24 +50,50 @@ public class NetworkQuizHandler : MonoBehaviour
         nQuizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
         nQuizManager.QuizTypesInit();
 
-        nQuizManager.SetQuizType(QuizType.Varia);
+       // nQuizManager.SetQuizType(QuizType.Varia);
     }
 
+    void resetStates()
+    {
+        p1 = 0;
+        p2 = 0;
+        quizCount = 0;
+    }
     public void QuizNo()
     {
         quizCount = 0;
     }
-    public void setQuizType()
-
+    public void setQuizData()
     {
-        setQuizTypeRPC();
+        if (PhotonNetwork.IsMasterClient)
+            GetComponent<PhotonView>().RPC("setQuizTypeRPC", RpcTarget.All);
+       // setQuizTypeRPC();
     }
-
+    [PunRPC]
     public void setQuizTypeRPC()
     {
-        int num = Random.Range(0, 16);
-        SetQuestionCategory(num);
-        OpenquestionPanel();
+        ExitGames.Client.Photon.Hashtable type = new ExitGames.Client.Photon.Hashtable();
+        typeCat = UnityEngine. Random.Range(0, 16);
+        type["Type"] = typeCat;
+       
+        PhotonNetwork.CurrentRoom.SetCustomProperties(type);
+        p1test.text = p1.ToString();
+        p2test.text = p2.ToString();
+      
+
+        StartCoroutine(TestCall());
+       
+    }
+
+
+    IEnumerator TestCall()
+    {
+
+        SetQuestionCategory(typeCat);
+        LoadQuestionData();  
+        yield return new WaitForSeconds(0.3f);
+        
+        DisplayQuestion();
     }
 
 
@@ -74,15 +107,98 @@ public class NetworkQuizHandler : MonoBehaviour
     {
         if (ans == nQuizManager.quizType[nQuizManager.type].quizData[num].rightAnswer)
         {
+
             RightAns();
-            StartCoroutine(nameof(Next));
+            GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
+            //StartCoroutine(nameof(Next));
         }
         else
         {
             WrongAnss();
-            StartCoroutine(nameof(WrongAns));
+            GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
         }
     }
+
+    [PunRPC]
+    public void PlaySound(bool b, int playernb)
+    {
+        swipeAudioSource.Play();
+        if (b)
+        {
+            if (playernb == 1)
+            {
+                p1++;
+                p1test.text = p1.ToString();
+            }
+            if(playernb==2)
+            {
+                p2++;
+                p2test.text = p2.ToString();
+            }
+        }
+        else
+        {
+            if (playernb == 1)
+            {
+                p2++;
+                p1test.text = p1.ToString();
+            }
+            if (playernb == 2)
+            {
+                p1++;
+                p2test.text = p2.ToString();
+            }
+        }
+        p1test.text = p1.ToString();
+        p2test.text = p2.ToString();
+    }
+
+
+
+    void DetermineWinner()
+    {
+        //int p1 = Convert.ToInt32(p1test.ToString());
+        //int p2 = Convert.ToInt32(p2test.ToString());
+
+        // Compare scores to find the winner
+        int maxScore = Mathf.Max(p1, p2);
+
+        if (maxScore == p1)
+        {
+            Debug.Log("Player 1 is the winner!");
+            GetComponent<PhotonView>().RPC("ActivateWinnerAndLosers", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+           
+
+        }
+        else if (maxScore == p2)
+        {
+            Debug.Log("Player 2 is the winner!");
+            GetComponent<PhotonView>().RPC("ActivateWinnerAndLosers", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+           
+        }
+    }
+    [PunRPC]
+    public void ActivateWinnerAndLosers(int num)
+    {
+        outOflivePanel.SetActive(true);
+        if (num == 1)
+        {
+            overText.text = "YOU WIN!";
+        }
+        else
+        {
+            overText.text = "YOU LOSE!";
+            
+           
+        }
+        resetStates();
+    }
+
+
+
+
 
     void RightAns()
     {
@@ -94,6 +210,29 @@ public class NetworkQuizHandler : MonoBehaviour
     {
         swipeAudioSource.Play();
     }
+
+    [PunRPC]
+    public void NextQuestion()
+    {
+        quizCount++;
+        if (quizCount < 3)
+        {
+            networkData[quizCount].image.gameObject.SetActive(true);
+            networkData[quizCount - 1].image.gameObject.SetActive(false);
+            questionTxt.text = networkData[quizCount].question.ToString();
+            questionTxt.gameObject.SetActive(true);
+            ansObjects.SetActive(true);
+            timer.ResetTimer();
+        }
+
+        if(quizCount ==3)
+        {
+           // GetComponent<PhotonView>().RPC("DetermineWinner", RpcTarget.All);
+            DetermineWinner();
+        }
+    }
+
+
     public IEnumerator Next()
     {
         //Debug.Log("run");
@@ -218,17 +357,16 @@ public class NetworkQuizHandler : MonoBehaviour
     }
 
     int num = 0;
-    public void OpenquestionPanel()
+    public void LoadQuestionData()
     {
-        ResetState();
+       // ResetState();
         for (int i = 0; i < 3; i++) 
         {
-            
             networkData[i].question = nQuizManager.quizType[nQuizManager.type].quizData[i].question.ToString();
             networkData[i].correctAns = nQuizManager.quizType[nQuizManager.type].quizData[i].correctAns.ToString();
             StartCoroutine(LoadImage(nQuizManager.quizType[nQuizManager.type].quizData[i].imageLink, networkData[i].image));
         }
-        DisplayQuestion();
+      //  DisplayQuestion();
     }
     public void DisplayQuestion() 
     {
@@ -236,6 +374,18 @@ public class NetworkQuizHandler : MonoBehaviour
         questionTxt.text = networkData[0].question.ToString();
         questionTxt.gameObject.SetActive(true);
         ansObjects.SetActive(true);
-        timer.ResetTimer();
+       // timer.ResetTimer();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(typeCat);
+        }
+        else
+        {
+            typeCat = (int)stream.ReceiveNext();
+        }
     }
 }

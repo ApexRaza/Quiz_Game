@@ -20,8 +20,9 @@ public class FriendUIManager : MonoBehaviour
     public GameObject friendItemPrefab;
     public Transform friendRequestContent;
     public Transform friendsListContent;
-    public Button reqBtn;
-    public TMP_InputField userIDInputField;
+    public TMP_InputField searchInputField; // Assign this in the inspector
+    public Transform searchResultsContent; // Assign this in the inspector
+    public GameObject userResultPrefab; 
 
     private void Awake()
     {
@@ -35,92 +36,38 @@ public class FriendUIManager : MonoBehaviour
         dbRef = DataSaver.Instance.dbRef;
         userID = auth.CurrentUser.UserId;
     }
-    private void Start()
+    private void OnEnable()
     {
-        reqBtn.onClick.AddListener(SendRequest);
+        FM.LoadFriendsList(friendsListContent);
+        searchInputField.onEndEdit.AddListener(OnSearch);
     }
-
-    public void SendRequest() 
+    private void OnSearch(string searchTerm)
     {
-        string recipientID = userIDInputField.text.Trim();
-        if (!string.IsNullOrEmpty(recipientID))
+        if (!string.IsNullOrEmpty(searchTerm))
         {
-            FM.SendFriendRequest(recipientID, " " + DataBase.UserName);
+            FriendManager.Instance.SearchUsersByUsername(searchTerm, DisplaySearchResults);
         }
     }
-
-    public void LoadFriendRequests() 
+    public void TriggerSearch()
     {
-        StartCoroutine(LoadFriendRequestsData());
+        string searchTerm = searchInputField.text; // Get the text from the input field
+        OnSearch(searchTerm); // Call the OnSearch method with the retrieved text
     }
-    private IEnumerator LoadFriendRequestsData()
+    private void DisplaySearchResults(List<UserInfo> users)
     {
-        Task<DataSnapshot> DBTask = dbRef.Child("users").Child(userID).Child("FriendRequests").GetValueAsync();
+        ClearSearchResults();
 
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-        if (DBTask.Exception != null)
+        foreach (var user in users)
         {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-        else
-        {
-            //Data has been retrieved
-            DataSnapshot snapshot = DBTask.Result;
-            Debug.Log(snapshot);
-
-            //Destroy any existing scoreboard elements
-            foreach (Transform child in friendRequestContent)
-            {
-                Destroy(child.gameObject);
-            }
-
-            //Loop through every users UID
-            foreach (DataSnapshot childSnapshot in snapshot.Children)
-            {
-                string id = childSnapshot.Key.ToString();
-                string username = childSnapshot.Value.ToString();
-                GameObject requestItem = Instantiate(friendRequestItemPrefab, friendRequestContent);
-                FriendRequestItem item = requestItem.GetComponent<FriendRequestItem>();
-                Debug.Log("LoadFriendRequests");
-                item.Initialize(id, username);
-            }
+            GameObject resultItem = Instantiate(userResultPrefab, searchResultsContent);
+            resultItem.GetComponent<UserResultItem>().Initialize(user); // Pass the user info
         }
     }
-
-
-    public void LoadFriendsList() 
+    private void ClearSearchResults()
     {
-        StartCoroutine(LoadFriendListData());
-    }
-
-    private IEnumerator LoadFriendListData() 
-    {
-        Task<DataSnapshot> DBTask = dbRef.Child("users").Child(userID).Child("Friends").GetValueAsync();
-        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
-
-        if (DBTask.Exception != null)
+        foreach (Transform child in searchResultsContent)
         {
-            Debug.LogWarning(message: $"Failed to register task with {DBTask.Exception}");
-        }
-        else
-        {
-            DataSnapshot snapshot = DBTask.Result;
-            Debug.Log(snapshot);
-
-            foreach (Transform child in friendsListContent)
-            {
-                Destroy(child.gameObject);
-            }
-
-            foreach (DataSnapshot childSnapshot in snapshot.Children)
-            {
-                string username = childSnapshot.Value.ToString();
-                GameObject requestItem = Instantiate(friendItemPrefab, friendsListContent);
-                FriendItem item = requestItem.GetComponent<FriendItem>();
-                Debug.Log("LoadFriendRequests");
-                item.Initialize(username);
-            }
+            Destroy(child.gameObject);
         }
     }
 }

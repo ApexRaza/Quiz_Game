@@ -8,7 +8,14 @@ public class PlayerProfile : MonoBehaviour
     public TextMeshProUGUI  questionAnswered, rightAnswer, wrongAnswer, winningPercentage,badgeName;
     public Image badge, badge1;
     public Sprite[] badgeicons;
-    
+
+
+
+    private void Awake()
+    {
+        UpdateBadge();
+    }
+
     // Start is called before the first frame update
     private void OnEnable()
     {

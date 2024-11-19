@@ -17,7 +17,7 @@ public class UiManager : MonoBehaviour
     CollectionsSO collectionSO;
     QuizManager quizManager;
     public Items item;
-
+    public PlayerProfile playerProfile;
     [Space (10)]
     public int collectionType;
     public int questionCategory;
@@ -45,7 +45,7 @@ public class UiManager : MonoBehaviour
 
         quizManager.SetQuizType(QuizType.Varia);
 
-       
+        playerProfile.UpdateBadge();
     }
 
 
