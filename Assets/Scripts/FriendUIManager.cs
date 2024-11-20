@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using Firebase.Database;
 using Firebase.Auth;
-using System.Threading.Tasks;
+//using System.Threading.Tasks;
 
 public class FriendUIManager : MonoBehaviour
 {
@@ -22,7 +22,9 @@ public class FriendUIManager : MonoBehaviour
     public Transform friendsListContent;
     public TMP_InputField searchInputField; // Assign this in the inspector
     public Transform searchResultsContent; // Assign this in the inspector
-    public GameObject userResultPrefab; 
+    public GameObject userResultPrefab;
+
+    public GameObject[] bgButtons, frontEndButtons;
 
     private void Awake()
     {
@@ -40,6 +42,9 @@ public class FriendUIManager : MonoBehaviour
     {
         FM.LoadFriendsList(friendsListContent);
         searchInputField.onEndEdit.AddListener(OnSearch);
+        ButtonEffect(0);
+
+
     }
     private void OnSearch(string searchTerm)
     {
@@ -70,4 +75,25 @@ public class FriendUIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
+
+    public void ButtonEffect(int num)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (i == num)
+            {
+                bgButtons[i].SetActive(false);
+                frontEndButtons[i].SetActive(true);
+            }
+            else
+            {
+                bgButtons[i].SetActive(true);
+                frontEndButtons[i].SetActive(false);
+            }
+        }
+
+    }
+
+
 }

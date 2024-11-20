@@ -2058,10 +2058,10 @@ TextureImporter:
       name: Quiz-Sprite_92
       rect:
         serializedVersion: 2
-        x: 1919
-        y: 2966
-        width: 471
-        height: 162
+        x: 1912
+        y: 2967
+        width: 470
+        height: 160
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -3608,6 +3608,69 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_166
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 39
+        width: 286
+        height: 108
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6cc1ad83a97284f8c836fe6ac09eed
+      internalID: -539524451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_167
+      rect:
+        serializedVersion: 2
+        x: 386
+        y: 38
+        width: 285
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4cd87ebaed5b3e4f89d0fc4c843e84c
+      internalID: -1104420469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Quiz-Sprite_168
+      rect:
+        serializedVersion: 2
+        x: 681
+        y: 38
+        width: 285
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a5238339294f64e85136610024974e
+      internalID: -1769571362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -3694,6 +3757,9 @@ TextureImporter:
       Quiz-Sprite_163: -664707928
       Quiz-Sprite_164: -654160668
       Quiz-Sprite_165: 1315649721
+      Quiz-Sprite_166: -539524451
+      Quiz-Sprite_167: -1104420469
+      Quiz-Sprite_168: -1769571362
       Quiz-Sprite_17: 1032131473
       Quiz-Sprite_18: 514820317
       Quiz-Sprite_19: 1312484352
