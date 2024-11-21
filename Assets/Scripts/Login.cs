@@ -62,7 +62,10 @@ public class Login : MonoBehaviour
             CheckSignInStatus();
         }
     }
-
+    private void OnEnable()
+    {
+        DataBase.IsOnline = true;
+    }
     ////..........................................Guest SignIn............................................................./////
 
     public async void GuestLogin()
@@ -101,7 +104,7 @@ public class Login : MonoBehaviour
                 {
                     Debug.Log("FirstTimeAnom");
                     PlayerPrefs.Save();
-                    PlayerPrefs.SetInt("FirstTimeAnom", 1);
+                    PlayerPrefs.SetInt("FirstTimeAnom", 0);
                 }
             }
         });
@@ -164,7 +167,7 @@ public class Login : MonoBehaviour
             CheckUserDataExists(task.Result.UserId);
 
             // Authenticate with Firebase
-            //GoogleAuth(task.Result.IdToken);
+            GoogleAuth(task.Result.IdToken);
         }
     }
 
@@ -400,7 +403,6 @@ public class Login : MonoBehaviour
             }
         });
     }
-
     private IEnumerator LoadDataAndChangeScene()
     {
         // Start the LoadData coroutine and wait for it to finish

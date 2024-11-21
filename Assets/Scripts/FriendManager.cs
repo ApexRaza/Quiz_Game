@@ -207,11 +207,22 @@ public class FriendManager : MonoBehaviour
 
         // Clear existing UI elements
         ClearContent(content);
-
+        
         foreach (DataSnapshot childSnapshot in snapshot.Children)
         {
             string id = childSnapshot.Key.ToString();
             string username = childSnapshot.Value.ToString();
+            Task<DataSnapshot> onlineStatusTask = dbRef.Child("users").Child(id).Child("IsOnline").GetValueAsync(); // Fetch online status
+            yield return new WaitUntil(predicate: () => onlineStatusTask.IsCompleted);
+
+            if (onlineStatusTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to load online status with {onlineStatusTask.Exception}");
+                yield break; // Exit if there's an error
+            }
+
+            bool isOnline = onlineStatusTask.Result.Exists && (bool)onlineStatusTask.Result.Value;
+
             GameObject requestItem = Instantiate(isRequest ? FriendUIManager.Instance.friendRequestItemPrefab : FriendUIManager.Instance.friendItemPrefab, content);
             if (isRequest)
             {
@@ -221,7 +232,7 @@ public class FriendManager : MonoBehaviour
             else
             {
                 FriendItem item = requestItem.GetComponent<FriendItem>();
-                item.Initialize(username);
+                item.Initialize(username, isOnline);
             }
         }
     }

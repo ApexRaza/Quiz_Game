@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Firebase.Auth;
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class StringListContainer
@@ -21,6 +23,27 @@ public class DataBase
             PlayerPrefs.SetInt("Dollars", value);
             PlayerPrefs.Save();
         }
+    }
+    public static bool IsOnline
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("IsOnline", 0) == 1; // 1 for true, 0 for false
+        }
+        set
+        {
+            PlayerPrefs.SetInt("IsOnline", value ? 1 : 0);
+            PlayerPrefs.Save();
+        }
+    }
+
+    public static async Task SaveOnlineStatus(FirebaseUser user, bool isOnline)
+    {
+        IsOnline = isOnline; // Save locally
+        string userID = user.UserId;
+
+        // Save to Firebase
+        await DataSaver.Instance.dbRef.Child("users").Child(userID).Child("IsOnline").SetValueAsync(isOnline);
     }
 
     public static int Gems
