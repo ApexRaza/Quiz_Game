@@ -50,14 +50,14 @@ public class NetworkSwipe : MonoBehaviour
                                 // Debug.Log("Right Anwser");
 
                                 networkQuizHandler.CheckAns("TRUE");
-                                timer.startTimer = false;//.ResetTimer();
+                               // timer.startTimer = false;//.ResetTimer();
 
                                 // Debug.Log("If Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
                                 // Debug.Log("Dumb Anwser");
-                                timer.startTimer = false;
+                               // timer.startTimer = false;
                                 networkQuizHandler.CheckAns("FALSE");
                                 //  Debug.Log("If Dumb Anwser : " + DataBase.WrongAnswer);
                             }
@@ -69,14 +69,14 @@ public class NetworkSwipe : MonoBehaviour
                                 //  Debug.Log("Right Anwser");
 
                                 networkQuizHandler.CheckAns("TRUE");
-                                timer.startTimer = false;//.ResetTimer();
+                               // timer.startTimer = false;//.ResetTimer();
 
                                 // Debug.Log("Else Right Anwser : " + DataBase.RightAnswer);
                             }
                             else
                             {
                                 // Debug.Log("Dumb Anwser");
-                                timer.startTimer = false;
+                               // timer.startTimer = false;
                                 networkQuizHandler.CheckAns("FALSE");
                                 // Debug.Log("Else Dumb Anwser : " + DataBase.WrongAnswer);
                             }

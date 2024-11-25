@@ -59,6 +59,14 @@ MonoBehaviour:
   - PlaySound
   - NextQuestion
   - DetermineWinner
+  - SetName
+  - setP1Coin
+  - setP2Coin
+  - setp1
+  - setCoin
+  - RaiseRPC
+  - AcceptRPC
+  - PlayerStateChange
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

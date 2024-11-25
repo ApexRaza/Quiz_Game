@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
-using System;
+
 
 
 
@@ -25,10 +25,14 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
 
     [Space(2)]
     public GameObject QuestionPanel, correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel;
-    public TextMeshProUGUI questionTxt, correctTxt,p1test,p2test, overText;
+    public TextMeshProUGUI questionTxt, correctTxt,p1test,p2test, overText,questionCount;
     public Image questionImage;
+    public GameObject[] p1Q = new GameObject[3], p2Q = new GameObject [3];
 
     public int p1, p2;
+
+    public bool[] p1State = new bool[3], p2State = new bool[3];
+
 
 
     public List<NetworkData> networkData;// = new List<NetworkData>();
@@ -49,15 +53,28 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
         collectionSO = Resources.Load<CollectionsSO>("Scriptables/Collection");
         nQuizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
         nQuizManager.QuizTypesInit();
-
-       // nQuizManager.SetQuizType(QuizType.Varia);
+      
     }
-
+    private void OnEnable()
+    {
+        resetStates();
+    }
     void resetStates()
     {
         p1 = 0;
         p2 = 0;
         quizCount = 0;
+        //  p1State
+        for (int i = 0; i < p1Q.Length; i++)
+        {
+            p1Q[i].transform.GetChild(0).gameObject.SetActive(false);
+            p1Q[i].transform.GetChild(1).gameObject.SetActive(false);
+            p2Q[i].transform.GetChild(0).gameObject.SetActive(false);
+            p2Q[i].transform.GetChild(1).gameObject.SetActive(false);
+            networkData[i].image.gameObject.SetActive(false);
+        }
+
+        QuestionCount();
     }
     public void QuizNo()
     {
@@ -65,31 +82,41 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
     }
     public void setQuizData()
     {
-        if (PhotonNetwork.IsMasterClient)
-            GetComponent<PhotonView>().RPC("setQuizTypeRPC", RpcTarget.All);
+        // if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+
+       // ExitGames.Client.Photon.Hashtable type = new ExitGames.Client.Photon.Hashtable();
+        typeCat = Random.Range(0, 16);
+       // type["Type"] = typeCat;
+        Debug.LogError("i am called " + typeCat);
+      
+       // PhotonNetwork.CurrentRoom.SetCustomProperties(type);
+        p1test.text = p1.ToString();
+        p2test.text = p2.ToString();
+        GetComponent<PhotonView>().RPC("setQuizTypeRPC", RpcTarget.All, typeCat); 
        // setQuizTypeRPC();
     }
     [PunRPC]
-    public void setQuizTypeRPC()
+    public void setQuizTypeRPC( int num)
     {
-        ExitGames.Client.Photon.Hashtable type = new ExitGames.Client.Photon.Hashtable();
-        typeCat = UnityEngine. Random.Range(0, 16);
-        type["Type"] = typeCat;
-       
-        PhotonNetwork.CurrentRoom.SetCustomProperties(type);
-        p1test.text = p1.ToString();
-        p2test.text = p2.ToString();
-      
+        //ExitGames.Client.Photon.Hashtable type = new ExitGames.Client.Photon.Hashtable();
+        //typeCat = Random.Range(0, 16);
+        //type["Type"] = typeCat;
+        //Debug.LogError("i am called " + typeCat);
+        //SetQuestionCategory(typeCat);
+        //PhotonNetwork.CurrentRoom.SetCustomProperties(type);
+        //p1test.text = p1.ToString();
+        //p2test.text = p2.ToString();
 
+        SetQuestionCategory(num);
         StartCoroutine(TestCall());
-       
+
     }
 
 
     IEnumerator TestCall()
     {
 
-        SetQuestionCategory(typeCat);
+       // SetQuestionCategory(PhotonNetwork.CurrentRoom.CustomProperties.GetValueOrDefault());
         LoadQuestionData();  
         yield return new WaitForSeconds(0.3f);
         
@@ -109,14 +136,18 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
         {
 
             RightAns();
+
             GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
             GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
+       
             //StartCoroutine(nameof(Next));
         }
         else
         {
             WrongAnss();
             GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
             GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
         }
     }
@@ -155,6 +186,38 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
         p2test.text = p2.ToString();
     }
 
+    [PunRPC]
+    void PlayerStateChange(bool b,int a)
+    {
+        if (a== 1)
+        {
+            p1State[quizCount] = b;
+            p2State[quizCount] = !b;
+            if (b)
+            {
+                p1Q[quizCount].transform.GetChild(0).gameObject.SetActive(true);
+                p2Q[quizCount].transform.GetChild(1).gameObject.SetActive(true);
+            }
+            
+
+        }
+        else
+        {
+            p1State[quizCount] = b;
+            p2State[quizCount] = !b;
+            if (b)
+            {
+                p1Q[quizCount].transform.GetChild(1).gameObject.SetActive(true);
+                p2Q[quizCount].transform.GetChild(0).gameObject.SetActive(true);
+            }
+        }
+
+       
+
+
+
+    }
+
 
 
     void DetermineWinner()
@@ -167,23 +230,24 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
 
         if (maxScore == p1)
         {
-            Debug.Log("Player 1 is the winner!");
-            GetComponent<PhotonView>().RPC("ActivateWinnerAndLosers", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
-           
+            Debug.Log("Player 1 is the winner! " + maxScore);
+            GetComponent<PhotonView>().RPC("ActivateWinnerAndLosers", RpcTarget.All, 1);
+
 
         }
         else if (maxScore == p2)
         {
-            Debug.Log("Player 2 is the winner!");
-            GetComponent<PhotonView>().RPC("ActivateWinnerAndLosers", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
-           
+            Debug.Log("Player 2 is the winner! " + maxScore);
+            GetComponent<PhotonView>().RPC("ActivateWinnerAndLosers", RpcTarget.All, 2);
+
         }
+
     }
     [PunRPC]
     public void ActivateWinnerAndLosers(int num)
     {
         outOflivePanel.SetActive(true);
-        if (num == 1)
+        if ( PhotonNetwork.LocalPlayer.ActorNumber == num)
         {
             overText.text = "YOU WIN!";
         }
@@ -211,12 +275,20 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
         swipeAudioSource.Play();
     }
 
+
+    void QuestionCount()
+    {
+        questionCount.text = (quizCount +1).ToString() + "/3";
+    }
+
+
     [PunRPC]
     public void NextQuestion()
     {
         quizCount++;
         if (quizCount < 3)
         {
+            QuestionCount();
             networkData[quizCount].image.gameObject.SetActive(true);
             networkData[quizCount - 1].image.gameObject.SetActive(false);
             questionTxt.text = networkData[quizCount].question.ToString();
@@ -360,6 +432,7 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
     public void LoadQuestionData()
     {
        // ResetState();
+       ResetQ_Data();
         for (int i = 0; i < 3; i++) 
         {
             networkData[i].question = nQuizManager.quizType[nQuizManager.type].quizData[i].question.ToString();
@@ -368,6 +441,19 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
         }
       //  DisplayQuestion();
     }
+
+
+    public void ResetQ_Data()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            networkData[i].question = null;
+            networkData[i].correctAns = null;
+            networkData[i].image.sprite = null;
+           
+        }
+    }
+
     public void DisplayQuestion() 
     {
         networkData[0].image.gameObject.SetActive(true);

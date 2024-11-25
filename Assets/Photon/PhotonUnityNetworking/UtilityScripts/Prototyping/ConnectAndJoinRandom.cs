@@ -43,7 +43,7 @@ namespace Photon.Pun.UtilityScripts
         //  public GameObject GamePlay;
         public GameObject twoPlayers, onePlayers;
 
-        public GameObject USerObj,questionPanel, loading, glassObj,vsObj;
+        public GameObject USerObj,questionPanel, loading, glassObj,vsObj,bettingPanel, bettingScript;
         [HideInInspector]
         public string Roomname;
         public int playerTTL = -1;
@@ -221,9 +221,11 @@ namespace Photon.Pun.UtilityScripts
         IEnumerator delay()
         {
             yield return new WaitForSeconds(1f);
-            loading.SetActive(true);
+            bettingPanel.SetActive(true);
+            bettingScript.SetActive(true);
+            //loading.SetActive(true);
             yield return new WaitForSeconds(0.5f);
-            questionPanel.SetActive(true);
+            //questionPanel.SetActive(true);
             
         }
     }
