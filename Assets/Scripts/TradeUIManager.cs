@@ -1,17 +1,29 @@
-using Firebase.Database;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using Firebase.Database;
+using Firebase.Auth;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using System.Linq;
+using Firebase.Extensions;
+using System.Collections;
+
 
 public class TradeUIManager : MonoBehaviour
 {
     public GameObject[] bgButtons, frontEndButtons;
-    public string ID, index;
-
+    private string ID, index;
+    private DatabaseReference dbRef;
+    private FirebaseAuth auth;
+    private string userID;
     // Start is called before the first frame update
+    void Start()
+    {
+      
+        auth = Login.Instance.auth;
+       
+        ID = auth.CurrentUser.UserId;
+    }
+
     private void OnEnable()
     {
         ButtonEffect(0);
@@ -34,12 +46,12 @@ public class TradeUIManager : MonoBehaviour
         }
 
     }
-    public void LoadFriendsList()
+    public void LoadTradeList()
     {
-        StartCoroutine(LoadFriendData());
+        StartCoroutine(LoadTradeData());
     }
 
-    private IEnumerator LoadFriendData()
+    private IEnumerator LoadTradeData()
     {
         Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child(ID).Child("Trade").GetValueAsync();
        
@@ -83,4 +95,70 @@ public class TradeUIManager : MonoBehaviour
         //    Debug.Log("Index " + index);
         //}
     }
+
+
+    public void LoadTradesList(Transform tradesListContent)
+    {
+        StartCoroutine(LoadTradingData("Friends", tradesListContent, false));
+    }
+
+    private IEnumerator LoadTradingData(string childNode, Transform content, bool isRequest)
+    {
+        Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child(ID).Child(childNode).GetValueAsync();
+        yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
+
+        if (DBTask.Exception != null)
+        {
+            Debug.LogWarning(message: $"Failed to load {childNode} with {DBTask.Exception}");
+            yield break; // Exit if there's an error
+        }
+
+        DataSnapshot snapshot = DBTask.Result;
+
+        // Clear existing UI elements
+        ClearContent(content);
+
+        foreach (DataSnapshot childSnapshot in snapshot.Children)
+        {
+            string id = childSnapshot.Key.ToString();
+            string username = childSnapshot.Value.ToString();
+            //string level = childSnapshot.Value.ToString();
+            Task<DataSnapshot> frndLevelTask = DataSaver.Instance.dbRef.Child("users").Child(id).Child("LevelUp").GetValueAsync(); // Fetch online status
+            yield return new WaitUntil(predicate: () => frndLevelTask.IsCompleted);
+
+            if (frndLevelTask.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to load  with {frndLevelTask.Exception}");
+                yield break; // Exit if there's an error
+            }
+
+            DataSnapshot frndLevelSnap = frndLevelTask.Result;
+
+            //Debug.LogError("Level UP VALUE: " + frndLevelSnap.Value.ToString());
+            // bool frndLevel = frndLevelTask.Result.Exists && (bool)frndLevelTask.Result.Value;
+            int level = int.Parse(frndLevelSnap.Value.ToString());
+           // Debug.LogError("Level UP VALUE: " + level);
+            GameObject requestItem = Instantiate(isRequest ? FriendUIManager.Instance.friendRequestItemPrefab : FriendUIManager.Instance.friendItemPrefab, content);
+            if (level == DataBase.LevelUp)
+            {
+
+                Debug.LogError("User ID: " + id + " = " + level + " is matched.");
+            }
+            else
+            {
+                Debug.LogError("User ID: " + id + " = " + level + " did not match.");
+            }
+        }
+    }
+
+    private void ClearContent(Transform content)
+    {
+        foreach (Transform child in content)
+        {
+            Destroy(child.gameObject);
+        }
+    }
+
+
+
 }
