@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     QuizManager quizManager;
     //private Login login;
 
+   
 
     // Start is called before the first frame update
     void Start()
@@ -16,10 +17,16 @@ public class GameManager : MonoBehaviour
         collectionSO = Resources.Load<CollectionsSO>("Scriptables/Collection");
         quizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
         quizManager.QuizTypesInit();
+
+
+
     }
-   
 
    
+
+
+   
+
 
 
     public void TestGoogleLogin() 

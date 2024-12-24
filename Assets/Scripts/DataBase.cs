@@ -125,8 +125,8 @@ public class DataBase
    public static string UserName 
     {
         
-        get { return PlayerPrefs.GetString("Userame", ""); }
-        set { PlayerPrefs.SetString("Userame", value); PlayerPrefs.Save(); /*DataSaver.Instance.SaveData(); Debug.Log("In Database: User Name");*/ }
+        get { return PlayerPrefs.GetString("Username", ""); }
+        set { PlayerPrefs.SetString("Username", value); PlayerPrefs.Save(); /*DataSaver.Instance.SaveData(); Debug.Log("In Database: User Name");*/ }
     }
 
     //custom parameters

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Firebase.Extensions;
 using System.Collections;
+using System.Security.Cryptography;
+using System;
 
 
 [System.Serializable]
@@ -212,6 +214,7 @@ public class FriendManager : MonoBehaviour
         {
             string id = childSnapshot.Key.ToString();
             string username = childSnapshot.Value.ToString();
+        
             Task<DataSnapshot> onlineStatusTask = dbRef.Child("users").Child(id).Child("IsOnline").GetValueAsync(); // Fetch online status
             yield return new WaitUntil(predicate: () => onlineStatusTask.IsCompleted);
 
@@ -228,7 +231,7 @@ public class FriendManager : MonoBehaviour
             {
                 FriendRequestItem item = requestItem.GetComponent<FriendRequestItem>();
                 item.Initialize(id, username);
-            }
+            } 
             else
             {
                 FriendItem item = requestItem.GetComponent<FriendItem>();
@@ -244,4 +247,45 @@ public class FriendManager : MonoBehaviour
             Destroy(child.gameObject);
         }
     }
+
+    
+
+
+    public void ListenForTradeRequests(string userId)
+    {
+
+        Debug.Log(userId + "   ---------");
+        dbRef.Child("users").Child("rgpKzivCDvRfXG5hKXZAi4hlcyx1").Child("Keys").ValueChanged += HandleTradeRequest;
+    }
+
+    private void HandleTradeRequest(object sender, ValueChangedEventArgs args)
+    {
+        if (args.DatabaseError != null)
+        {
+            Debug.LogError(args.DatabaseError.Message);
+            return;
+        }
+
+        if (args.Snapshot.Exists)
+        {
+            //Debug.LogError("Keys changed");
+            foreach (var user in args.Snapshot.Children)
+            {
+                // Process each trade request
+                string senderId = user.Key;
+               // int amount = int.Parse(tradeRequest.Child("amount").Value.ToString());
+                // Notify the user about the trade request (UI update)
+                Debug.LogError("Keys changed");
+                //  ShowTradeRequest(senderId, amount);
+            }
+        }
+    }
+
+
+
+
 }
+
+
+
+//41846186.85
