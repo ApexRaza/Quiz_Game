@@ -12,7 +12,7 @@ public class RequestCOinInfo : MonoBehaviour
     public List<GameObject> coinObj, countObj, askCoinObj, askCount;
     public TextMeshProUGUI headerName, askName;
 
-    public bool demanded;  
+    
 
 
 
@@ -21,7 +21,7 @@ public class RequestCOinInfo : MonoBehaviour
         InitializeLists();
         CoinValue();
         headerName.text = tradeUiManager.userName;
-        askName.text = "Demanded Coins (" + tradeUiManager.userName + "'s Own)";
+        askName.text = "Proposed Coins (" + tradeUiManager.userName + "'s Own)";
     }
 
     void InitializeLists()

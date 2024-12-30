@@ -169,6 +169,15 @@ public class DataBase
         PlayerPrefs.Save();
     }
 
+
+    public static void UpdateCoins(int id, int Value)
+    {
+        //Debug.Log("SetCoin ID " + id);
+        PlayerPrefs.SetInt("Coin" + id, Value);
+        PlayerPrefs.Save();
+    }
+
+
     public static int GetQuiz(int id)
     {
         //Debug.Log("GetCoin ID " + id);

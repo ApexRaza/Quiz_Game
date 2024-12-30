@@ -194,7 +194,7 @@ public class TradeUIManager : MonoBehaviour
     //function to load the list of trade request sent from the frnds
     private IEnumerator LoadingTradeRequest(string childNode, Transform content, bool isRequest)
     {
-        Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child("rgpKzivCDvRfXG5hKXZAi4hlcyx1").Child(childNode).GetValueAsync();
+        Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child(userID).Child(childNode).GetValueAsync();
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
 
         if (DBTask.Exception != null)
@@ -287,18 +287,20 @@ public class TradeUIManager : MonoBehaviour
 
     }
 
-
     public void ViewTradeRequestData(string id)
     {
         StartCoroutine(GetTradeRequestData(id));
+        frndID = id;
     }
 
+    // view the request of trade if any present there
     public IEnumerator GetTradeRequestData(string id)
     {
 
+      
 
-
-        Task<DataSnapshot> tradeRequestData = DataSaver.Instance.dbRef.Child("users").Child(id).Child("TradeRequest").Child(userID).GetValueAsync();
+        // checking the traderequest in the user database
+        Task<DataSnapshot> tradeRequestData = DataSaver.Instance.dbRef.Child("users").Child(userID).Child("TradeRequest").Child(id).GetValueAsync();
 
         yield return new WaitUntil(predicate: () => tradeRequestData.IsCompleted);
 
@@ -321,13 +323,17 @@ public class TradeUIManager : MonoBehaviour
           
             Debug.Log(r_Snap);
 
+            bool indexValueofCoin = false;
+            // getting the result of trade request and store them in the demanded and proposed array respectivly
+            // loop of 5 items because we have only 5 items per level
             for (int i = 0; i < 5; i++)
             {
-                bool b = false;
+                // a bool check for differentiate the index and value on each iteration because database data structure is saved in this order
+                indexValueofCoin = false;
                 foreach (DataSnapshot snap in r_Snap.Child("demandedItems").Child(i.ToString()).Children)
                 {
 
-                    if (b)
+                    if (!indexValueofCoin)
                     {
                         demandedData[i].coinIndex = int.Parse(snap.Value.ToString()); 
                         Debug.Log(" -----  " + snap.Value); 
@@ -337,15 +343,15 @@ public class TradeUIManager : MonoBehaviour
                         demandedData[i].value = int.Parse( snap.Value.ToString());
                         Debug.Log( " -----  " + snap.Value); 
                     }
-                    
 
-                   
+                    indexValueofCoin = true;
+
                 }
-
+                indexValueofCoin = false;
                 foreach (DataSnapshot snap in r_Snap.Child("proposedItems").Child(i.ToString()).Children)
                 {
 
-                    if (b)
+                    if (!indexValueofCoin)
                     {
                         proposedData[i].coinIndex = int.Parse(snap.Value.ToString());
                         Debug.Log(" -----  " + snap.Value);
@@ -357,17 +363,17 @@ public class TradeUIManager : MonoBehaviour
                     }
 
 
-                   
+                    indexValueofCoin = true;
                 }
 
 
-                b = true;
+                
             }
             Debug.Log("out !" + r_Snap.Child("demandedItems"));
 
         }
 
-
+        // getting the other user coins total value he has
         for (int i = 1; i <= 5; i++)
         {
             Task<DataSnapshot> frndLevelTask = DataSaver.Instance.dbRef.Child("users").Child(id).Child("Coins").Child(GetIndex(DataBase.LevelUp, i)).GetValueAsync();
@@ -398,7 +404,7 @@ public class TradeUIManager : MonoBehaviour
 
 
 
-   
+  //-------------------- trade request sending logic --------------------
 
     public void TradeSent()
     {
@@ -552,6 +558,100 @@ public class TradeUIManager : MonoBehaviour
 
         return coinDataList;
     }
+
+
+    //------------------------ swap or reject logic --------------------------------
+
+    public  void SwapAction()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            DataBase.SetCoins(proposedData[i].coinIndex, proposedData[i].value);
+            DataBase.SetCoins(demandedData[i].coinIndex, -demandedData[i].value);
+           
+        }
+        StartCoroutine(SwapFrndData(frndID));
+        //  await dbRef.Child("users").Child(userID).Child("TradeRequest").Child(frndID).RemoveValueAsync();
+    }
+
+    public async void Reject()
+    {
+        await dbRef.Child("users").Child(userID).Child("TradeRequest").Child(frndID).RemoveValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
+            {
+                Debug.LogError("Error removing friend request: " + task.Exception);
+                // Handle error (e.g., show a message to the user)
+            }
+            else
+            {
+                Debug.Log("Friend request from " + " removed successfully.");
+                // Optionally, you can notify the UI or perform additional actions here
+            }
+        });
+        
+    }
+
+    public IEnumerator SwapFrndData(string id)
+    {
+       // dbRef.Child("users").Child(userID).Child("TradeRequest").Child(id).RemoveValueAsync(); 
+        int[] currentCoin = new int[5];
+      
+
+        for (int i = 0; i < 5; i++)
+        {
+            Task<DataSnapshot> CoinTask = dbRef.Child("users").Child(id).Child("Coins").Child(proposedData[i].coinIndex.ToString()).GetValueAsync();
+            yield return new WaitUntil(predicate: () => CoinTask.IsCompleted);
+
+            DataSnapshot coin = CoinTask.Result;
+
+            currentCoin[i] = int.Parse(coin.Value.ToString());
+
+            currentCoin[i] = currentCoin[i] + demandedData[i].value;
+
+            currentCoin[i] = currentCoin[i] - proposedData [i].value;
+
+
+           
+        }
+
+        var updates = new Dictionary<string, object>
+        {
+            { proposedData[0].coinIndex.ToString() , currentCoin[0] },
+            { proposedData[1].coinIndex.ToString() , currentCoin[1] },
+            { proposedData[2].coinIndex.ToString() , currentCoin[2] },
+            { proposedData[3].coinIndex.ToString() , currentCoin[3] },
+            { proposedData[4].coinIndex.ToString() , currentCoin[4] },
+        };
+
+
+        dbRef.Child("users").Child(id).Child("Coins").UpdateChildrenAsync(updates);
+        dbRef.Child("users").Child(userID).Child("TradeRequest").Child(id).RemoveValueAsync();
+
+        //UpdateCoin(id, updates);
+        
+
+    }
+
+     public async void  UpdateCoin(string id, Dictionary<string , object> updates)
+    {
+       await dbRef.Child("users").Child(id).Child("Coins").UpdateChildrenAsync(updates);
+
+        await dbRef.Child("users").Child(userID).Child("TradeRequest").Child(id).RemoveValueAsync().ContinueWithOnMainThread(task =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
+            {
+                Debug.LogError("Error removing friend request: " + task.Exception);
+                // Handle error (e.g., show a message to the user)
+            }
+            else
+            {
+                Debug.Log("Friend request from " +  " removed successfully.");
+                // Optionally, you can notify the UI or perform additional actions here
+            }
+        });
+    }
+
 
 
 

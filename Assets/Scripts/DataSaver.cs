@@ -61,7 +61,7 @@ public class DataSaver : MonoBehaviour
     {
         if (user.IsAnonymous)
         {
-            return ("Player" + Random.Range(10, 99) + Random.Range(100, 999));
+            return ("player" + Random.Range(10, 99) + Random.Range(100, 999));
         }
         else
         {
@@ -158,7 +158,7 @@ public class DataSaver : MonoBehaviour
             dts.userName = user.DisplayName;
             DataBase.UserName = dts.userName;
         }
-
+        
         dts.Dollars = DataBase.Dollars;
         dts.Gems = DataBase.Gems;
         dts.Keys = DataBase.Keys;
@@ -257,6 +257,35 @@ public class DataSaver : MonoBehaviour
         }
     }
 
+
+    public void UpdateCoin()
+    {
+         dbRef.Child("users").Child(userID).Child("Coins").ValueChanged += (object sender, ValueChangedEventArgs e) =>
+        {
+            if (e.DatabaseError != null)
+            {
+                Debug.LogError($"Database Error: {e.DatabaseError.Message}");
+                return;
+            }
+
+            if (e.Snapshot.Exists && e.Snapshot.Value != null)
+            {
+
+               
+                    Debug.Log($"Coins updated: ");
+                StartCoroutine(LoadDataEnum());
+              
+            }
+            else
+            {
+                Debug.Log("Coins data does not exist.");
+            }
+        };
+       
+    }
+
+
+
     public void LoadData()
     {
         Debug.Log("Inside LoadData() Function");
@@ -311,11 +340,11 @@ public class DataSaver : MonoBehaviour
         DataBase.GradeColor = dts.GradeColor;
         DataBase.QuestionsToTreasure = dts.QuestionsToTreasure;
         DataBase.GradeUpgrade = dts.GradeUpgrade;
-        //for (int num = 0; num < 420; num++)
-        //{
-        //    DataBase.SetCoins(num, dts.Coins[num]);
-        //    Debug.Log("Is it Here");
-        //}
+        for (int num = 0; num < 420; num++)
+        {
+            DataBase.UpdateCoins(num, dts.Coins[num]);
+            //Debug.Log("Is it Here");
+        }
         for (int num = 0; num < 16; num++)
         {
             DataBase.SetQuiz(num, dts.Quizes[num]);
@@ -324,7 +353,8 @@ public class DataSaver : MonoBehaviour
         DataBase.RightAnswer = dts.RightAnswer;
         DataBase.WrongAnswer = dts.WrongAnswer;
         await DataBase.SaveOnlineStatus(user, true);
-        Debug.Log("UpdateData() Complete.");
+        Debug.Log("UpdateData() Complete. " + dts.userName);
+
     }
 
     private void OnApplicationQuit()

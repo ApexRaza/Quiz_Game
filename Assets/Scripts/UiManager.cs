@@ -6,6 +6,8 @@ using System.Collections.Generic;
 //using System.Linq;
 //using System.Web;
 using TMPro;
+using Unity.VisualScripting;
+
 //using Unity.VisualScripting;
 using UnityEngine;
 
@@ -29,8 +31,8 @@ public class UiManager : MonoBehaviour
      string[] game_ticket_id;
     int quizCount=0;
 
- 
 
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -42,13 +44,16 @@ public class UiManager : MonoBehaviour
         quizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
         quizManager.QuizTypesInit();
 
-
+        UpdateCollectionSO();
         quizManager.SetQuizType(QuizType.Varia);
 
         playerProfile.UpdateBadge();
     }
 
-
+    public void UpdateCoin()
+    {
+        DataSaver.Instance.UpdateCoin();
+    }
    
 
 
@@ -82,23 +87,24 @@ public class UiManager : MonoBehaviour
     public void ChooseCollectionType(int i)
     {
         collectionType = i;
+        DataSaver.Instance.UpdateCoin();
         UpdateCollectionPanel();
     }
-    
-   
 
 
-   
-
-   
 
 
-  
+
+
+
+
+
+
 
 
     //public void OpenCollectionPanel(int num)
     //{
-      
+
 
     //    item.CollectionPanel.SetActive(true);
     //    foreach (Transform t in item.Content.transform)
@@ -107,7 +113,7 @@ public class UiManager : MonoBehaviour
     //        contentItem.Add(t.gameObject);
     //    }
 
-      
+
 
     //    for (int i = 0; i < collectionSO.collectionData[collectionType].item.Length; i++)
     //    {
@@ -121,10 +127,35 @@ public class UiManager : MonoBehaviour
     //        contentItem[i].GetComponentInChildren<TextMeshProUGUI>().text = s;
     //        contentItem[i].SetActive(true);
     //    }
-        
+
 
     //}
 
+
+
+    public void UpdateCollectionSO()
+    {
+        int num = 0;
+        for (int i = 0; i < collectionSO.collectionData.Length; i++)
+        {
+            for (int j = 0; j < 70; j++)
+            {
+
+                collectionSO.collectionData[i].item[j].collected = DataBase.GetCoins(num);
+                collectionSO.collectionData[i].item[j].ID = num;
+                if (num <= (DataBase.LevelUp * 5))
+                {
+
+                }
+                else
+                {
+
+                }
+
+                num++;
+            }
+        }
+    }
 
     public void UpdateCollectionPanel()
     {
@@ -145,7 +176,12 @@ public class UiManager : MonoBehaviour
             {
                
                 collectionSO.collectionData[i].item[j].collected = DataBase.GetCoins(num);
+                collectionSO.collectionData[i].item[j].ID = num;
                 if (num <= (DataBase.LevelUp * 5))
+                {
+
+                }
+                else 
                 {
 
                 }
