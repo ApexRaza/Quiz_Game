@@ -12,6 +12,7 @@ public class Betting : MonoBehaviourPunCallbacks
     public int initialValue;
     public TextMeshProUGUI amountTxt;
     public GameObject buttonObj, startTimerObj;
+    public NetworkQuizHandler nqh;
 
     public bool startTimer;
     public float timeLeft = 30.0f, countDown = 3f; // Set the total countdown time (in seconds)
@@ -30,6 +31,14 @@ public class Betting : MonoBehaviourPunCallbacks
         totalTime = timeLeft;
         buttonObj.SetActive(true);
         startTimerObj.SetActive(false);
+      
+    }
+
+
+    IEnumerator test()
+    {
+        yield return new WaitForSeconds(5f);
+        Debug.LogError("im still runnning!");
     }
 
     public void RasieValue(int num)
@@ -42,6 +51,7 @@ public class Betting : MonoBehaviourPunCallbacks
     public void RaiseRPC(int num)
     {
         initialValue += num;
+        nqh.bettingValue = initialValue;
         amountTxt.text = initialValue.ToString();
     }
 
