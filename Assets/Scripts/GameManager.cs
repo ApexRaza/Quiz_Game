@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public void TestGoogleLogin() 
     {
         Login.Instance.AnomLinkGoogle();   
-    }
+    } 
 
     public void UpdateCollection() 
     {

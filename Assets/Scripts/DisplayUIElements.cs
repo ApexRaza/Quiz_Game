@@ -24,7 +24,7 @@ public class DisplayUIElements : MonoBehaviour
         UpdateUI();
     }
 
-    public void SetMusic()
+    public void SetMusic() 
     {
         PlayerPrefs.SetFloat("Music", musicSlider.value);
         foreach (AudioSource audio in allMusics)

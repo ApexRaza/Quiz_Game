@@ -271,7 +271,7 @@ public class DataSaver : MonoBehaviour
             if (e.Snapshot.Exists && e.Snapshot.Value != null)
             {
 
-               
+                
                     Debug.Log($"Coins updated: ");
                 StartCoroutine(LoadDataEnum());
               
@@ -373,4 +373,43 @@ public class DataSaver : MonoBehaviour
             });
         }
     }
+
+
+    private void OnApplicationPause()
+    {
+        DataBase.IsOnline = false;
+        FirebaseUser user = auth.CurrentUser;
+        if (user != null)
+        {
+            // Save the online status to the database
+            DataBase.SaveOnlineStatus(user, false).ContinueWith(task =>
+            {
+                if (task.Exception != null)
+                {
+                    Debug.LogError($"Failed to save online status: {task.Exception}");
+                }
+            });
+        }
+    }
+
+
+    private void OnApplicationFocus()
+    {
+        DataBase.IsOnline = true;
+        FirebaseUser user = auth.CurrentUser;
+        if (user != null)
+        {
+            // Save the online status to the database
+            DataBase.SaveOnlineStatus(user, true).ContinueWith(task =>
+            {
+                if (task.Exception != null)
+                {
+                    Debug.LogError($"Failed to save online status: {task.Exception}");
+                }
+            });
+        }
+    }
+
+
+
 }

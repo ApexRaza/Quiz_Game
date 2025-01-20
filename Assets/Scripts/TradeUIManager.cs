@@ -11,6 +11,8 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using System.Net;
 using System;
+using TMPro;
+//using UnityEditor.VersionControl;
 
 
 public class TradeUIManager : MonoBehaviour
@@ -29,6 +31,8 @@ public class TradeUIManager : MonoBehaviour
 
     public CoinData[] proposedData = new CoinData[5];
     public CoinData[] demandedData = new CoinData[5];
+
+    public TextMeshProUGUI displayTxt;
 
 
 
@@ -70,10 +74,11 @@ public class TradeUIManager : MonoBehaviour
     }
     public void LoadTradeList()
     {
-        StartCoroutine(LoadTradeData());
+        displayTxt.gameObject.SetActive(false);
+        StartCoroutine(LoadTradeData("You don’t have any pending trade requests."));
     }
 
-    private IEnumerator LoadTradeData()
+    private IEnumerator LoadTradeData(string message)
     {
         Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child(ID).Child("Trade").GetValueAsync();
 
@@ -86,46 +91,57 @@ public class TradeUIManager : MonoBehaviour
         }
 
         DataSnapshot snapshot = DBTask.Result;
-        index = snapshot.Value.ToString();
 
-
-        Task<DataSnapshot> DBTask_1 = DataSaver.Instance.dbRef.Child("users").Child(ID).Child("Coins").GetValueAsync();
-
-        yield return new WaitUntil(predicate: () => DBTask_1.IsCompleted);
-
-        if (DBTask_1.Exception != null)
+        if (snapshot.ChildrenCount <= 0)
         {
-            Debug.LogWarning(message: $"Failed to load  with {DBTask_1.Exception}");
-            yield break; // Exit if there's an error
+            displayTxt.text = message;
+            //displayTxt.gameObject.SetActive(true);
         }
-
-        DataSnapshot snapshot_1 = DBTask_1.Result;
-
-        Debug.LogWarning(message: $"dummy Failed to load  with {DBTask_1.Exception}");
-
-        string s = snapshot_1.Children.ElementAt(int.Parse(index)).Key.ToString();
-
-        Debug.LogError("Value on " + index + " = " + s);
+        else
+        {
 
 
+            index = snapshot.Value.ToString();
 
 
-        //foreach (DataSnapshot childSnapshot in snapshot.Children)
-        //{
+            Task<DataSnapshot> DBTask_1 = DataSaver.Instance.dbRef.Child("users").Child(ID).Child("Coins").GetValueAsync();
 
-        //    index = childSnapshot.Key.ToString();
-        //    Debug.Log("Index " + index);
-        //}
+            yield return new WaitUntil(predicate: () => DBTask_1.IsCompleted);
+
+            if (DBTask_1.Exception != null)
+            {
+                Debug.LogWarning(message: $"Failed to load  with {DBTask_1.Exception}");
+                yield break; // Exit if there's an error
+            }
+
+            DataSnapshot snapshot_1 = DBTask_1.Result;
+
+            Debug.LogWarning(message: $"dummy Failed to load  with {DBTask_1.Exception}");
+
+            string s = snapshot_1.Children.ElementAt(int.Parse(index)).Key.ToString();
+
+            Debug.LogError("Value on " + index + " = " + s);
+
+
+
+
+            //foreach (DataSnapshot childSnapshot in snapshot.Children)
+            //{
+
+            //    index = childSnapshot.Key.ToString();
+            //    Debug.Log("Index " + index);
+            //}
+        }
     }
-
 
     public void LoadTradesList(Transform tradesListContent)
     {
-        StartCoroutine(LoadTradingList("Friends", tradesListContent, false));
+        displayTxt.gameObject.SetActive(false);
+        StartCoroutine(LoadTradingList("Friends", tradesListContent, false, "No active friends online at this time."));
     }
     int inc = 0;
     // function to load list of frnds with whome u can trade.
-    private IEnumerator LoadTradingList(string childNode, Transform content, bool isRequest)
+    private IEnumerator LoadTradingList(string childNode, Transform content, bool isRequest, string message)
     {
         Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child(ID).Child(childNode).GetValueAsync();
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -140,48 +156,56 @@ public class TradeUIManager : MonoBehaviour
 
         // Clear existing UI elements
         ClearContent(content);
-
-        foreach (DataSnapshot childSnapshot in snapshot.Children)
+        if (snapshot.ChildrenCount <= 0)
         {
-            string id = childSnapshot.Key.ToString();
-            string username = childSnapshot.Value.ToString();
+            displayTxt.text = message;
+            displayTxt.gameObject.SetActive(true);
+        }
+        else
+        {
 
-
-            //string level = childSnapshot.Value.ToString();
-            Debug.LogError("user ID " + id + " UserNAme: " + username);
-            Task<DataSnapshot> frndLevelTask = DataSaver.Instance.dbRef.Child("users").Child(id).Child("LevelUp").GetValueAsync(); // Fetch online status
-            yield return new WaitUntil(predicate: () => frndLevelTask.IsCompleted);
-
-            if (frndLevelTask.Exception != null)
+            foreach (DataSnapshot childSnapshot in snapshot.Children)
             {
-                Debug.LogWarning(message: $"Failed to load  with {frndLevelTask.Exception}");
-                yield break; // Exit if there's an error
+                string id = childSnapshot.Key.ToString();
+                string username = childSnapshot.Value.ToString();
+
+
+                //string level = childSnapshot.Value.ToString();
+                Debug.LogError("user ID " + id + " UserNAme: " + username);
+                Task<DataSnapshot> frndLevelTask = DataSaver.Instance.dbRef.Child("users").Child(id).Child("LevelUp").GetValueAsync(); // Fetch online status
+                yield return new WaitUntil(predicate: () => frndLevelTask.IsCompleted);
+
+                if (frndLevelTask.Exception != null)
+                {
+                    Debug.LogWarning(message: $"Failed to load  with {frndLevelTask.Exception}");
+                    yield break; // Exit if there's an error
+                }
+
+                DataSnapshot frndLevelSnap = frndLevelTask.Result;
+
+                //Debug.LogError("Level UP VALUE: " + frndLevelSnap.Value.ToString());
+                // bool frndLevel = frndLevelTask.Result.Exists && (bool)frndLevelTask.Result.Value;
+                int level = int.Parse(frndLevelSnap.Value.ToString());
+                // Debug.LogError("Level UP VALUE: " + level);
+
+                if (level == DataBase.LevelUp)
+                {
+
+                    Debug.LogError("User ID: " + id + " = " + level + " is matched.");
+                    GameObject requestItem = Instantiate(isRequest ? tradeFrnd : tradeFrnd, content);
+                    TradeRequestItem item = requestItem.GetComponent<TradeRequestItem>();
+
+                    item.Initialize(id, username);
+                    userName = username;
+
+
+                }
+                else
+                {
+                    Debug.LogError("User ID: " + id + " = " + level + " did not match.");
+                }
+
             }
-
-            DataSnapshot frndLevelSnap = frndLevelTask.Result;
-
-            //Debug.LogError("Level UP VALUE: " + frndLevelSnap.Value.ToString());
-            // bool frndLevel = frndLevelTask.Result.Exists && (bool)frndLevelTask.Result.Value;
-            int level = int.Parse(frndLevelSnap.Value.ToString());
-            // Debug.LogError("Level UP VALUE: " + level);
-
-            if (level == DataBase.LevelUp)
-            {
-
-                Debug.LogError("User ID: " + id + " = " + level + " is matched.");
-                GameObject requestItem = Instantiate(isRequest ? tradeFrnd : tradeFrnd, content);
-                TradeRequestItem item = requestItem.GetComponent<TradeRequestItem>();
-
-                item.Initialize(id, username);
-                userName = username;
-
-
-            }
-            else
-            {
-                Debug.LogError("User ID: " + id + " = " + level + " did not match.");
-            }
-
         }
     }
 
@@ -189,10 +213,11 @@ public class TradeUIManager : MonoBehaviour
 
     public void LoadTradeRequests(Transform requestListContent)
     {
-        StartCoroutine(LoadingTradeRequest("TradeRequest",requestListContent, false ));
+        displayTxt.gameObject.SetActive(false);
+        StartCoroutine(LoadingTradeRequest("TradeRequest",requestListContent, false , "You don’t have any pending trade requests."));
     }
     //function to load the list of trade request sent from the frnds
-    private IEnumerator LoadingTradeRequest(string childNode, Transform content, bool isRequest)
+    private IEnumerator LoadingTradeRequest(string childNode, Transform content, bool isRequest, string message)
     {
         Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child(userID).Child(childNode).GetValueAsync();
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -210,48 +235,57 @@ public class TradeUIManager : MonoBehaviour
         // Clear existing UI elements
         ClearContent(content);
 
-        foreach (DataSnapshot childSnapshot in snapshot.Children)
+        if (snapshot.ChildrenCount <= 0)
         {
-            string id = childSnapshot.Key.ToString();
-            string username;
-           
+            displayTxt.text = message;
+            displayTxt.gameObject.SetActive(true);
+        }
+        else
+        {
 
-            //string level = childSnapshot.Value.ToString();
-           
-            Task<DataSnapshot> getUserName = DataSaver.Instance.dbRef.Child("users").Child(id).Child("userName").GetValueAsync(); // Fetch online status
-            yield return new WaitUntil(predicate: () => getUserName.IsCompleted);
 
-            if (getUserName.Exception != null)
+            foreach (DataSnapshot childSnapshot in snapshot.Children)
             {
-                Debug.LogWarning(message: $"Failed to load  with {getUserName.Exception}");
-                yield break; // Exit if there's an error
+                string id = childSnapshot.Key.ToString();
+                string username;
+
+
+                //string level = childSnapshot.Value.ToString();
+
+                Task<DataSnapshot> getUserName = DataSaver.Instance.dbRef.Child("users").Child(id).Child("userName").GetValueAsync(); // Fetch online status
+                yield return new WaitUntil(predicate: () => getUserName.IsCompleted);
+
+                if (getUserName.Exception != null)
+                {
+                    Debug.LogWarning(message: $"Failed to load  with {getUserName.Exception}");
+                    yield break; // Exit if there's an error
+                }
+
+                DataSnapshot frndUserName = getUserName.Result;
+                username = frndUserName.Value.ToString();
+
+                Debug.LogError("-----------user ID " + id + " UserNAme: " + username);
+
+                // int level = int.Parse(frndUserName.Value.ToString());
+                // Debug.LogError("Level UP VALUE: " + level);
+
+                //if (level == DataBase.LevelUp)
+                //{
+                //    Debug.LogError("User ID: " + id + " = " + level + " is matched.");
+                GameObject requestItem = Instantiate(isRequest ? viewTradeReqst : viewTradeReqst, content);
+                ViewTradeRequest item = requestItem.GetComponent<ViewTradeRequest>();
+
+                item.Initialize(id, username);
+                userName = username;
+                //}
+                //else
+                //{
+                //    Debug.LogError("User ID: " + id + " = " + level + " did not match.");
+                //}
+
             }
-            
-            DataSnapshot frndUserName = getUserName.Result;
-            username = frndUserName.Value.ToString();
-
-            Debug.LogError("-----------user ID " + id + " UserNAme: " + username);
-
-            // int level = int.Parse(frndUserName.Value.ToString());
-            // Debug.LogError("Level UP VALUE: " + level);
-
-            //if (level == DataBase.LevelUp)
-            //{
-            //    Debug.LogError("User ID: " + id + " = " + level + " is matched.");
-            GameObject requestItem = Instantiate(isRequest ? viewTradeReqst : viewTradeReqst, content);
-            ViewTradeRequest item = requestItem.GetComponent<ViewTradeRequest>();
-
-            item.Initialize(id, username);
-            userName = username;
-            //}
-            //else
-            //{
-            //    Debug.LogError("User ID: " + id + " = " + level + " did not match.");
-            //}
-
         }
     }
-
 
     public void GetFriendData(string tri)
     {

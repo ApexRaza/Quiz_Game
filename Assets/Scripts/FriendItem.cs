@@ -12,4 +12,7 @@ public class FriendItem : MonoBehaviour
         userNameText.text = userName;
         onlineStatusImage.color = isOnline ? Color.green : Color.red;
     }
+
+
+
 }

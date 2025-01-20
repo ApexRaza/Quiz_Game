@@ -17,17 +17,19 @@ public class NetworkData
     public Image image;
     public string correctAns;
 }
-public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
+public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
 {
     CollectionsSO collectionSO;
     QuizManager nQuizManager;
+    public QuizManager shareManager;
+
 
 
     [Space(2)]
     public GameObject QuestionPanel, correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel;
-    public TextMeshProUGUI questionTxt, correctTxt,p1test,p2test, overText,questionCount;
+    public TextMeshProUGUI questionTxt, correctTxt, p1test, p2test, overText, questionCount;
     public Image questionImage;
-    public GameObject[] p1Q = new GameObject[3], p2Q = new GameObject [3];
+    public GameObject[] p1Q = new GameObject[3], p2Q = new GameObject[3];
 
     public int p1, p2;
 
@@ -47,13 +49,18 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
 
     public AudioSource swipeAudioSource;
 
+
+
+    public int bettingValue;
+    public Animator blackshine;
     // Start is called before the first frame update
     void Start()
     {
         collectionSO = Resources.Load<CollectionsSO>("Scriptables/Collection");
         nQuizManager = Resources.Load<QuizManager>("Scriptables/QuizManager");
+ 
         nQuizManager.QuizTypesInit();
-      
+
     }
     private void OnEnable()
     {
@@ -84,19 +91,19 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
     {
         // if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
 
-       // ExitGames.Client.Photon.Hashtable type = new ExitGames.Client.Photon.Hashtable();
+        // ExitGames.Client.Photon.Hashtable type = new ExitGames.Client.Photon.Hashtable();
         typeCat = Random.Range(0, 16);
-       // type["Type"] = typeCat;
+        // type["Type"] = typeCat;
         Debug.LogError("i am called " + typeCat);
-      
-       // PhotonNetwork.CurrentRoom.SetCustomProperties(type);
+
+        // PhotonNetwork.CurrentRoom.SetCustomProperties(type);
         p1test.text = p1.ToString();
         p2test.text = p2.ToString();
-        GetComponent<PhotonView>().RPC("setQuizTypeRPC", RpcTarget.All, typeCat); 
-       // setQuizTypeRPC();
+        GetComponent<PhotonView>().RPC("setQuizTypeRPC", RpcTarget.All, typeCat);
+        // setQuizTypeRPC();
     }
     [PunRPC]
-    public void setQuizTypeRPC( int num)
+    public void setQuizTypeRPC(int num)
     {
         //ExitGames.Client.Photon.Hashtable type = new ExitGames.Client.Photon.Hashtable();
         //typeCat = Random.Range(0, 16);
@@ -108,18 +115,25 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
         //p2test.text = p2.ToString();
 
         SetQuestionCategory(num);
-        StartCoroutine(TestCall());
+        StartCoroutine(LoadingQuestionData());
 
     }
 
 
-    IEnumerator TestCall()
+    IEnumerator LoadingQuestionData()
     {
 
-       // SetQuestionCategory(PhotonNetwork.CurrentRoom.CustomProperties.GetValueOrDefault());
-        LoadQuestionData();  
-        yield return new WaitForSeconds(0.3f);
+        // SetQuestionCategory(PhotonNetwork.CurrentRoom.CustomProperties.GetValueOrDefault());
+        if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+            LoadQuestionData();
+        else
+        {
+            
+        }
+
         
+        yield return new WaitForSeconds(0.3f);
+
         DisplayQuestion();
     }
 
@@ -140,7 +154,7 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
             GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
             GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
             GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
-       
+
             //StartCoroutine(nameof(Next));
         }
         else
@@ -150,6 +164,14 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
             GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
             GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
         }
+
+        GetComponent<PhotonView>().RPC(nameof(ShineEffect), RpcTarget.All);
+    }
+
+    [PunRPC]
+    void ShineEffect()
+    {
+        blackshine.SetTrigger("Go");
     }
 
     [PunRPC]
@@ -250,12 +272,13 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks ,IPunObservable
         if ( PhotonNetwork.LocalPlayer.ActorNumber == num)
         {
             overText.text = "YOU WIN!";
+            DataBase.Dollars += bettingValue;
         }
         else
         {
             overText.text = "YOU LOSE!";
-            
-           
+            DataBase.Dollars -= bettingValue;
+
         }
         resetStates();
     }

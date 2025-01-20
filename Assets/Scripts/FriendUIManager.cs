@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 using UnityEngine.UI;
 using TMPro;
 using Firebase.Database;
 using Firebase.Auth;
+using UnityEngine.Events;
 //using System.Threading.Tasks;
 
 public class FriendUIManager : MonoBehaviour
@@ -26,6 +28,8 @@ public class FriendUIManager : MonoBehaviour
 
     public GameObject[] bgButtons, frontEndButtons;
 
+    public UnityEvent reset;
+
     private void Awake()
     {
         if (instance == null)
@@ -41,6 +45,7 @@ public class FriendUIManager : MonoBehaviour
     private void OnEnable()
     {
         FM.LoadFriendsList(friendsListContent);
+        reset.Invoke();
         searchInputField.onEndEdit.AddListener(OnSearch);
         ButtonEffect(0);
 

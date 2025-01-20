@@ -43,7 +43,7 @@ namespace Photon.Pun.UtilityScripts
         //  public GameObject GamePlay;
         public GameObject twoPlayers, onePlayers;
 
-        public GameObject USerObj,questionPanel, loading, glassObj,vsObj,bettingPanel, bettingScript;
+        public GameObject USerObj,questionPanel, loading, glassObj,vsObj,bettingPanel, bettingScript,waitingObject,challengerTimerObj;
         [HideInInspector]
         public string Roomname;
         public int playerTTL = -1;
@@ -94,6 +94,7 @@ namespace Photon.Pun.UtilityScripts
 
         public void CreateRoom()
         {
+            isJoinedbyID = false;
             RoomOptions roomOptions = new RoomOptions
             {
                 MaxPlayers = Battleplayers, // Set the maximum number of players for the room
@@ -109,10 +110,26 @@ namespace Photon.Pun.UtilityScripts
             PhotonNetwork.CreateRoom(Roomname, roomOptions, null);
         }
 
+        public void CreateRoom(string roomName)
+        {
+            isJoinedbyID = true;
+            RoomOptions roomOptions = new RoomOptions
+            {
+                MaxPlayers = 2, // Set the maximum number of players for the room
+               
+            };
+          
+            
+            PhotonNetwork.CreateRoom(roomName, roomOptions, null);
+        }
+
+
+
+
         public void JoinRoombyID(string ID)
         {
+            isJoinedbyID = true;
             PhotonNetwork.JoinRoom(ID);
-            
         }
 
 
@@ -123,6 +140,7 @@ namespace Photon.Pun.UtilityScripts
 
         public void JoinRoom()
         {
+            isJoinedbyID = false;
             Hashtable expectedCustomRoomProperties = new Hashtable();
             expectedCustomRoomProperties.Add("Players", Battleplayers);
           
@@ -143,8 +161,7 @@ namespace Photon.Pun.UtilityScripts
         }
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
-            // Get the selected mode from your UI or logic (e.g., "Addition" or "Subtraction").
-
+         
             CreateRoom(Battleplayers);
 
         }
@@ -154,29 +171,20 @@ namespace Photon.Pun.UtilityScripts
             PhotonNetwork.LeaveRoom(); 
         }
 
-
         public override void OnJoinedRoom()
         {
             if (isJoinedbyID)
             {
-                Hashtable customRoomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-
-                // Check if the custom properties exist and retrieve their values
-                if (customRoomProperties.ContainsKey("GameMode"))
+                if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
                 {
-                  int  gameMode = (int)customRoomProperties["GameMode"];
-                    mode = gameMode;
-                   
+                    PhotonNetwork.LocalPlayer.NickName = "Player 1";
+                }
+                else
+                {
+                    PhotonNetwork.LocalPlayer.NickName = "Player 2";
+                    GetComponent<PhotonView>().RPC("StartGame_1", RpcTarget.All, true);
                 }
 
-                if (customRoomProperties.ContainsKey("NumberOfPlayers"))
-                {
-                    int numberOfPlayers = (int)customRoomProperties["NumberOfPlayers"];
-                    Battleplayers = numberOfPlayers;
-
-                }
-                
-                GetComponent<PhotonView>().RPC("StartGame", RpcTarget.All, true);
             }
             else if (PhotonNetwork.CurrentRoom.PlayerCount == Battleplayers)
             {
@@ -190,15 +198,12 @@ namespace Photon.Pun.UtilityScripts
                     PhotonNetwork.LocalPlayer.NickName = "Player 2";
                 }
 
-
                 GetComponent<PhotonView>().RPC("StartGame", RpcTarget.All, true);
             }
         }
         [PunRPC]
         void StartGame(bool start)
         {
-
-
             if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
             {
                 onePlayers.SetActive(true);  
@@ -207,26 +212,47 @@ namespace Photon.Pun.UtilityScripts
             {
                twoPlayers.SetActive(true);
             }
-
             glassObj.SetActive(false);
             vsObj.SetActive(true);
             USerObj.SetActive(true);
             StartCoroutine(delay());
             Debug.Log("GameStarted ___" + PhotonNetwork.LocalPlayer.NickName);
-            //FindObjectOfType<GameManager>().StartGame();
-             
         }
+
+        [PunRPC]
+        void StartGame_1(bool start)
+        {
+
+
+            if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+            {
+                onePlayers.SetActive(true);
+            }
+            else
+            {
+                twoPlayers.SetActive(true);
+            }
+            USerObj.SetActive(true);
+            StartCoroutine(delay());
+            Debug.Log("GameStarted ___" + PhotonNetwork.LocalPlayer.NickName);
+
+
+        }
+
+
+
 
 
         IEnumerator delay()
         {
             yield return new WaitForSeconds(1f);
-            bettingPanel.SetActive(true);
+            waitingObject.SetActive(false);
+            challengerTimerObj.SetActive(false);
+             bettingPanel.SetActive(true);
             bettingScript.SetActive(true);
-            //loading.SetActive(true);
+
             yield return new WaitForSeconds(0.5f);
-            //questionPanel.SetActive(true);
-            
+           // questionPanel.SetActive(true);
         }
     }
 }

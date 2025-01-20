@@ -11,6 +11,8 @@ using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Photon.Pun.UtilityScripts;
 using System.Globalization;
+using TMPro;
+using Photon.Pun.Demo.SlotRacer.Utils;
 
 
 public class ChallengeFrnd : MonoBehaviour
@@ -25,6 +27,8 @@ public class ChallengeFrnd : MonoBehaviour
     public GameObject challengerPopup;
     public ConnectAndJoinRandom connectAndJoin;
     public GameObject waitingPanel, challengertimerScript;
+    public TextMeshProUGUI displayTxt;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -44,11 +48,12 @@ public class ChallengeFrnd : MonoBehaviour
 
     public void LoadFrndsList(Transform tradesListContent)
     {
-        StartCoroutine(LoadFrnds_List("Friends", tradesListContent, false));
+        displayTxt.gameObject.SetActive(false);
+        StartCoroutine(LoadFrnds_List("Friends", tradesListContent, false, "No active friends online at this time."));
     }
     int inc = 0;
     // function to load list of frnds which are online.
-    private IEnumerator LoadFrnds_List(string childNode, Transform content, bool isRequest)
+    private IEnumerator LoadFrnds_List(string childNode, Transform content, bool isRequest, string message)
     {
         Task<DataSnapshot> DBTask = DataSaver.Instance.dbRef.Child("users").Child(ID).Child(childNode).GetValueAsync();
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -64,47 +69,55 @@ public class ChallengeFrnd : MonoBehaviour
         // Clear existing UI elements
         ClearContent(content);
 
-        foreach (DataSnapshot childSnapshot in snapshot.Children)
+        if (snapshot.ChildrenCount <= 0)
         {
-            string id = childSnapshot.Key.ToString();
-            string username = childSnapshot.Value.ToString();
-
-
-            //string level = childSnapshot.Value.ToString();
-            Debug.LogError("user ID " + id + " UserNAme: " + username);
-            Task<DataSnapshot> frndLevelTask = DataSaver.Instance.dbRef.Child("users").Child(id).Child("IsOnline").GetValueAsync(); // Fetch online status
-            yield return new WaitUntil(predicate: () => frndLevelTask.IsCompleted);
-
-            if (frndLevelTask.Exception != null)
+            displayTxt.text = message;
+            displayTxt.gameObject.SetActive(true); 
+        }
+        else
+        {
+            foreach (DataSnapshot childSnapshot in snapshot.Children)
             {
-                Debug.LogWarning(message: $"Failed to load  with {frndLevelTask.Exception}");
-                yield break; // Exit if there's an error
+                string id = childSnapshot.Key.ToString();
+                string username = childSnapshot.Value.ToString();
+
+
+                //string level = childSnapshot.Value.ToString();
+                Debug.LogError("user ID " + id + " UserNAme: " + username);
+                Task<DataSnapshot> frndLevelTask = DataSaver.Instance.dbRef.Child("users").Child(id).Child("IsOnline").GetValueAsync(); // Fetch online status
+                yield return new WaitUntil(predicate: () => frndLevelTask.IsCompleted);
+
+                if (frndLevelTask.Exception != null)
+                {
+                    Debug.LogWarning(message: $"Failed to load  with {frndLevelTask.Exception}");
+                    yield break; // Exit if there's an error
+                }
+
+                DataSnapshot frndLevelSnap = frndLevelTask.Result;
+
+                //Debug.LogError("Level UP VALUE: " + frndLevelSnap.Value.ToString());
+                // bool frndLevel = frndLevelTask.Result.Exists && (bool)frndLevelTask.Result.Value;
+                bool isOnline = bool.Parse(frndLevelSnap.Value.ToString());
+                // Debug.LogError("Level UP VALUE: " + level);
+
+                if (isOnline)
+                {
+
+                    Debug.LogError("User ID: " + id + " = " + isOnline + " is matched.");
+                    GameObject requestItem = Instantiate(isRequest ? challengeFrnd : challengeFrnd, content);
+                    ChallengeItem item = requestItem.GetComponent<ChallengeItem>();
+
+                    item.Initialize(username, this, id, isOnline);
+
+
+
+                }
+                else
+                {
+                    Debug.LogError("User ID: " + id + " = " + isOnline + " did not match.");
+                }
+
             }
-
-            DataSnapshot frndLevelSnap = frndLevelTask.Result;
-
-            //Debug.LogError("Level UP VALUE: " + frndLevelSnap.Value.ToString());
-            // bool frndLevel = frndLevelTask.Result.Exists && (bool)frndLevelTask.Result.Value;
-            bool isOnline = bool.Parse(frndLevelSnap.Value.ToString());
-            // Debug.LogError("Level UP VALUE: " + level);
-
-            if(isOnline)
-            {
-
-                Debug.LogError("User ID: " + id + " = " + isOnline + " is matched.");
-                GameObject requestItem = Instantiate(isRequest ? challengeFrnd : challengeFrnd, content);
-                ChallengeItem item = requestItem.GetComponent<ChallengeItem>();
-
-                item.Initialize( username, this, id,isOnline);
-               
-
-
-            }
-            else
-            {
-                Debug.LogError("User ID: " + id + " = " + isOnline + " did not match.");
-            }
-
         }
     }
 
@@ -251,6 +264,10 @@ public class ChallengeFrnd : MonoBehaviour
 
     }
 
+    private void OnApplicationQuit()
+    {
+        RejectChallengeRequest();
+    }
 
 
     private void ClearContent(Transform content)

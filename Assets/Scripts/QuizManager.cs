@@ -128,6 +128,7 @@ public class Data
     public bool IsImage;
     public string imageLink;
     public string correctAns;
+    public Sprite image;
 }
 [Serializable]
 public enum QuizType

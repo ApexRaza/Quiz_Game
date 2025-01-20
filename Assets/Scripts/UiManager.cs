@@ -82,8 +82,6 @@ public class UiManager : MonoBehaviour
     }
 
 
-
-
     public void ChooseCollectionType(int i)
     {
         collectionType = i;
@@ -93,18 +91,8 @@ public class UiManager : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
     //public void OpenCollectionPanel(int num)
     //{
-
 
     //    item.CollectionPanel.SetActive(true);
     //    foreach (Transform t in item.Content.transform)
@@ -113,21 +101,16 @@ public class UiManager : MonoBehaviour
     //        contentItem.Add(t.gameObject);
     //    }
 
-
-
     //    for (int i = 0; i < collectionSO.collectionData[collectionType].item.Length; i++)
     //    {
     //        Sprite icon = collectionSO.collectionData[collectionType].item[i].Icon;
     //        string s = collectionSO.collectionData[collectionType].item[i].collected.ToString() + " / " +
     //            collectionSO.collectionData[collectionType].item[i].total.ToString();
 
-
-
     //        contentItem[i].transform.GetChild(0).GetComponent<Image>().sprite = icon;
     //        contentItem[i].GetComponentInChildren<TextMeshProUGUI>().text = s;
     //        contentItem[i].SetActive(true);
     //    }
-
 
     //}
 

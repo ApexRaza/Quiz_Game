@@ -1,0 +1,402 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b15a63a6d7088488a0db5b055f50ab, type: 3}
+  m_Name: ShareGameManager
+  m_EditorClassIdentifier: 
+  quiz: 0
+  quizType:
+  - Name: Varia
+    ID: 0
+    quizData:
+    - question: This is a fruit?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Varia%2F10.VARIAQ1.png?alt=media&token=9bf49c10-6311-4ee9-9516-f9f60f83459b
+      image: {fileID: 21300000, guid: 871487c6aca050c41a7521f248f061b2, type: 3}
+      correctAns: "It's True.\r"
+    - question: This bone is in your leg?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Varia%2F10.VARIAQ2.png?alt=media&token=b86da5a2-7a11-4f60-b37c-c63cd2a88883
+      image: {fileID: 21300000, guid: 2a7106fbc9552cb40988786fa29df5dc, type: 3}
+      correctAns: "This bone is in your Arm.\r"
+    - question: This is Albert Einstein?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Varia%2F10.VARIAQ3.png?alt=media&token=5590c1fa-8ad4-446e-b53d-d80d287cb02f
+      image: {fileID: 21300000, guid: 52ac8ddf831f71d4db2b5b0c19e2a8be, type: 3}
+      correctAns: It's True.
+  - Name: Arts
+    ID: 0
+    quizData:
+    - question: This painting is by Vincent van Gogh?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Arts%2F4.ARTQ1.png?alt=media&token=61b428cd-08ef-4f81-9452-6886b5835b9b
+      image: {fileID: 21300000, guid: 743ea8e28f8004e45bf3fbe85740e306, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is a ballet performance?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Arts%2F4.ARTQ2.png?alt=media&token=c8b5c379-45bb-4104-8dc5-821c9386435d
+      image: {fileID: 21300000, guid: e50d4782fb3e96b40a5b9c70f605c239, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is by the artist Rodin?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Arts%2F4.ARTQ3.png?alt=media&token=504bc82b-60c4-47d5-a682-d3285213a92d
+      image: {fileID: 21300000, guid: 7902a6bd5e5801d4e945213d65ef7e20, type: 3}
+      correctAns: It's True.
+  - Name: Celebrities
+    ID: 0
+    quizData:
+    - question: '"She starred in ""Pretty Woman"" ?"'
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Celebrity%2F2.CELEBRITIESQ1.png?alt=media&token=c8c0020e-d244-4079-a2a3-53bc91528c53
+      image: {fileID: 21300000, guid: 867866e851498454fa19c51587a61a5b, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is the CEO of Tesla?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Celebrity%2F2.CELEBRITIESQ2.png?alt=media&token=89a54bd6-5640-4996-8bf3-cf2e89f4f51f
+      image: {fileID: 21300000, guid: f0d890431e678db4ab324aef59ff7982, type: 3}
+      correctAns: "This is the CEO of Facebook.\r"
+    - question: Her real name was Norma Jean Baker?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Celebrity%2F2.CELEBRITIESQ3.png?alt=media&token=17630ad7-b84e-4564-8e2b-32b5b476e3e9
+      image: {fileID: 21300000, guid: e1b037799fb930c48bb3ad47d46b9bf1, type: 3}
+      correctAns: It's True.
+  - Name: Dictionary
+    ID: 0
+    quizData:
+    - question: The occurrence of a fortunate event?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Dictionary%2F7.DICTIONARYQ1.png?alt=media&token=83dee9d0-9efb-4dca-a0f6-da22eea4bcb6
+      image: {fileID: 21300000, guid: c30a698a1fac36241905501f78672fe3, type: 3}
+      correctAns: "It's True.\r"
+    - question: Something shiny?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Dictionary%2F7.DICTIONARYQ2.png?alt=media&token=6cdf8b23-3eff-4386-802e-e973c7a9bd13
+      image: {fileID: 21300000, guid: 6dae24a9982911849a9333c3210afb86, type: 3}
+      correctAns: "A quick or brief look.\r"
+    - question: High quality of style and class?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Dictionary%2F7.DICTIONARYQ3.png?alt=media&token=0b4a3a01-d79e-4f16-8071-801d708d3497
+      image: {fileID: 21300000, guid: 052465f615d1e7f4482896ca8a069b7b, type: 3}
+      correctAns: It's True.
+  - Name: Geography
+    ID: 0
+    quizData:
+    - question: This building is located in New York?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Geography%2F3.GEOGRAPHYQ1.png?alt=media&token=e9a06a2c-88a7-4263-8f14-6982063f0d82
+      image: {fileID: 21300000, guid: 5a05ce02146c35e4dacfadcfff952305, type: 3}
+      correctAns: "It's True.\r"
+    - question: This Wall is located in India?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Geography%2F3.GEOGRAPHYQ2.png?alt=media&token=0db0d2b5-d742-4d20-b34b-a734ba5a8d65
+      image: {fileID: 21300000, guid: 9a7bca0b0b9d45848996720dc823dfa9, type: 3}
+      correctAns: "This  Wall is located in China.\r"
+    - question: This is Mt Kilimanjaro?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Geography%2F3.GEOGRAPHYQ3.png?alt=media&token=32dbf74e-fe1e-4f7c-aa7d-6329c828e6a3
+      image: {fileID: 21300000, guid: 4fcc941484896964e928c9c5ecaecf04, type: 3}
+      correctAns: It's True.
+  - Name: Movies
+    ID: 0
+    quizData:
+    - question: This actor played in cast away?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Movies%2F8.MOVIESQ1.png?alt=media&token=c56b5b59-2c06-4a39-bf19-87693686acb6
+      image: {fileID: 21300000, guid: 997e80731ed2d6c4cb0a5f506f5e9a5b, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is the movie Rocky?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Movies%2F8.MOVIESQ2.png?alt=media&token=0c155eae-7ad3-4553-a715-7bfa6057f450
+      image: {fileID: 21300000, guid: 821be7a84260c054e910061231e6c05f, type: 3}
+      correctAns: "It's True.\r"
+    - question: The director of the movie E.T ?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Movies%2F8.MOVIESQ3.png?alt=media&token=75c92d81-479f-475a-a135-f2092e118db9
+      image: {fileID: 21300000, guid: 8bfcb40adf99f0a49ac49e1b8526f5a4, type: 3}
+      correctAns: It's True.
+  - Name: Music10s
+    ID: 0
+    quizData:
+    - question: "They had a hit with \u2018I Gotta Feeling\u2019 ?"
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2010's%2F12.MUSIC10Q1.png?alt=media&token=83cf3613-8113-4454-ab53-70214cfa8db8
+      image: {fileID: 21300000, guid: 0e9b34e57691bec48b0b5f188246f498, type: 3}
+      correctAns: "It's True.\r"
+    - question: "He had a hit with \u2018Happy\u2019 ?"
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2010's%2F12.MUSIC10Q2.png?alt=media&token=14ad4481-ba12-4dc9-9fd2-acae3aba64ba
+      image: {fileID: 21300000, guid: e07866abcd66d784785203d74922a5c4, type: 3}
+      correctAns: "It's True.\r"
+    - question: "She had a hit with \u2018Bad Guy\u2019 ?"
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2010's%2F12.MUSIC10Q3.png?alt=media&token=90290363-fded-43ce-b1a8-8f7857a9881f
+      image: {fileID: 21300000, guid: 6d0d09d430fc4584baf22236850722ca, type: 3}
+      correctAns: It's True.
+  - Name: Music00s
+    ID: 0
+    quizData:
+    - question: "She had a hit with \u2018Poker Face\u2019 ?"
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2000's%2F14.%20MUSIC00Q1.png?alt=media&token=dcd12f29-c10a-4a94-94fb-626e4c40a0cd
+      image: {fileID: 21300000, guid: ea5238fdfa22b3149b67fe453440556a, type: 3}
+      correctAns: "It's True.\r"
+    - question: He is the lead singer of Coldplay?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2000's%2F14.MUSIC00Q2.png?alt=media&token=70ef2e08-081a-4c3f-8191-d9967347453a
+      image: {fileID: 21300000, guid: 9f6ca77139d1ee0448ef9a9807ce7d78, type: 3}
+      correctAns: "It's True.\r"
+    - question: This famous artist died in 2008?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2000's%2F14.MUSIC00Q3.png?alt=media&token=d9b761dc-f886-4e62-9d18-dbd2477072b3
+      image: {fileID: 21300000, guid: 0e252857998cdd34b86d0848b862c7d5, type: 3}
+      correctAns: Michael Jackson died in 2009.
+  - Name: Music90s
+    ID: 0
+    quizData:
+    - question: This band had a hit with Barbie Girl?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2090's%2F15.MUSIC90Q1.png?alt=media&token=1cb7329f-3745-4769-b47d-258663088d68
+      image: {fileID: 21300000, guid: f3edd0856d74ab444b2e1bd04270ffcc, type: 3}
+      correctAns: "It's True.\r"
+    - question: This band hat a hit with Californication?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2090's%2F15.MUSIC90Q2.png?alt=media&token=86b4ab7d-ba1c-471f-adc5-9894c450cd35
+      image: {fileID: 21300000, guid: d7af1d45619936a418dd8e0924f49cf8, type: 3}
+      correctAns: "The Red Hot Chili Peppers sang Californication.\r"
+    - question: "This is Destiny\u2019s Child?"
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2090's%2F15.MUSIC90Q3.png?alt=media&token=8f0aa14e-491a-4a51-b6bf-390e84bf3bfe
+      image: {fileID: 21300000, guid: f516929c7c2620846813edf949fc2928, type: 3}
+      correctAns: It's True.
+  - Name: Music80s
+    ID: 0
+    quizData:
+    - question: This singer had a hit with careless whisper?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2080's%2F5.MUSIC80Q1.png?alt=media&token=0da111fa-df3d-4712-a18d-fc280d4ca3b7
+      image: {fileID: 21300000, guid: b12b3868082a1f342af50d67435ddea0, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is Queen?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2080's%2F5.MUSIC80Q2.png?alt=media&token=3c5c87b3-1e1f-4175-9890-c7b412705c79
+      image: {fileID: 21300000, guid: f6bedd198f221674585c8f9b232a431f, type: 3}
+      correctAns: "This is Kiss.\r"
+    - question: This band is from Norway?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2080's%2F5.MUSIC80Q3.png?alt=media&token=98c3d157-c9e0-4f5b-a05c-a9f6ff953ab3
+      image: {fileID: 21300000, guid: d216bf87f3708ba45af4366cffb7e72c, type: 3}
+      correctAns: It's True.
+  - Name: Music70s
+    ID: 0
+    quizData:
+    - question: First letters of all names formed band name?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2070's%2F11.MUSIC70Q1.png?alt=media&token=d1605280-22f0-42db-b2c9-dd3b4bab9d85
+      image: {fileID: 21300000, guid: 566e0532fdc376341870444786c31695, type: 3}
+      correctAns: "It's True.\r"
+    - question: Singer of this band is Philip Bailey?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2070's%2F11.MUSIC70Q2.png?alt=media&token=84de60c3-e3be-4bd9-b0f0-8695e37e7733
+      image: {fileID: 21300000, guid: f3104ab7adb17ba40a86cfa8831781b0, type: 3}
+      correctAns: "Singer of the band is Lionel Ritchie.\r"
+    - question: This is Donna Summer?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Music%2070's%2F11.MUSIC70Q3.png?alt=media&token=cb9068cd-97f7-446e-bcfd-8c2378d64f87
+      image: {fileID: 21300000, guid: c0bee0f0fbdd8674ebe96deadb7d70f5, type: 3}
+      correctAns: It's True.
+  - Name: Nature
+    ID: 0
+    quizData:
+    - question: This is a leopard?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Nature%2F6.NATUREQ1.png?alt=media&token=3065fdc0-a014-495d-b58a-c0975490b454
+      image: {fileID: 21300000, guid: 87244579ae3ef714e92214ee73abe6dc, type: 3}
+      correctAns: "It's True.\r"
+    - question: A flock of seagulls?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Nature%2F6.NATUREQ2.png?alt=media&token=4002de3e-8f88-4a5e-97cc-6f4ae926c6d9
+      image: {fileID: 21300000, guid: fca1c5e87de132644a851dcf0e67705b, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is a fish?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Nature%2F6.NATUREQ3.png?alt=media&token=eb8c3a93-723e-4462-ad4f-2494062e771e
+      image: {fileID: 21300000, guid: 7c0b6f777a8fec741923de4b419bf7de, type: 3}
+      correctAns: It's True.
+  - Name: Spelling
+    ID: 0
+    quizData:
+    - question: "Blissfull \u2013 this word is spelled correctly?"
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Spelling%2F13.SPELLINGQ1.png?alt=media&token=ffac80ef-457c-47ff-bf06-1dd50343dbb6
+      image: {fileID: 21300000, guid: 53d895e107a6f6c4584a26b45ed0b70b, type: 3}
+      correctAns: "\"It\u2019s blissful"
+    - question: Airborn - this word is spelled correctly?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Spelling%2F13.SPELLINGQ2.png?alt=media&token=36e59a86-8cb6-44d6-bcb2-303c5886df34
+      image: {fileID: 21300000, guid: c865a085e03b39444ab11c1388c0b03e, type: 3}
+      correctAns: "\"It\u2019s airborne"
+    - question: Prescription?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Spelling%2F13.SPELLINGQ3.png?alt=media&token=1fe95d92-d6e5-4c31-8f24-e328c8bfeb65
+      image: {fileID: 21300000, guid: 727dabefe74132d4a83289f9df26dbf8, type: 3}
+      correctAns: It's True.
+  - Name: Sports
+    ID: 0
+    quizData:
+    - question: This is padel?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Sports%2F9.SPORTSQ1.png?alt=media&token=87121d18-738e-4c3c-a527-ef139b35a536
+      image: {fileID: 21300000, guid: f27a785c735d1444d960f748b1cf4543, type: 3}
+      correctAns: "It's True.\r"
+    - question: This sport has 6 players per team on the court?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Sports%2F9.SPORTSQ2.png?alt=media&token=41db39b2-7329-4f8d-bf5f-60adf9c7e195
+      image: {fileID: 21300000, guid: 340851ca64c52304bbbd777b3cde899f, type: 3}
+      correctAns: "This sport has 5 players per team on the court.\r"
+    - question: This soccer team is in the premier league?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Sports%2F9.SPORTSQ3.png?alt=media&token=b54ef442-633c-46aa-9f48-0f27544400d6
+      image: {fileID: 21300000, guid: fc496c9d269025d4faa7013257b7ba97, type: 3}
+      correctAns: It's True.
+  - Name: Television
+    ID: 0
+    quizData:
+    - question: This is Knight Rider?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Television%2F16.TELEVISIONQ1.png?alt=media&token=3a2150a3-2413-4f80-91b3-aecc90f9fc4e
+      image: {fileID: 21300000, guid: c37db368413729e4985f793137cb4d43, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is a host of Family Feud?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Television%2F16.TELEVISIONQ2.png?alt=media&token=11cd6ac7-4566-4392-bdfb-271e69a44bdf
+      image: {fileID: 21300000, guid: ae7d5ae3bdc936445b55e5c8ac6eead8, type: 3}
+      correctAns: "It's True.\r"
+    - question: This show is called Big Brother?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/Television%2F16.TELEVISIONQ3.png?alt=media&token=bf6ec213-2ed8-4c50-a58c-ff3ffa05db95
+      image: {fileID: 21300000, guid: 454674b617915354fbb28f00a3a71d9a, type: 3}
+      correctAns: This show is called Survivor.
+  - Name: History
+    ID: 0
+    quizData:
+    - question: This ship sank on its maiden voyage in 1912?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/History%2F1.HISTORYQ1.png?alt=media&token=ab0f77c5-f609-45ff-b704-91ad3c5d6a47
+      image: {fileID: 21300000, guid: 10f536a6107bebe4f92a5e3f5b300b76, type: 3}
+      correctAns: "It's True.\r"
+    - question: This is in France?
+      rightAnswer: FALSE
+      wrongAnswer: TRUE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/History%2F1.HISTORYQ2.png?alt=media&token=5906a2ea-3398-4726-bc90-727f37f31e27
+      image: {fileID: 21300000, guid: e2b7112724cf69743b3027f3c756db5e, type: 3}
+      correctAns: "It\u2019s in Italy.\r"
+    - question: This man died on the island of St. Helena?
+      rightAnswer: TRUE
+      wrongAnswer: FALSE
+      IsImage: 1
+      imageLink: https://firebasestorage.googleapis.com/v0/b/swipequiz-58284.appspot.com/o/History%2F1.HISTORYQ3.png?alt=media&token=cd0139bd-2d1e-4788-8da7-2a071f61b313
+      image: {fileID: 21300000, guid: 96bd13f0e7c425d4ba5e818f2d96667a, type: 3}
+      correctAns: It's True.
+  type: 15
+  gridId: 0000000095bbc52b83a933182257b24674c5785ae9571459e0414477f6f10535e5e5871298f6ea0fcb3b0f2b85488c770136f042e06cba7fad9db42e63520e45

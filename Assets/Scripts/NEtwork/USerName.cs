@@ -21,7 +21,6 @@ public class USerName : MonoBehaviourPunCallbacks
     private void OnEnable()
     {
 
-
         if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
         {
             PhotonNetwork.LocalPlayer.NickName = DataBase.UserName;
@@ -40,6 +39,7 @@ public class USerName : MonoBehaviourPunCallbacks
       
         //SEtName();
     }
+
 
 
     public void UpdateCoins(int coins)

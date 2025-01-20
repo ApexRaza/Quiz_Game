@@ -6,8 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Firebase.Extensions;
 using System.Collections;
-using System.Security.Cryptography;
+
 using System;
+using TMPro;
 
 
 [System.Serializable]
@@ -25,6 +26,8 @@ public class FriendManager : MonoBehaviour
     private DatabaseReference dbRef;
     private FirebaseAuth auth;
     private string userID;
+
+    public TextMeshProUGUI displayTxt;
 
     private void Awake()
     {
@@ -186,15 +189,17 @@ public class FriendManager : MonoBehaviour
     }
     public void LoadFriendRequests(Transform friendRequestContent)
     {
-        StartCoroutine(LoadFriendData("FriendRequests", friendRequestContent, true));
+        displayTxt.gameObject.SetActive(false);
+        StartCoroutine(LoadFriendData("FriendRequests", friendRequestContent, true, "No friend request to display"));
     }
 
     public void LoadFriendsList(Transform friendsListContent)
     {
-        StartCoroutine(LoadFriendData("Friends", friendsListContent, false));
+        displayTxt.gameObject.SetActive(false);
+        StartCoroutine(LoadFriendData("Friends", friendsListContent, false, "No friends to display"));
     }
 
-    private IEnumerator LoadFriendData(string childNode, Transform content, bool isRequest)
+    private IEnumerator LoadFriendData(string childNode, Transform content, bool isRequest ,string message)
     {
         Task<DataSnapshot> DBTask = dbRef.Child("users").Child(userID).Child(childNode).GetValueAsync();
         yield return new WaitUntil(predicate: () => DBTask.IsCompleted);
@@ -209,33 +214,43 @@ public class FriendManager : MonoBehaviour
 
         // Clear existing UI elements
         ClearContent(content);
-        
-        foreach (DataSnapshot childSnapshot in snapshot.Children)
+
+        if (snapshot.ChildrenCount <= 0)
         {
-            string id = childSnapshot.Key.ToString();
-            string username = childSnapshot.Value.ToString();
-        
-            Task<DataSnapshot> onlineStatusTask = dbRef.Child("users").Child(id).Child("IsOnline").GetValueAsync(); // Fetch online status
-            yield return new WaitUntil(predicate: () => onlineStatusTask.IsCompleted);
+            // u r alone in the world looser!
+            displayTxt.text = message;
+            displayTxt.gameObject.SetActive(true);
+        }
+        else
+        {
 
-            if (onlineStatusTask.Exception != null)
+            foreach (DataSnapshot childSnapshot in snapshot.Children)
             {
-                Debug.LogWarning(message: $"Failed to load online status with {onlineStatusTask.Exception}");
-                yield break; // Exit if there's an error
-            }
+                string id = childSnapshot.Key.ToString();
+                string username = childSnapshot.Value.ToString();
 
-            bool isOnline = onlineStatusTask.Result.Exists && (bool)onlineStatusTask.Result.Value;
+                Task<DataSnapshot> onlineStatusTask = dbRef.Child("users").Child(id).Child("IsOnline").GetValueAsync(); // Fetch online status
+                yield return new WaitUntil(predicate: () => onlineStatusTask.IsCompleted);
 
-            GameObject requestItem = Instantiate(isRequest ? FriendUIManager.Instance.friendRequestItemPrefab : FriendUIManager.Instance.friendItemPrefab, content);
-            if (isRequest)
-            {
-                FriendRequestItem item = requestItem.GetComponent<FriendRequestItem>();
-                item.Initialize(id, username);
-            } 
-            else
-            {
-                FriendItem item = requestItem.GetComponent<FriendItem>();
-                item.Initialize(username, isOnline);
+                if (onlineStatusTask.Exception != null)
+                {
+                    Debug.LogWarning(message: $"Failed to load online status with {onlineStatusTask.Exception}");
+                    yield break; // Exit if there's an error
+                }
+
+                bool isOnline = onlineStatusTask.Result.Exists && (bool)onlineStatusTask.Result.Value;
+
+                GameObject requestItem = Instantiate(isRequest ? FriendUIManager.Instance.friendRequestItemPrefab : FriendUIManager.Instance.friendItemPrefab, content);
+                if (isRequest)
+                {
+                    FriendRequestItem item = requestItem.GetComponent<FriendRequestItem>();
+                    item.Initialize(id, username);
+                }
+                else
+                {
+                    FriendItem item = requestItem.GetComponent<FriendItem>();
+                    item.Initialize(username, isOnline);
+                }
             }
         }
     }
