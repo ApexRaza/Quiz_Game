@@ -43,7 +43,7 @@ namespace Photon.Pun.UtilityScripts
         //  public GameObject GamePlay;
         public GameObject twoPlayers, onePlayers;
 
-        public GameObject USerObj,questionPanel, loading, glassObj,vsObj,bettingPanel, bettingScript,waitingObject,challengerTimerObj;
+        public GameObject USerObj,questionPanel, loading, glassObj,vsObj,bettingPanel, bettingScript,waitingObject,challengerTimerObj,sharewait, sharewaitScript;
         [HideInInspector]
         public string Roomname;
         public int playerTTL = -1;
@@ -65,7 +65,9 @@ namespace Photon.Pun.UtilityScripts
 
 
             PhotonNetwork.ConnectUsingSettings();
-            PhotonNetwork.GameVersion = this.Version + "." + SceneManagerHelper.ActiveSceneBuildIndex;
+            PhotonNetwork.GameVersion = "4.4";// this.Version + "." + SceneManagerHelper.ActiveSceneBuildIndex;
+
+            Debug.LogError(PhotonNetwork.GameVersion);
 
         }
 
@@ -110,7 +112,7 @@ namespace Photon.Pun.UtilityScripts
             PhotonNetwork.CreateRoom(Roomname, roomOptions, null);
         }
 
-        public void CreateRoom(string roomName)
+        public void CreateRoomByID(string roomName)
         {
             isJoinedbyID = true;
             RoomOptions roomOptions = new RoomOptions
@@ -141,10 +143,10 @@ namespace Photon.Pun.UtilityScripts
         public void JoinRoom()
         {
             isJoinedbyID = false;
-            Hashtable expectedCustomRoomProperties = new Hashtable();
-            expectedCustomRoomProperties.Add("Players", Battleplayers);
+            //Hashtable expectedCustomRoomProperties = new Hashtable();
+            //expectedCustomRoomProperties.Add("Players", Battleplayers);
           
-            //PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, 0);
+           // PhotonNetwork.JoinRandomRoom(expectedCustomRoomProperties, 2);
 
             PhotonNetwork.JoinRandomRoom();
         }
@@ -186,9 +188,9 @@ namespace Photon.Pun.UtilityScripts
                 }
 
             }
-            else if (PhotonNetwork.CurrentRoom.PlayerCount == Battleplayers)
+            else 
             {
-                Debug.Log(PhotonNetwork.LocalPlayer.NickName +"_________" + PhotonNetwork.PlayerList[1].ActorNumber);
+                
                 if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
                 {
                     PhotonNetwork.LocalPlayer.NickName =    "Player 1";
@@ -196,9 +198,10 @@ namespace Photon.Pun.UtilityScripts
                 else
                 {
                     PhotonNetwork.LocalPlayer.NickName = "Player 2";
+                    GetComponent<PhotonView>().RPC("StartGame", RpcTarget.All, true);
                 }
 
-                GetComponent<PhotonView>().RPC("StartGame", RpcTarget.All, true);
+               
             }
         }
         [PunRPC]
@@ -250,6 +253,10 @@ namespace Photon.Pun.UtilityScripts
             challengerTimerObj.SetActive(false);
              bettingPanel.SetActive(true);
             bettingScript.SetActive(true);
+
+
+            sharewait.SetActive(false);
+            sharewaitScript.SetActive(false);
 
             yield return new WaitForSeconds(0.5f);
            // questionPanel.SetActive(true);
