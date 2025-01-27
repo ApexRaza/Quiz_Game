@@ -26,7 +26,7 @@ public class USerName : MonoBehaviourPunCallbacks
             PhotonNetwork.LocalPlayer.NickName = DataBase.UserName;
            // UpdateCoins(DataBase.Dollars);
             GetComponent<PhotonView>().RPC(nameof(setCoin), RpcTarget.All, 1, DataBase.Dollars);
-            nqh.setQuizData();
+            nqh. setQuizData();
         }
         else
         {

@@ -18,10 +18,15 @@ public class OpenReward_Panel : MonoBehaviour
            
         }
 
-
+       
         TreasureSystem.Instance.CallTreasure(i);
+        
     }
 
+    public void KeyConsume(int num)
+    {
+        DataBase.Keys -= num;
+    }
 
    
 

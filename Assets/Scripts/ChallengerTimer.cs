@@ -20,7 +20,7 @@ public class ChallengerTimer : MonoBehaviourPunCallbacks
     private void OnEnable()
     {
 
-        timeLeft = 30f;
+        timeLeft = 60f;
 
 
         startTimer = true;

@@ -14,7 +14,7 @@ public class QuizHandler : MonoBehaviour
     
     
     [Space(2)]
-    public GameObject QuestionPanel,correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel;
+    public GameObject QuestionPanel,correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel, outofTimePanel;
     public TextMeshProUGUI questionTxt,correctTxt;
     public Image questionImage;
 
@@ -162,6 +162,20 @@ public class QuizHandler : MonoBehaviour
 
      
     }
+
+    public IEnumerator timeUp()
+    {
+        yield return new WaitForSeconds(0.5f);
+        outofTimePanel.gameObject.SetActive(true);
+        progressState.gameObject.SetActive(true);
+        QuestionPanel.gameObject.SetActive(false);
+        progressState.SetStateFirstTime();
+
+
+    }
+
+
+
 
     IEnumerator LoadImage(string imageUrl)
     {

@@ -7,6 +7,7 @@ using TMPro;
 using Firebase.Database;
 using Firebase.Auth;
 using UnityEngine.Events;
+using Unity.VisualScripting;
 //using System.Threading.Tasks;
 
 public class FriendUIManager : MonoBehaviour
@@ -66,7 +67,7 @@ public class FriendUIManager : MonoBehaviour
     private void DisplaySearchResults(List<UserInfo> users)
     {
         ClearSearchResults();
-
+       
         foreach (var user in users)
         {
             GameObject resultItem = Instantiate(userResultPrefab, searchResultsContent);

@@ -9,6 +9,7 @@ using System.Collections;
 
 using System;
 using TMPro;
+using UnityEngine.UIElements;
 
 
 [System.Serializable]
@@ -28,7 +29,7 @@ public class FriendManager : MonoBehaviour
     private string userID;
 
     public TextMeshProUGUI displayTxt;
-
+    public Transform searchlist;
     private void Awake()
     {
         if (instance == null)
@@ -47,8 +48,10 @@ public class FriendManager : MonoBehaviour
     }
     public void SearchUsersByUsername(string username, System.Action<List<UserInfo>> callback)
     {
+       
         dbRef.Child("users").OrderByChild("userName").StartAt(username).EndAt(username + "\uf8ff").GetValueAsync().ContinueWithOnMainThread(task =>
         {
+           
             List<UserInfo> users = new List<UserInfo>();
 
             if (task.IsFaulted || task.IsCanceled)
@@ -59,14 +62,17 @@ public class FriendManager : MonoBehaviour
             }
 
             DataSnapshot snapshot = task.Result;
+            Debug.Log("in the search func: " + task.Result);
             foreach (DataSnapshot childSnapshot in snapshot.Children)
             {
                 string userId = childSnapshot.Key;
                 string userName = childSnapshot.Child("userName").Value.ToString();
 
+                Debug.Log("in the search func: " + userId);
                 // Check if the user is already a friend
                 dbRef.Child("users").Child(userID).Child("Friends").Child(userId).GetValueAsync().ContinueWithOnMainThread(friendCheckTask =>
                 {
+                    Debug.Log("in the search func 0");
                     if (friendCheckTask.IsFaulted || friendCheckTask.IsCanceled)
                     {
                         Debug.LogError("Error checking friends list: " + friendCheckTask.Exception);
@@ -76,6 +82,7 @@ public class FriendManager : MonoBehaviour
                     DataSnapshot friendSnapshot = friendCheckTask.Result;
                     if (!friendSnapshot.Exists && userId != userID) // Only add if not already friends and not self
                     {
+                        Debug.Log("in the search func 1");
                         users.Add(new UserInfo { UserId = userId, UserName = userName });
                     }
 
@@ -132,6 +139,7 @@ public class FriendManager : MonoBehaviour
                         else
                         {
                             Debug.Log("Friend request sent successfully.");
+                            ClearContentSearch(searchlist);
                         }
                     });
             });
@@ -157,7 +165,7 @@ public class FriendManager : MonoBehaviour
             }
         });
     }
-
+    
     public Task AcceptFriendRequest(string senderID, string senderName)
     {
         // Get the current user's ID
@@ -184,6 +192,8 @@ public class FriendManager : MonoBehaviour
             {
                 Debug.Log("Friend request accepted successfully for both users.");
                 // Optionally, you can notify the UI or perform additional actions here
+                ClearContentSearch(searchlist);
+
             }
         });
     }
@@ -263,8 +273,20 @@ public class FriendManager : MonoBehaviour
         }
     }
 
-    
+    private void ClearContentSearch(Transform content)
+    {
+        StartCoroutine(delay(content));
+    }
 
+
+    IEnumerator delay(Transform content)
+    {
+        yield return new WaitForSeconds(1.5f);
+        foreach (Transform child in content)
+        {
+            Destroy(child.gameObject);
+        }
+    }
 
     public void ListenForTradeRequests(string userId)
     {

@@ -152,7 +152,7 @@ public class ChallengeFrnd : MonoBehaviour
             Debug.Log("Trade request sent successfully with unique key: " + uniqueTradeKey);
             
            
-            connectAndJoin.CreateRoom(userID);
+            connectAndJoin.CreateRoomByID(userID);
             waitingPanel.SetActive(true);
             challengertimerScript.SetActive(true);
         }

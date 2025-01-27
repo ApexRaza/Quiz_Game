@@ -14,7 +14,7 @@ public class TradeRequestItem : MonoBehaviour
 
     public TradeUIManager TradeUIManager;
     public string userID;
-    private string userUsername;
+    private string userName;
 
     private void OnEnable()
     {
@@ -27,13 +27,14 @@ public class TradeRequestItem : MonoBehaviour
     {
         userID = senderID;
         userNameText.text = userName;
-
+        this.userName = userName;
         tradeButton.onClick.AddListener(TradeRequest);
     }
 
     public void TradeRequest()
     {
         TradeUIManager.GetFriendData(userID);
+        TradeUIManager.userName = userName;
         Debug.Log("I am Clicked! ");
 
     }

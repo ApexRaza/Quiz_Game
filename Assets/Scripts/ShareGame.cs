@@ -1,3 +1,4 @@
+using Photon.Pun.UtilityScripts;
 using UnityEditor;
 using UnityEngine;
 
@@ -5,6 +6,7 @@ public class ShareGame : MonoBehaviour
 {
     public string gameLink;
     public string roomID;
+    public ConnectAndJoinRandom connectPun;
 #if UNITY_IOS
     [DllImport("__Internal")]
     private static extern void ShareTextWithURL(string message, string url);
@@ -14,7 +16,9 @@ public class ShareGame : MonoBehaviour
     {
         roomID = DataSaver.Instance.userID;
         string shareMessage = "Check out this game: " + gameLink;
-        string url = gameLink + "?" + roomID;
+        string url = gameLink + "?roomID=" + roomID; 
+        connectPun.CreateRoomByID(roomID);
+        Debug.Log(roomID);
 
 #if UNITY_ANDROID
         StartAndroidShare(url, shareMessage);
@@ -49,4 +53,12 @@ public class ShareGame : MonoBehaviour
         AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         return unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
     }
+
+
+
+    public void Test(string id)
+    {
+        connectPun.JoinRoombyID(id);
+    }
+
 }

@@ -9,21 +9,46 @@ public class CountTradeValue : MonoBehaviour
 
     public TextMeshProUGUI valueTxt;
     public Button plusBtn, minusBtn;
-   public int countValue = 0;
+    public int countValue = 0;
     public int totalCoin;
+    public bool proposed;
+
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
+        StartCoroutine(Delay());
+    }
+
+
+
+    IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        if (proposed)
+        {
+            countValue = 0;
+        }
+
         valueTxt.text = countValue.ToString();
+
         if (countValue <= 0)
         {
             minusBtn.interactable = false;
         }
+
+
         if (countValue >= totalCoin)
         {
             plusBtn.interactable = false;
         }
+        else
+
+        {
+            plusBtn.interactable = true;
+        }
     }
+
+
 
     public void PlusBtn()
     {

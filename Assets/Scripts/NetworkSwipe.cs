@@ -14,6 +14,7 @@ public class NetworkSwipe : MonoBehaviour
     public RectTransform rightBtn;
 
     public AudioSource swipeAudioSource;
+  
     
     void Start()
     {

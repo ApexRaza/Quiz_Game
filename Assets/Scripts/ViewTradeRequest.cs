@@ -12,7 +12,7 @@ public class ViewTradeRequest : MonoBehaviour
 
     public TradeUIManager TradeUIManager;
     public string userID;
-    private string userUsername;
+    private string userName;
 
     private void OnEnable()
     {
@@ -25,13 +25,14 @@ public class ViewTradeRequest : MonoBehaviour
     {
         userID = senderID;
         userNameText.text = userName;
-
+        this.userName = userName;
         viewButton.onClick.AddListener(ViewRequest);
     }
 
     public void ViewRequest()
     {
         TradeUIManager.ViewTradeRequestData(userID);
+        TradeUIManager.userName = userName;
         Debug.Log("I am Clicked! ");
 
     }

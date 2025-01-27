@@ -6,6 +6,7 @@ using Firebase.Database;
 using Firebase.Auth;
 using System.Linq;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class DataToSave 
@@ -368,6 +369,7 @@ public class DataSaver : MonoBehaviour
             {
                 if (task.Exception != null)
                 {
+                    //adfadfadf
                     Debug.LogError($"Failed to save online status: {task.Exception}");
                 }
             });
@@ -375,41 +377,51 @@ public class DataSaver : MonoBehaviour
     }
 
 
-    private void OnApplicationPause()
+    private void OnApplicationPause(bool pauseStatus)
     {
-        DataBase.IsOnline = false;
-        FirebaseUser user = auth.CurrentUser;
-        if (user != null)
+        if (pauseStatus)
         {
-            // Save the online status to the database
-            DataBase.SaveOnlineStatus(user, false).ContinueWith(task =>
+            DataBase.IsOnline = false;
+            FirebaseUser user = auth.CurrentUser;
+            if (user != null)
             {
-                if (task.Exception != null)
+                // Save the online status to the database
+                DataBase.SaveOnlineStatus(user, false).ContinueWith(task =>
                 {
-                    Debug.LogError($"Failed to save online status: {task.Exception}");
-                }
-            });
+                    if (task.Exception != null)
+                    {
+                        Debug.LogError($"Failed to save online status: {task.Exception}");
+                    }
+                });
+            }
         }
+
+
+        else
+        {
+            DataBase.IsOnline = true;
+            FirebaseUser user = auth.CurrentUser;
+            if (user != null)
+            {
+                // Save the online status to the database
+                DataBase.SaveOnlineStatus(user, true).ContinueWith(task =>
+                {
+                    if (task.Exception != null)
+                    {
+                        Debug.LogError($"Failed to save online status: {task.Exception}");
+                    }
+                });
+            }
+        }
+
+
+
     }
 
 
-    private void OnApplicationFocus()
-    {
-        DataBase.IsOnline = true;
-        FirebaseUser user = auth.CurrentUser;
-        if (user != null)
-        {
-            // Save the online status to the database
-            DataBase.SaveOnlineStatus(user, true).ContinueWith(task =>
-            {
-                if (task.Exception != null)
-                {
-                    Debug.LogError($"Failed to save online status: {task.Exception}");
-                }
-            });
-        }
-    }
 
+   
+    
 
 
 }

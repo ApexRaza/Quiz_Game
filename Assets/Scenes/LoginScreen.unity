@@ -2485,8 +2485,6 @@ MonoBehaviour:
     userName: 
     Coins: 
     Quizes: 
-    FriendRequests: []
-    Friends: []
     Question: 0
     RightAnswer: 0
     WrongAnswer: 0
@@ -2499,6 +2497,7 @@ MonoBehaviour:
     GradeColor: 
     QuestionsToTreasure: 0
     GradeUpgrade: 0
+    IsOnline: 0
   userID: 002
 --- !u!1 &1966357979
 GameObject:

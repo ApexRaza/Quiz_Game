@@ -13,6 +13,11 @@ public class TImer : MonoBehaviour
     public float timeLeft = 10.0f; // Set the total countdown time (in seconds)
     public TextMeshProUGUI startText;
     float totalTime;
+
+    public QuizHandler quizHandler;
+    public bool quizH;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +49,10 @@ public class TImer : MonoBehaviour
             timeFiller.fillAmount = fillAmount;
             if (timeLeft < 1)
             {
+                if (quizH)
+                {
+                    StartCoroutine(quizHandler.timeUp());
+                }
                 // Game Over Logic 
 
             }

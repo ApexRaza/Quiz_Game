@@ -58,7 +58,6 @@ public class PanelSwitcher : MonoBehaviour
             }
         }
 
- 
     }
 
     //Method for button click effect

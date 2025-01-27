@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using TMPro;
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Pun.UtilityScripts;
 
 
 
@@ -23,7 +24,7 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
     QuizManager nQuizManager;
     public QuizManager shareManager;
 
-
+    public ConnectAndJoinRandom connectPun;
 
     [Space(2)]
     public GameObject QuestionPanel, correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel;
@@ -34,6 +35,7 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
     public int p1, p2;
 
     public bool[] p1State = new bool[3], p2State = new bool[3];
+    public bool webgl;
 
 
 
@@ -124,11 +126,11 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
     {
 
         // SetQuestionCategory(PhotonNetwork.CurrentRoom.CustomProperties.GetValueOrDefault());
-        if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
-            LoadQuestionData();
+        if (webgl)
+            LoadQuestionDataSharing();
         else
         {
-            
+            LoadQuestionData();
         }
 
         
@@ -167,6 +169,59 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
 
         GetComponent<PhotonView>().RPC(nameof(ShineEffect), RpcTarget.All);
     }
+
+
+    public void CheckRightAns(string ans)
+    {
+        if (ans == nQuizManager.quizType[nQuizManager.type].quizData[num].rightAnswer)
+        {
+
+            RightAns();
+
+            GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
+
+            //StartCoroutine(nameof(Next));
+        }
+        else
+        {
+            WrongAnss();
+            GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
+        }
+
+        GetComponent<PhotonView>().RPC(nameof(ShineEffect), RpcTarget.All);
+    }
+
+
+
+    public void CheckWrongAns(string ans)
+    {
+        if (ans == nQuizManager.quizType[nQuizManager.type].quizData[num].wrongAnswer)
+        {
+
+            RightAns();
+
+            GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, true, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
+
+            //StartCoroutine(nameof(Next));
+        }
+        else
+        {
+            WrongAnss();
+            GetComponent<PhotonView>().RPC("PlaySound", RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC(nameof(PlayerStateChange), RpcTarget.All, false, PhotonNetwork.LocalPlayer.ActorNumber);
+            GetComponent<PhotonView>().RPC("NextQuestion", RpcTarget.All);
+        }
+
+        GetComponent<PhotonView>().RPC(nameof(ShineEffect), RpcTarget.All);
+    }
+
+
 
     [PunRPC]
     void ShineEffect()
@@ -280,6 +335,8 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
             DataBase.Dollars -= bettingValue;
 
         }
+        connectPun.LeaveRoom();
+
         resetStates();
     }
 
@@ -465,7 +522,19 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
       //  DisplayQuestion();
     }
 
-
+    public void LoadQuestionDataSharing()
+    {
+        // ResetState();
+        ResetQ_Data();
+        for (int i = 0; i < 3; i++)
+        {
+            networkData[i].question = shareManager.quizType[nQuizManager.type].quizData[i].question.ToString();
+            networkData[i].correctAns = shareManager.quizType[nQuizManager.type].quizData[i].correctAns.ToString();
+            networkData[i].image.sprite = shareManager.quizType[nQuizManager.type].quizData[i].image;
+            //StartCoroutine(LoadImage(shareManager.quizType[nQuizManager.type].quizData[i].imageLink, networkData[i].image));
+        }
+        //  DisplayQuestion();
+    }
     public void ResetQ_Data()
     {
         for (int i = 0; i < 3; i++)
