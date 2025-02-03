@@ -38,6 +38,13 @@
             {
               "client_id": "841125010072-943riqkh4192cev49ptkugh59m1hbs8i.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "841125010072-na3b3avh0mfic41tiu5ngmvs36rt0sk1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.Apex.QuizGame"
+              }
             }
           ]
         }

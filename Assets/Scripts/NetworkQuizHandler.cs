@@ -30,7 +30,7 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject QuestionPanel, correctAns, incorrectAns, ansObjects, loadingQ, outOflivePanel;
     public TextMeshProUGUI questionTxt, correctTxt, p1test, p2test, overText, questionCount;
     public Image questionImage;
-    public GameObject[] p1Q = new GameObject[3], p2Q = new GameObject[3];
+    public GameObject[] p1Q = new GameObject[3], p2Q = new GameObject[3], p1Q1 = new GameObject[3], p2Q1 = new GameObject[3];
 
     public int p1, p2;
 
@@ -67,6 +67,7 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
     private void OnEnable()
     {
         resetStates();
+        ResetFinalboard();
     }
     void resetStates()
     {
@@ -84,6 +85,16 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
         }
 
         QuestionCount();
+    }
+    public void ResetFinalboard() 
+    {
+        for (int i = 0; i < p1Q1.Length; i++)
+        {
+            p1Q1[i].transform.GetChild(0).gameObject.SetActive(false);
+            p1Q1[i].transform.GetChild(1).gameObject.SetActive(false);
+            p2Q1[i].transform.GetChild(0).gameObject.SetActive(false);
+            p2Q1[i].transform.GetChild(1).gameObject.SetActive(false);
+        }
     }
     public void QuizNo()
     {
@@ -121,7 +132,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
 
     }
 
-
     IEnumerator LoadingQuestionData()
     {
 
@@ -138,7 +148,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
 
         DisplayQuestion();
     }
-
 
     // setting the two different categories selected by the user
     public void SetQuestionCategory(int category)
@@ -170,7 +179,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
         GetComponent<PhotonView>().RPC(nameof(ShineEffect), RpcTarget.All);
     }
 
-
     public void CheckRightAns(string ans)
     {
         if (ans == nQuizManager.quizType[nQuizManager.type].quizData[num].rightAnswer)
@@ -195,8 +203,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
         GetComponent<PhotonView>().RPC(nameof(ShineEffect), RpcTarget.All);
     }
 
-
-
     public void CheckWrongAns(string ans)
     {
         if (ans == nQuizManager.quizType[nQuizManager.type].quizData[num].wrongAnswer)
@@ -220,8 +226,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
 
         GetComponent<PhotonView>().RPC(nameof(ShineEffect), RpcTarget.All);
     }
-
-
 
     [PunRPC]
     void ShineEffect()
@@ -266,27 +270,26 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     void PlayerStateChange(bool b,int a)
     {
-        if (a== 1)
+        Debug.Log("PlayerStateChange" + b + " :: " + a);
+        if (a == 1)
         {
             p1State[quizCount] = b;
             p2State[quizCount] = !b;
-            if (b)
-            {
-                p1Q[quizCount].transform.GetChild(0).gameObject.SetActive(true);
-                p2Q[quizCount].transform.GetChild(1).gameObject.SetActive(true);
-            }
-            
+            p1Q[quizCount].transform.GetChild(0).gameObject.SetActive(true);
+            p1Q1[quizCount].transform.GetChild(0).gameObject.SetActive(true);
+            p2Q[quizCount].transform.GetChild(1).gameObject.SetActive(true);
+            p2Q1[quizCount].transform.GetChild(1).gameObject.SetActive(true);
+
 
         }
         else
         {
             p1State[quizCount] = b;
             p2State[quizCount] = !b;
-            if (b)
-            {
-                p1Q[quizCount].transform.GetChild(1).gameObject.SetActive(true);
-                p2Q[quizCount].transform.GetChild(0).gameObject.SetActive(true);
-            }
+            p1Q[quizCount].transform.GetChild(1).gameObject.SetActive(true);
+            p1Q1[quizCount].transform.GetChild(1).gameObject.SetActive(true);
+            p2Q[quizCount].transform.GetChild(0).gameObject.SetActive(true);
+            p2Q1[quizCount].transform.GetChild(0).gameObject.SetActive(true);
         }
 
        
@@ -294,7 +297,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
 
 
     }
-
 
 
     void DetermineWinner()
@@ -326,12 +328,12 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
         outOflivePanel.SetActive(true);
         if ( PhotonNetwork.LocalPlayer.ActorNumber == num)
         {
-            overText.text = "YOU WIN!";
+            overText.text = DataBase.UserName + " WIN!";
             DataBase.Dollars += bettingValue;
         }
         else
         {
-            overText.text = "YOU LOSE!";
+            overText.text = DataBase.UserName + " LOSE!";
             DataBase.Dollars -= bettingValue;
 
         }
@@ -339,10 +341,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
 
         resetStates();
     }
-
-
-
-
 
     void RightAns()
     {
@@ -360,7 +358,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
     {
         questionCount.text = (quizCount +1).ToString() + "/3";
     }
-
 
     [PunRPC]
     public void NextQuestion()
@@ -383,7 +380,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
             DetermineWinner();
         }
     }
-
 
     public IEnumerator Next()
     {
@@ -458,7 +454,6 @@ public class NetworkQuizHandler : MonoBehaviourPunCallbacks, IPunObservable
         correctAns.SetActive(false);
     }
 
-   
     IEnumerator LoadImage1(string imageUrl, Image img)
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(imageUrl);

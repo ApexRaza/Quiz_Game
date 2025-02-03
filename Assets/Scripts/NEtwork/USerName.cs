@@ -10,7 +10,7 @@ using UnityEngine;
 public class USerName : MonoBehaviourPunCallbacks
 {
 
-   public TextMeshProUGUI p1_Txt,p1_Txt1,p2_Txt2, p2_Txt, p1_coin, p2_coin;
+   public TextMeshProUGUI p1_Txt,p1_Txt1,p2_Txt2, p2_Txt, p1_coin, p2_coin, finalPanelP1, finalPanelP2, battleP1, battleP2;
    public NetworkQuizHandler nqh;
     public int coin1, coin2;
 
@@ -68,9 +68,10 @@ public class USerName : MonoBehaviourPunCallbacks
         p2_Txt.text = PhotonNetwork.PlayerList[1].NickName;
         p1_Txt1.text = PhotonNetwork.PlayerList[0].NickName;
         p2_Txt2.text = PhotonNetwork.PlayerList[1].NickName;
-
-        
-
+        finalPanelP1.text = PhotonNetwork.PlayerList[0].NickName;
+        finalPanelP2.text = PhotonNetwork.PlayerList[1].NickName;
+        battleP1.text = PhotonNetwork.PlayerList[0].NickName;
+        battleP2.text = PhotonNetwork.PlayerList[1].NickName;
         p1_coin.text = coin1.ToString();
         p2_coin.text = coin2.ToString();
     }

@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro;
 public enum Products 
 {
     TreasureMultiplier,
@@ -14,7 +15,8 @@ public enum Products
     GoldTreasure,
     KeyPacks,
     Tips,
-    DollarsPack
+    DollarsPack,
+    Lives
 }
 
 public class Shop : MonoBehaviour
@@ -27,6 +29,7 @@ public class Shop : MonoBehaviour
     public int amount;
     private int totalMoney;
     private Button button;
+    public TextMeshProUGUI shopText;
     public UnityEvent shopEvent;
 
     private void Awake()
@@ -47,7 +50,8 @@ public class Shop : MonoBehaviour
         switch (products) 
         {
             case Products.RewardedTreasure:
-                TreasureSystem.Instance.CalculatePercentage(treasureType: TreasureType.Free);
+                UnityAds.Instance.CurrentProduct = transform;
+                UnityAds.Instance.ShowRewardedAd();
                 //shopEvent.Invoke();
                 break;
 
@@ -57,7 +61,7 @@ public class Shop : MonoBehaviour
                 break;
 
             case Products.LowTreasure:
-                totalMoney = DataBase.Keys;
+                totalMoney = DataBase.Gems;
                 if (totalMoney >= reqCost)
                 {
                     TreasureSystem.Instance.CalculatePercentage(treasureType:TreasureType.Low);
@@ -66,13 +70,14 @@ public class Shop : MonoBehaviour
                 }
                 else 
                 {
-                    //shopEvent.Invoke();
+                    shopText.text = "Not Enough Gems to buy Treasure";
+                    shopEvent.Invoke();
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
                 break;
 
             case Products.MidTreasure:
-                totalMoney = DataBase.Keys;
+                totalMoney = DataBase.Gems;
                 if (totalMoney >= reqCost)
                 {
                     TreasureSystem.Instance.CalculatePercentage(treasureType: TreasureType.Medium); 
@@ -81,7 +86,8 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    //shopEvent.Invoke();
+                    shopText.text = "Not Enough Gems to buy Treasure";
+                    shopEvent.Invoke();
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
                 break;
@@ -96,7 +102,8 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    //shopEvent.Invoke();
+                    shopText.text = "Not Enough Gems to buy Treasure";
+                    shopEvent.Invoke();
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
                 break;
@@ -111,15 +118,15 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    //shopEvent.Invoke();
-                    Debug.Log("Not Enough Keys to buy Treasure");
+                    shopText.text = "Not Enough Dollars to buy Key Pack";
+                    shopEvent.Invoke();
+                    Debug.Log("Not Enough Coins to buy Key Pack");
                 }
                 break;
 
             case Products.RewardedKeys:
-                amount = Random.Range(300, 450);
-                DataBase.Keys += amount;
-                //shopEvent.Invoke();
+                UnityAds.Instance.CurrentProduct = transform;
+                UnityAds.Instance.ShowRewardedAd();
                 break;
 
             case Products.Tips:
@@ -132,7 +139,8 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    //shopEvent.Invoke();
+                    shopText.text = "Not Enough Dollars to buy Tips";
+                    shopEvent.Invoke();
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
                 break;
@@ -147,9 +155,60 @@ public class Shop : MonoBehaviour
                 }
                 else
                 {
-                    //shopEvent.Invoke();
+                    shopText.text = "Not Enough Gems to buy Dollars Pack";
+                    shopEvent.Invoke();
                     Debug.Log("Not Enough Keys to buy Treasure");
                 }
+                break;
+
+            case Products.RewardedDollars:
+                UnityAds.Instance.CurrentProduct = transform;
+                UnityAds.Instance.ShowRewardedAd();
+                break;
+
+            case Products.RewardedGems:
+                UnityAds.Instance.CurrentProduct = transform;
+                UnityAds.Instance.ShowRewardedAd();
+                break;
+
+            case Products.RewardedLife:
+                UnityAds.Instance.CurrentProduct = transform;
+                UnityAds.Instance.ShowRewardedAd();
+                break;
+            case Products.Lives:
+               
+                totalMoney = DataBase.Gems;
+                if (totalMoney >= reqCost)
+                {
+                    DataBase.Lives += amount;
+                    totalMoney -= reqCost;
+                    DataBase.Gems = totalMoney;
+                }
+                else
+                {
+                    shopText.text = "Not Enough Gems to buy Live";
+                    shopEvent.Invoke();
+                    Debug.Log("Not Enough Keys to buy Treasure");
+                }
+                break;
+
+        }
+        DataSaver.Instance.SaveData();
+    }
+
+    public void BuyProductOnReward()
+    {
+        switch (product)
+        {
+            case Products.RewardedTreasure:
+                TreasureSystem.Instance.CalculatePercentage(treasureType: TreasureType.Free);
+                //shopEvent.Invoke();
+                break;  
+
+            case Products.RewardedKeys:
+                amount = Random.Range(300, 450);
+                DataBase.Keys += amount;
+                //shopEvent.Invoke();
                 break;
 
             case Products.RewardedDollars:
@@ -167,7 +226,7 @@ public class Shop : MonoBehaviour
                 amount = 1;
                 DataBase.Lives += amount;
                 break;
-                
+          
         }
         DataSaver.Instance.SaveData();
     }
